@@ -24,4 +24,23 @@ public class FacultyEntity extends AbstrEntity{
     @Basic
     @Column(name = "name", nullable = false, length = 30)
     private String name;
+
+
+    //region get-set
+    public int getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(int faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    //endregion
 }
