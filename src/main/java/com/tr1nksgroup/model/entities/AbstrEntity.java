@@ -6,7 +6,7 @@ import javax.persistence.*;
  * абстрактная сущность
  */
 @Entity
-@Table(name = "abstr_entity")
+//@Table(name = "abstr_entity")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @SequenceGenerator(name = "entity_seq", sequenceName = "entity_id_seq", initialValue = 1, allocationSize = 1)
 public abstract class AbstrEntity {

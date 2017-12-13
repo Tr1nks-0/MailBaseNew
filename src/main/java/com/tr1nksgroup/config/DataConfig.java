@@ -27,7 +27,7 @@ import java.util.Properties;
 @PropertySource("classpath:application.yml")
 @EnableJpaRepositories({"com.tr1nksgroup.model.repositories"})
 public class DataConfig {
-    private static final String entityPackage = "com.InnovInfr.entities";
+    private static final String entityPackage = "com.tr1nksgroup.model.entities";
     //db prop
     private static final String DB_DRIVER = "db.driver";
     private static final String DB_PASSWORD = "db.password";
