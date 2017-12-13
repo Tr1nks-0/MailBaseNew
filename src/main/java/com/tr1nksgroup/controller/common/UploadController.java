@@ -60,6 +60,6 @@ public class UploadController implements AbstrCommonController {
         if (!file.isEmpty()) {
             uploadModel = uploadEngine.uploadFile(file);
         }
-        return new ModelAndView(VIEW_NAME, MODEL_NAME, "ew");
+        return new ModelAndView(VIEW_NAME, MODEL_NAME, uploadModel);
     }
 }

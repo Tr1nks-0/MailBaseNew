@@ -4,10 +4,7 @@ import com.tr1nksgroup.model.models.UploadModel;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,27 +47,29 @@ public class UploadEngine {
         }
         UploadModel uploadModel = new UploadModel();
         uploadModel.setFilename(fn);
-//        refillWithNewFilterData(uploadModel);
+        refillWithNewFilterData(uploadModel);
         return uploadModel;
     }
 
-//    /**
-//     * пере-заполнить с учетом даных фильтров
-//     *
-//     * @param uploadModel пере-заполненные данные страницы
-//     */
-//    public void refillWithNewFilterData(UploadModel uploadModel) {
-//        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(FILE_STORAGE_PATH + uploadModel.getFilename()), uploadModel.getCodepage().getValue()))) {
-//            String buf;
-//            byte i = 0;
-//            while ((buf = reader.readLine()) != null && i < 2) {
-//                uploadModel.getFileStrings()[i] = buf.split(uploadModel.getDelimiter().getValue());
-//                i++;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    /**
+     * пере-заполнить с учетом даных фильтров
+     *
+     * @param uploadModel пере-заполненные данные страницы
+     */
+    private void refillWithNewFilterData(UploadModel uploadModel) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(FILE_STORAGE_PATH + uploadModel.getFilename()), uploadModel.getCodepage().getValue()))) {
+            String buf;
+            byte i = 0;
+            while (i < 2 && (buf = reader.readLine()) != null) {
+                uploadModel.getFileStrings()[i] = buf.split(uploadModel.getDelimiter().getValue());
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 //
 //    /**
 //     * парсить из файла

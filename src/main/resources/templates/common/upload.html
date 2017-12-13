@@ -11,7 +11,7 @@
 </header>
 <div>
     <!--/*@thymesVar id="uploadModel" type="com.tr1nksgroup.model.models.UploadModel"*/-->
-    <div th:unless="${uploadModel}">
+    <div th:unless="${uploadModel}" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
         <div>
             <a th:href="@{/c/upload/sample/StudentSample.csv}"><span class="glyphicon glyphicon-save-file"></span> Student sample</a>
             <a th:href="@{/c/upload/sample/TeacherSample.csv}"><span class="glyphicon glyphicon-save-file"></span> Teacher sample</a>
@@ -27,8 +27,65 @@
             </form>
         </div>
     </div>
-    <div th:if="${uploadModel}">
-        <form action=""></form>
+    <div th:if="${uploadModel}" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+        <form th:action="@{/upload/test}" method="post" th:object="${uploadModel}">
+            <input type="hidden" th:field="*{filename}"/>
+            <div class="col-lg-12  col-md-12">
+                <span class="col-lg-3  col-md-3 ">
+                    <label for="codepage">Кодировка файла:</label>
+                    <select th:field="*{codepage}" class="form-control" name="codepage" id="codepage">
+                        <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.CodePagesEnum).valuesW()}"
+                                th:value="${enumItem}"
+                                th:text="${enumItem.value}"></option>
+                    </select>
+                </span>
+                <span class="col-lg-3  col-md-3 ">
+                    <label for="delimiter">Разделитель полей файла:</label>
+                    <select th:field="*{delimiter}" class="form-control" name="delimiter" id="delimiter">
+                        <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.DelimiterEnum).valuesW()}"
+                                th:value="${enumItem}"
+                                th:text="${enumItem.value}"></option>
+                    </select>
+                </span>
+                <span class="col-lg-3  col-md-3 ">
+                    <label for="person">Файл содержит данные для:</label>
+                    <select th:field="*{person}" class="form-control" name="person" id="person">
+                         <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.PersonEnum).valuesW()}"
+                                 th:value="${enumItem}"
+                                 th:text="${enumItem.value}"></option>
+                    </select>
+                </span>
+            </div>
+            <button class="btn-md btn-success">Перегрузить</button>
+        </form>
+        <form th:action="@{/upload/process}" method="post" th:object="${uploadModel}">
+            <div class="col-lg-12  col-md-12">
+                <input type="hidden" th:field="*{codepage}"/>
+                <input type="hidden" th:field="*{delimiter}"/>
+                <input type="hidden" th:field="*{person}"/>
+                <input type="hidden" th:field="*{filename}"/>
+                <table>
+                    <tbody>
+                    <tr th:each="row : *{fileStrings}">
+                        <td th:each="cell,index : ${row}" th:text="${cell}">
+                            <span th:text="${index.index}"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td th:each="maskItem,maskIterator : *{mask}">
+                            <label>
+                                <select th:field="*{mask[__${maskIterator.index}__]}" class="form-control">
+                                    <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.UploadFileMaskEnum).valuesW()}"
+                                            th:value="${enumItem}" th:text="${enumItem.value}"></option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn-md btn-primary">Отправить</button>
+        </form>
     </div>
 </div>
 <footer></footer>

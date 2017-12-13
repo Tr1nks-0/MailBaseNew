@@ -36,6 +36,10 @@ public class UploadModel implements Model {
 
 
     //region get-set
+    public String getFilename() {
+        return filename;
+    }
+
     public void setFilename(String filename) {
         this.filename = filename;
     }
@@ -62,10 +66,6 @@ public class UploadModel implements Model {
 
     public void setPerson(PersonEnum person) {
         this.person = person;
-    }
-
-    public String getFilename() {
-        return filename;
     }
 
     public String[][] getFileStrings() {
