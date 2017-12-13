@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "faculty")
-public class FacultyEntity {
+public class FacultyEntity extends AbstrEntity{
     /**
      * шифр факультета
      */
