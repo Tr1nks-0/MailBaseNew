@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         "com.tr1nksgroup.controller",
         "com.tr1nksgroup.model.services",
         "com.tr1nksgroup.model.engines",
-//        "com.tr1nksgroup.model.components",
+        "com.tr1nksgroup.model.components",
 })
 public class MainClass extends SpringBootServletInitializer {
     public static final Class[] classes = {MainClass.class,};

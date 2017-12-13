@@ -9,12 +9,12 @@ import java.util.List;
 @Entity
 @Table(name = "cathedra")
 public class CathedraEntity extends AbstrEntity {
-    /**
-     * шифр кафедры
-     */
-    @Basic
-    @Column(name = "cathedra_id", nullable = false, length = 3)
-    private int cathedraId;
+//    /**
+//     * шифр кафедры
+//     */
+//    @Basic
+//    @Column(name = "cathedra_id", nullable = false, length = 3)
+//    private int cathedraId;
     /**
      * факультет к которому предлежит кафедра
      */
@@ -42,13 +42,13 @@ public class CathedraEntity extends AbstrEntity {
 
 
     //region get-set
-    public int getCathedraId() {
-        return cathedraId;
-    }
-
-    public void setCathedraId(int cathedraId) {
-        this.cathedraId = cathedraId;
-    }
+//    public int getCathedraId() {
+//        return cathedraId;
+//    }
+//
+//    public void setCathedraId(int cathedraId) {
+//        this.cathedraId = cathedraId;
+//    }
 
     public FacultyEntity getFaculty() {
         return faculty;

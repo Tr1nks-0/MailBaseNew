@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:include="includes/service/head :: normal(pageTitle='Upload')">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/theme/css/bootstrap.css"><!--debug-->
+</head>
+<body>
+<header>
+    <div sec:authorize="isAuthenticated()" th:replace="includes/components/header :: navDiv (pageAddress='/c/upload')"></div>
+    <div th:replace="includes/components/header :: loginDiv"></div>
+</header>
+<div>
+    <!--/*@thymesVar id="uploadModel" type="com.tr1nksgroup.model.models.UploadModel"*/-->
+    <div th:unless="${uploadModel}">
+        <div>
+            <a th:href="@{/c/upload/sample/StudentSample.csv}"><span class="glyphicon glyphicon-save-file"></span> Student sample</a>
+            <a th:href="@{/c/upload/sample/TeacherSample.csv}"><span class="glyphicon glyphicon-save-file"></span> Teacher sample</a>
+        </div>
+        <div>
+            <!--/*@thymesVar id="file" type="org.springframework.web.multipart.MultipartFile"*/-->
+            <form th:action="@{/c/upload/file}" method="post" th:object="${file}" enctype="multipart/form-data" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
+                <div class="col-lg-5  col-md-5">
+                    <label for="fileInput">Файл для загрузки:</label>
+                    <input id="fileInput" class="form-control " type="file" name="file" required/>
+                </div>
+                <button class="btn-success"><span class="glyphicon glyphicon-upload"></span> Отправить</button>
+            </form>
+        </div>
+    </div>
+    <div th:if="${uploadModel}">
+        <form action=""></form>
+    </div>
+</div>
+<footer></footer>
+</body>
+</html>
