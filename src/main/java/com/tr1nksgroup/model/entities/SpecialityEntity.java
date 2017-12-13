@@ -17,7 +17,7 @@ public class SpecialityEntity extends AbstrEntity {
      */
     @Basic
     @Column(name = "speciality_id", nullable = false, length = 3)
-    private int speciality;
+    private int specialityId;
     /**
      * название специальности
      */
@@ -26,12 +26,12 @@ public class SpecialityEntity extends AbstrEntity {
     private String name;
 
     //region get-set
-    public int getSpeciality() {
-        return speciality;
+    public int getSpecialityId() {
+        return specialityId;
     }
 
-    public void setSpeciality(int speciality) {
-        this.speciality = speciality;
+    public void setSpecialityId(int specialityId) {
+        this.specialityId = specialityId;
     }
 
     public String getName() {

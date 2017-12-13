@@ -12,6 +12,7 @@ hibernate:
   format_sql: true
   hbm2ddl:
     auto: update
+#    auto: create-drop
 
 #spring:
 #  mail:

@@ -1,6 +1,7 @@
 package com.tr1nksgroup.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * академ группа
@@ -54,11 +55,11 @@ public class GroupEntity extends AbstrEntity {
     @Basic
     @Column(name = "num", nullable = false, length = 3)
     private int num;
-//    /**
-//     * студенты группы
-//     */
-//    @OneToMany(mappedBy = "group")
-//    private List<StudentEntity> students;
+    /**
+     * студенты группы
+     */
+    @OneToMany(mappedBy = "group")
+    private List<StudentEntity> students;
 
 
     //region get-set
@@ -109,6 +110,14 @@ public class GroupEntity extends AbstrEntity {
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public List<StudentEntity> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<StudentEntity> students) {
+        this.students = students;
     }
     //endregion
 }

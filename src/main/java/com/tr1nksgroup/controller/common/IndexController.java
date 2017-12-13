@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping({"/index", "/"})
-public class IndexController implements AbstrCommonController{
+public class IndexController implements AbstrCommonController {
     private static final String VIEW_NAME = VIEW_BASE + "index";
 
     @GetMapping

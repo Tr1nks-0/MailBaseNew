@@ -14,7 +14,7 @@ public class StudyLevelEntity extends AbstrEntity {
      */
     @Basic
     @Column(name = "level_id", nullable = false, length = 3)
-    private int level;
+    private int levelId;
     /**
      * название уровня обучения
      */
@@ -24,12 +24,12 @@ public class StudyLevelEntity extends AbstrEntity {
 
 
     //region get-set
-    public int getLevel() {
-        return level;
+    public int getLevelId() {
+        return levelId;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setLevelId(int levelId) {
+        this.levelId = levelId;
     }
 
     public String getName() {

@@ -17,7 +17,7 @@ public class FacultyEntity extends AbstrEntity{
      */
     @Basic
     @Column(name = "faculty_id", nullable = false, length = 3)
-    private int faculty;
+    private int facultyId;
     /**
      * название факультета
      */
@@ -27,12 +27,12 @@ public class FacultyEntity extends AbstrEntity{
 
 
     //region get-set
-    public int getFaculty() {
-        return faculty;
+    public int getFacultyId() {
+        return facultyId;
     }
 
-    public void setFaculty(int faculty) {
-        this.faculty = faculty;
+    public void setFacultyId(int facultyId) {
+        this.facultyId = facultyId;
     }
 
     public String getName() {
