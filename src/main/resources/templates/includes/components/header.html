@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header th:fragment="header">
+
+</header>
+<div th:fragment="loginDiv" class="col-lg-2 col-sm-2 col-xs-2 col-md-2">
+    <div sec:authorize="!isAuthenticated()">
+        <a th:href="@{~/login}" class="btn  btn-success">login</a>
+        <a th:href="@{~/signup}" class="btn btn-primary">signup</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{~/user/profile}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-user"></span> profile</a>
+        <a th:href="@{~/logout}" class="btn btn-xs btn-warning "><span class="glyphicon glyphicon-log-out"></span> logout</a>
+    </div>
+</div>
+<div th:fragment="navDiv(pageAddress)" class="col-lg-10 col-sm-10 col-xs-10 col-md-10">
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>
+                <span th:if="${#strings.equals(pageAddress,'/c/main')}"><span class="glyphicon glyphicon-home"></span> Главная</span>
+                <a th:href="@{/c/main}" th:unless="${#strings.equals(pageAddress,'/c/main')}"><span class="glyphicon glyphicon-home"></span> Главная</a>
+            </li>
+            <li>
+                <span th:if="${#strings.equals(pageAddress,'/c/upload')}"><span class="glyphicon glyphicon-arrow-up"></span> Загрузить</span>
+                <a th:href="@{/c/upload}" th:unless="${#strings.equals(pageAddress,'/c/upload')}"><span class="glyphicon glyphicon-upload"></span> Загрузить</a>
+            </li>
+            <!--<li>-->
+                <!--<span th:if="${#strings.equals(pageAddress,'/students')}"> <span class="glyphicon "></span>Студенты</span>-->
+                <!--<a href="/students" th:unless="${#strings.equals(pageAddress,'/students')}"><span class="glyphicon "></span>Студенты</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<span th:if="${#strings.equals(pageAddress,'/teachers')}"> <span class="glyphicon "></span>Преподаватели</span>-->
+                <!--<a href="/teacherEntities" th:unless="${#strings.equals(pageAddress,'/teachers')}"><span class="glyphicon "></span>Преподаватели</a>-->
+            <!--</li>-->
+        </ul>
+    </div>
+</div>
+</html>

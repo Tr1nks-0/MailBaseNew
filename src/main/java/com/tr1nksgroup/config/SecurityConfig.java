@@ -34,14 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity security) throws Exception {
         security.authorizeRequests()
-                .antMatchers("/main/**").access(hasAnyRole(SiteRolesEnum.ADMIN, SiteRolesEnum.USER))
-                .antMatchers("/admin/**").access(hasAnyRole(SiteRolesEnum.ADMIN))
-                .antMatchers("/user/**").access(hasAnyRole(SiteRolesEnum.ADMIN, SiteRolesEnum.USER))
+//                .antMatchers("/main/**").access(hasAnyRole(SiteRolesEnum.ADMIN, SiteRolesEnum.USER))
+                .antMatchers("/c/**").access(hasAnyRole(SiteRolesEnum.ADMIN, SiteRolesEnum.USER))
+                .antMatchers("/a/**").access(hasAnyRole(SiteRolesEnum.ADMIN))
+                .antMatchers("/u/**").access(hasAnyRole(SiteRolesEnum.ADMIN, SiteRolesEnum.USER))
 //                .antMatchers("/signup/**").permitAll()
                 .antMatchers("/index/**").permitAll()
 
                 .and().formLogin()
-                .loginPage("/login").defaultSuccessUrl("/index", false).failureUrl("/login?error=true")
+                .loginPage("/login").defaultSuccessUrl("/c/main", false).failureUrl("/index?error=true")
                 .and().logout()
                 .logoutUrl("/logout").logoutSuccessUrl("/index")
                 .and().csrf().disable();
