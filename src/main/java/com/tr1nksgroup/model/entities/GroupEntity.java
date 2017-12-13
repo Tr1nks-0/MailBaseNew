@@ -2,24 +2,19 @@ package com.tr1nksgroup.model.entities;
 
 import javax.persistence.*;
 
-
+/**
+ * академ группа
+ */
 @Entity
-@Table(name = "group")
-public class GroupEntity {
-    /**
-     * id сущности
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private long id;
+@Table(name = "academ_group")
+public class GroupEntity extends AbstrEntity {
     /**
      * уровень обучения
      * [6].04.051.010.17.01
      */
     @Basic
     @ManyToOne
-    @JoinColumn(name = "level_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "level_id", referencedColumnName = "level_id", nullable = false)
     private StudyLevelEntity studyLevelEntity;
     /**
      * факультет к которому предлежит группа
@@ -27,7 +22,7 @@ public class GroupEntity {
      */
     @Basic
     @ManyToOne
-    @JoinColumn(name = "faculty_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id", nullable = false)
     private FacultyEntity facultyEntity;
     /**
      * специальность группы
@@ -35,7 +30,7 @@ public class GroupEntity {
      */
     @Basic
     @ManyToOne
-    @JoinColumn(name = "speciality_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "speciality_id", referencedColumnName = "speciality_id", nullable = false)
     private SpecialityEntity specialityEntity;
     /**
      * специализация группы
@@ -43,7 +38,7 @@ public class GroupEntity {
      */
     @Basic
     @ManyToOne
-    @JoinColumn(name = "specialization_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "specialization_id", referencedColumnName = "specialization_id", nullable = false)
     private SpecializationEntity specializationEntity;
     /**
      * год поступления
@@ -67,13 +62,6 @@ public class GroupEntity {
 
 
     //region get-set
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public StudyLevelEntity getStudyLevelEntity() {
         return studyLevelEntity;
