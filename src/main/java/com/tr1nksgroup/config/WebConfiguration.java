@@ -88,7 +88,8 @@ public class WebConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/theme/**").addResourceLocations("classpath:/static/theme/");
+        registry.addResourceHandler("/theme/**").addResourceLocations("classpath:/static/theme/");
+        registry.addResourceHandler("/bootstrap/**").addResourceLocations("classpath:/static/theme/bootstrap/css/");
         registry.addResourceHandler("includes/**").addResourceLocations("classpath:/templates/includes/");
 //        registry.addResourceHandler("css/**").addResourceLocations("classpath:/static/css/");
 //        registry.addResourceHandler("fonts/**").addResourceLocations("classpath:/static/fonts/");
