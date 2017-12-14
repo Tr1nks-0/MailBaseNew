@@ -6,6 +6,8 @@ import com.tr1nksgroup.model.services.FacultyService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 @Service
 public class FacultyServiceImplementation implements FacultyService {
     /**
@@ -17,5 +19,20 @@ public class FacultyServiceImplementation implements FacultyService {
     @Override
     public FacultyEntity getByFacultyId(Integer integer) {
         return facultyRepository.getByFacultyId(integer);
+    }
+
+    @Override
+    public List<FacultyEntity> saveAll(List<FacultyEntity> facultyEntityList) {
+        return facultyRepository.saveAll(facultyEntityList);
+    }
+
+    @Override
+    public boolean containsByFacultyId(int facultyId) {
+        return null != facultyRepository.getByFacultyId(facultyId);
+    }
+
+    @Override
+    public FacultyEntity save(FacultyEntity facultyEntity) {
+        return facultyRepository.saveAndFlush(facultyEntity);
     }
 }

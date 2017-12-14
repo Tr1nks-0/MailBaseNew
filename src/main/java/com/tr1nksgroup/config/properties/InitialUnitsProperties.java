@@ -1,20 +1,25 @@
 package com.tr1nksgroup.config.properties;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
-@Configuration
-@PropertySource("classpath:properties/initialUnits.properties")
+//@Configuration
+@Component
+@PropertySource(value = "classpath:properties/initialUnits.properties", encoding = "UTF-8")
 public class InitialUnitsProperties {
-    @Value("${test.case1}")
-    private String testcase1;
+    @Value("#{'${faculty.arr}'.split(';')}")
+    private String[] facultyArrStr;
+    @Value("#{'${cathedra.arr}'.split(';')}")
+    private String[] cathedraArrStr;
 
-    public String getTestcase1() {
-        return testcase1;
+    //region get
+    public String[] getFacultyArrStr() {
+        return facultyArrStr;
     }
 
-    public void setTestcase1(String testcase1) {
-        this.testcase1 = testcase1;
+    public String[] getCathedraArrStr() {
+        return cathedraArrStr;
     }
+    //endregion
 }

@@ -9,30 +9,24 @@ import java.util.List;
 @Entity
 @Table(name = "cathedra")
 public class CathedraEntity extends AbstrEntity {
-//    /**
-//     * шифр кафедры
-//     */
-//    @Basic
-//    @Column(name = "cathedra_id", nullable = false, length = 3)
-//    private int cathedraId;
     /**
      * факультет к которому предлежит кафедра
      */
     @Basic
     @ManyToOne
     @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id", nullable = false)
-    private FacultyEntity faculty;
+    private FacultyEntity facultyEntity;
     /**
      * название кафедры
      */
     @Basic
-    @Column(name = "name", nullable = false, length = 70)
+    @Column(name = "name", unique = true, nullable = false, length = 90)
     private String name;
     /**
      * аббревиатура названия кафедры
      */
     @Basic
-    @Column(name = "abbr", nullable = false, length = 7)
+    @Column(name = "abbr", unique = true, nullable = false, length = 7)
     private String abbr;
     /**
      * преподаватели кафедры
@@ -40,22 +34,23 @@ public class CathedraEntity extends AbstrEntity {
     @OneToMany(mappedBy = "cathedra")
     private List<TeacherEntity> teacherEntities;
 
-
-    //region get-set
-//    public int getCathedraId() {
-//        return cathedraId;
-//    }
-//
-//    public void setCathedraId(int cathedraId) {
-//        this.cathedraId = cathedraId;
-//    }
-
-    public FacultyEntity getFaculty() {
-        return faculty;
+    public CathedraEntity(FacultyEntity facultyEntity, String name, String abbr) {
+        this.facultyEntity = facultyEntity;
+        this.name = name;
+        this.abbr = abbr;
     }
 
-    public void setFaculty(FacultyEntity faculty) {
-        this.faculty = faculty;
+    private CathedraEntity() {
+    }
+
+    //region get-set
+
+    public FacultyEntity getFacultyEntity() {
+        return facultyEntity;
+    }
+
+    public void setFacultyEntity(FacultyEntity facultyEntity) {
+        this.facultyEntity = facultyEntity;
     }
 
     public String getName() {
@@ -81,6 +76,7 @@ public class CathedraEntity extends AbstrEntity {
     public void setTeacherEntities(List<TeacherEntity> teacherEntities) {
         this.teacherEntities = teacherEntities;
     }
+
 
     //endregion
 }
