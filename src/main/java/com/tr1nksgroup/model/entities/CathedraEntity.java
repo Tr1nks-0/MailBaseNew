@@ -20,7 +20,7 @@ public class CathedraEntity extends AbstrEntity {
      * название кафедры
      */
     @Basic
-    @Column(name = "name", unique = true, nullable = false, length = 90)
+    @Column(name = "name", nullable = false, length = 90)
     private String name;
     /**
      * аббревиатура названия кафедры

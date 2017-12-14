@@ -19,4 +19,14 @@ public class SpecialityServiceImplementation implements SpecialityService {
     public SpecialityEntity getBySpecialityId(Integer integer) {
         return specialityRepository.getBySpecialityId(integer);
     }
+
+    @Override
+    public boolean containsByspecialityId(int specialityId) {
+        return null != specialityRepository.getBySpecialityId(specialityId);
+    }
+
+    @Override
+    public SpecialityEntity save(SpecialityEntity specialityEntity) {
+        return specialityRepository.saveAndFlush(specialityEntity);
+    }
 }

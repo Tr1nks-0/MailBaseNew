@@ -18,7 +18,7 @@ import java.io.OutputStreamWriter;
 public class UploadController implements CommonController {
     private static final String VIEW_NAME = VIEW_BASE + "upload";
     private static final String MODEL_NAME = "uploadModel";
-    private static final String STUDENT_SAMPLE_STR = "Фамилия;Имя;Отчество;Код;Группа;Бюджет\nИванов;Иван;Иванович;co32432de;6.04.51.10.11.1;true";
+    private static final String STUDENT_SAMPLE_STR = "Фамилия;Имя;Отчество;Код;Группа;Бюджет\nИванов;Иван;Иванович;co32432de;6.04.51.11.11.1;true";
     private static final String TEACHER_SAMPLE_STR = "Фамилия;Имя;Отчество;Код;Кафедра;Ставка\nПетров;Петр;Петрович;co98765de;ИС;1,5";
     @Resource
     UploadEngine uploadEngine;

@@ -3,8 +3,11 @@ package com.tr1nksgroup.model.components;
 import com.tr1nksgroup.config.properties.InitialUnitsProperties;
 import com.tr1nksgroup.model.entities.CathedraEntity;
 import com.tr1nksgroup.model.entities.FacultyEntity;
+import com.tr1nksgroup.model.entities.SpecialityEntity;
+import com.tr1nksgroup.model.entities.SpecializationEntity;
 import com.tr1nksgroup.model.services.CathedraService;
 import com.tr1nksgroup.model.services.FacultyService;
+import com.tr1nksgroup.model.services.SpecialityService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -20,12 +23,15 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
     private static final Pattern NAME_PATTERN = Pattern.compile("name[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ,\\-'`]*)\"[\\s?]*,?");
     private static final Pattern ABBR_PATTERN = Pattern.compile("abbr[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ]*)\"[\\s?]*,?");
     private static final Pattern FACULTY_ID_PATTERN = Pattern.compile("facultyId[\\s?]*=[\\s?]*(\\d*)[\\s?]*,?");
+    private static final Pattern SPECIALITY_ID_PATTERN = Pattern.compile("specialityId[\\s?]*=[\\s?]*(\\d*)[\\s?]*,?");
     @Resource
-    InitialUnitsProperties initialUnitsProperties;
+    private InitialUnitsProperties initialUnitsProperties;
     @Resource
-    FacultyService facultyService;
+    private FacultyService facultyService;
     @Resource
-    CathedraService cathedraService;
+    private CathedraService cathedraService;
+    @Resource
+    private SpecialityService specialityService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -37,6 +43,11 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
         for (CathedraEntity cathedraEntity : getCathedraEntityList(initialUnitsProperties.getCathedraArrStr())) {
             if (!cathedraService.containsByAbbr(cathedraEntity.getAbbr())) {
                 cathedraService.save(cathedraEntity);
+            }
+        }
+        for (SpecialityEntity specialityEntity : getSpecialityEntityList(initialUnitsProperties.getSpecialityArrStr())) {
+            if (!specialityService.containsByspecialityId(specialityEntity.getSpecialityId())) {
+                specialityService.save(specialityEntity);
             }
         }
     }
@@ -62,6 +73,29 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
             Matcher abbrMatcher = ABBR_PATTERN.matcher(str);
             if (nameMatcher.find() && facultyIdMatcher.find() && abbrMatcher.find()) {
                 list.add(new CathedraEntity(facultyService.getByFacultyId(Integer.parseInt(facultyIdMatcher.group(1))), nameMatcher.group(1), abbrMatcher.group(1)));
+            }
+        }
+        return list;
+    }
+
+    private List<SpecialityEntity> getSpecialityEntityList(String[] specialityArrStr) {
+        List<SpecialityEntity> list = new ArrayList<>();
+        for (String str : specialityArrStr) {
+            Matcher nameMatcher = NAME_PATTERN.matcher(str);
+            Matcher specialityIdMatcher = SPECIALITY_ID_PATTERN.matcher(str);
+            if (nameMatcher.find() && specialityIdMatcher.find()) {
+                list.add(new SpecialityEntity(Integer.parseInt(specialityIdMatcher.group(1)), nameMatcher.group(1)));
+            }
+        }
+        return list;
+    }
+    private List<SpecializationEntity> getSpecializationEntityList(String[] specialityArrStr) {
+        List<SpecializationEntity> list = new ArrayList<>();
+        for (String str : specialityArrStr) {
+            Matcher nameMatcher = NAME_PATTERN.matcher(str);
+            Matcher specialityIdMatcher = SPECIALITY_ID_PATTERN.matcher(str);
+            if (nameMatcher.find() && specialityIdMatcher.find()) {
+                list.add(new SpecializationEntity(Integer.parseInt(specialityIdMatcher.group(1)), nameMatcher.group(1)));
             }
         }
         return list;

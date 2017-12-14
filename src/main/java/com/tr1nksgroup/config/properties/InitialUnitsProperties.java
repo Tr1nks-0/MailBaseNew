@@ -12,6 +12,10 @@ public class InitialUnitsProperties {
     private String[] facultyArrStr;
     @Value("#{'${cathedra.arr}'.split(';')}")
     private String[] cathedraArrStr;
+    @Value("#{'${speciality.arr}'.split(';')}")
+    private String[] specialityArrStr;
+    @Value("#{'${specialization.arr}'.split(';')}")
+    private String[] specializationArrStr;
 
     //region get
     public String[] getFacultyArrStr() {
@@ -20,6 +24,14 @@ public class InitialUnitsProperties {
 
     public String[] getCathedraArrStr() {
         return cathedraArrStr;
+    }
+
+    public String[] getSpecialityArrStr() {
+        return specialityArrStr;
+    }
+
+    public String[] getSpecializationArrStr() {
+        return specializationArrStr;
     }
     //endregion
 }

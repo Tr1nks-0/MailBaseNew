@@ -16,14 +16,22 @@ public class SpecialityEntity extends AbstrEntity {
      * шифр специальности
      */
     @Basic
-    @Column(name = "speciality_id", nullable = false, length = 3)
+    @Column(name = "speciality_id", nullable = false, unique = true, length = 3)
     private int specialityId;
     /**
      * название специальности
      */
     @Basic
-    @Column(name = "name", nullable = false, length = 30)
+    @Column(name = "name", nullable = false, length = 70)
     private String name;
+
+    public SpecialityEntity(int specialityId, String name) {
+        this.specialityId = specialityId;
+        this.name = name;
+    }
+
+    private SpecialityEntity() {
+    }
 
     //region get-set
     public int getSpecialityId() {
