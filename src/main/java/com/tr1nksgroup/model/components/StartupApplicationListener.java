@@ -4,7 +4,6 @@ import com.tr1nksgroup.config.properties.InitialUnitsProperties;
 import com.tr1nksgroup.model.entities.CathedraEntity;
 import com.tr1nksgroup.model.entities.FacultyEntity;
 import com.tr1nksgroup.model.entities.SpecialityEntity;
-import com.tr1nksgroup.model.entities.SpecializationEntity;
 import com.tr1nksgroup.model.services.CathedraService;
 import com.tr1nksgroup.model.services.FacultyService;
 import com.tr1nksgroup.model.services.SpecialityService;
@@ -89,15 +88,15 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
         }
         return list;
     }
-    private List<SpecializationEntity> getSpecializationEntityList(String[] specialityArrStr) {
-        List<SpecializationEntity> list = new ArrayList<>();
-        for (String str : specialityArrStr) {
-            Matcher nameMatcher = NAME_PATTERN.matcher(str);
-            Matcher specialityIdMatcher = SPECIALITY_ID_PATTERN.matcher(str);
-            if (nameMatcher.find() && specialityIdMatcher.find()) {
-                list.add(new SpecializationEntity(Integer.parseInt(specialityIdMatcher.group(1)), nameMatcher.group(1)));
-            }
-        }
-        return list;
-    }
+//    private List<SpecializationEntity> getSpecializationEntityList(String[] specialityArrStr) {
+//        List<SpecializationEntity> list = new ArrayList<>();
+//        for (String str : specialityArrStr) {
+//            Matcher nameMatcher = NAME_PATTERN.matcher(str);
+//            Matcher specialityIdMatcher = SPECIALITY_ID_PATTERN.matcher(str);
+//            if (nameMatcher.find() && specialityIdMatcher.find()) {
+//                list.add(new SpecializationEntity(Integer.parseInt(specialityIdMatcher.group(1)), nameMatcher.group(1)));
+//            }
+//        }
+//        return list;
+//    }
 }

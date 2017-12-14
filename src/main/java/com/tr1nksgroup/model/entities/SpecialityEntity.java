@@ -1,9 +1,7 @@
 package com.tr1nksgroup.model.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Специальность
@@ -24,6 +22,8 @@ public class SpecialityEntity extends AbstrEntity {
     @Basic
     @Column(name = "name", nullable = false, length = 70)
     private String name;
+    @OneToMany(mappedBy = "specialityEntity")
+    List<SpecializationEntity> specializationEntities;
 
     public SpecialityEntity(int specialityId, String name) {
         this.specialityId = specialityId;
@@ -48,6 +48,14 @@ public class SpecialityEntity extends AbstrEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<SpecializationEntity> getSpecializationEntities() {
+        return specializationEntities;
+    }
+
+    public void setSpecializationEntities(List<SpecializationEntity> specializationEntities) {
+        this.specializationEntities = specializationEntities;
     }
     //endregion
 }
