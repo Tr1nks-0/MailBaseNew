@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping({"/c/main"})
-public class MainController implements AbstrCommonController {
+public class MainController implements CommonController {
     private static final String VIEW_NAME = VIEW_BASE + "main";
 
     @GetMapping

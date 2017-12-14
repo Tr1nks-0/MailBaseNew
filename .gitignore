@@ -45,3 +45,4 @@ fabric.properties
 .idea/
 build/
 .gradle/
+fileStorage/

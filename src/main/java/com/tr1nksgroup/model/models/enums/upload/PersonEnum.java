@@ -1,7 +1,9 @@
-package com.tr1nksgroup.model.models.enums;
+package com.tr1nksgroup.model.models.enums.upload;
+
+import com.tr1nksgroup.model.models.upload.UploadModel;
 
 /**
- * типы персон для {@link com.tr1nksgroup.model.models.UploadModel PageData}
+ * типы персон для {@link UploadModel PageData}
  */
 public enum PersonEnum {
     /**

@@ -58,6 +58,21 @@ public abstract class PersonEntity extends AbstrEntity {
     @Column(name = "office", nullable = false, columnDefinition = "bit(1) default false")
     boolean office;
 
+    /**
+     * конструктор
+     *
+     * @param surname    фамилия
+     * @param name       имя
+     * @param patronymic отчество
+     * @param code       код
+     */
+    public PersonEntity(String surname, String name, String patronymic, String code) {
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
+        this.code = code;
+    }
+
     //region get-set
     public String getSurname() {
         return surname;

@@ -24,6 +24,18 @@ public class TeacherEntity extends PersonEntity {
     @Column(name = "rate", nullable = false)
     private double rate;
 
+    /**
+     * конструктор
+     *
+     * @param surname    фамилия
+     * @param name       имя
+     * @param patronymic отчество
+     * @param code       код
+     */
+    public TeacherEntity(String surname, String name, String patronymic, String code) {
+        super(surname, name, patronymic, code);
+    }
+
 
     //region get-set
 

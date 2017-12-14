@@ -1,7 +1,9 @@
-package com.tr1nksgroup.model.models.enums;
+package com.tr1nksgroup.model.models.enums.upload;
+
+import com.tr1nksgroup.model.models.upload.UploadModel;
 
 /**
- * маски файла для {@link com.tr1nksgroup.model.models.UploadModel PageData}
+ * маски файла для {@link UploadModel PageData}
  */
 public enum UploadFileMaskEnum {
     /**
@@ -21,21 +23,14 @@ public enum UploadFileMaskEnum {
      */
     CODE("Код"),
     /**
-     * Группа
+     * Группа или Кафедра
      */
-    GROUP("Группа"),
+    GROUP_OR_CATHEDRA("Группа/Кафедра"),
     /**
-     * Бюджет
+     * Бюджет или ставка
      */
-    BUDGET("Бюджет"),
-    /**
-     * Кафедра
-     */
-    CATHEDRA("Кафедра"),
-    /**
-     * ставка
-     */
-    RATE("Ставка");
+    BUDGET_OR_RATE("Бюджет");
+
     private String value;
 
     /**

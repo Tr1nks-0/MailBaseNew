@@ -10,13 +10,16 @@
     <div th:replace="includes/components/header :: loginDiv"></div>
 </header>
 <div>
-    <!--/*@thymesVar id="uploadModel" type="com.tr1nksgroup.model.models.UploadModel"*/-->
+    <!--/*@thymesVar id="uploadModel" type="com.tr1nksgroup.model.models.upload.UploadModel"*/-->
     <div th:unless="${uploadModel}" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
-        <div>
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
             <a th:href="@{/c/upload/sample/StudentSample.csv}"><span class="glyphicon glyphicon-save-file"></span> Student sample</a>
             <a th:href="@{/c/upload/sample/TeacherSample.csv}"><span class="glyphicon glyphicon-save-file"></span> Teacher sample</a>
         </div>
-        <div>
+        <div class="col-lg-12 col-md-12 ">
+            <!--/*@thymesVar id="param" type="java.lang.String[]"*/-->
+            <!--/*@thymesVar id="fileIsEmpty" type="java.lang.String"*/-->
+            <div th:if="${param.fileIsEmpty!=null}">Отправленный вами файл получен пустым или не может быть прочитан</div>
             <!--/*@thymesVar id="file" type="org.springframework.web.multipart.MultipartFile"*/-->
             <form th:action="@{/c/upload/file}" method="post" th:object="${file}" enctype="multipart/form-data" class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
                 <div class="col-lg-5  col-md-5">
@@ -28,13 +31,13 @@
         </div>
     </div>
     <div th:if="${uploadModel}" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
-        <form th:action="@{/upload/test}" method="post" th:object="${uploadModel}">
+        <form th:action="@{/c/upload/test}" method="post" th:object="${uploadModel}">
             <input type="hidden" th:field="*{filename}"/>
             <div class="col-lg-12  col-md-12">
                 <span class="col-lg-3  col-md-3 ">
                     <label for="codepage">Кодировка файла:</label>
                     <select th:field="*{codepage}" class="form-control" name="codepage" id="codepage">
-                        <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.CodePagesEnum).valuesW()}"
+                        <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.upload.CodePagesEnum).valuesW()}"
                                 th:value="${enumItem}"
                                 th:text="${enumItem.value}"></option>
                     </select>
@@ -42,7 +45,7 @@
                 <span class="col-lg-3  col-md-3 ">
                     <label for="delimiter">Разделитель полей файла:</label>
                     <select th:field="*{delimiter}" class="form-control" name="delimiter" id="delimiter">
-                        <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.DelimiterEnum).valuesW()}"
+                        <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.upload.DelimiterEnum).valuesW()}"
                                 th:value="${enumItem}"
                                 th:text="${enumItem.value}"></option>
                     </select>
@@ -50,7 +53,7 @@
                 <span class="col-lg-3  col-md-3 ">
                     <label for="person">Файл содержит данные для:</label>
                     <select th:field="*{person}" class="form-control" name="person" id="person">
-                         <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.PersonEnum).valuesW()}"
+                         <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.upload.PersonEnum).valuesW()}"
                                  th:value="${enumItem}"
                                  th:text="${enumItem.value}"></option>
                     </select>
@@ -58,24 +61,26 @@
             </div>
             <button class="btn-md btn-success">Перегрузить</button>
         </form>
-        <form th:action="@{/upload/process}" method="post" th:object="${uploadModel}">
+        <form th:action="@{/c/upload/process}" method="post" th:object="${uploadModel}">
             <div class="col-lg-12  col-md-12">
                 <input type="hidden" th:field="*{codepage}"/>
                 <input type="hidden" th:field="*{delimiter}"/>
                 <input type="hidden" th:field="*{person}"/>
                 <input type="hidden" th:field="*{filename}"/>
-                <table>
-                    <tbody>
+                <table class="table-bordered ">
+                    <thead>
                     <tr th:each="row : *{fileStrings}">
                         <td th:each="cell,index : ${row}" th:text="${cell}">
                             <span th:text="${index.index}"></span>
                         </td>
                     </tr>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td th:each="maskItem,maskIterator : *{mask}">
                             <label>
                                 <select th:field="*{mask[__${maskIterator.index}__]}" class="form-control">
-                                    <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.UploadFileMaskEnum).valuesW()}"
+                                    <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.upload.UploadFileMaskEnum).valuesW()}"
                                             th:value="${enumItem}" th:text="${enumItem.value}"></option>
                                 </select>
                             </label>

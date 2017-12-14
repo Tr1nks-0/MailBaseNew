@@ -1,7 +1,9 @@
-package com.tr1nksgroup.model.models.enums;
+package com.tr1nksgroup.model.models.enums.upload;
+
+import com.tr1nksgroup.model.models.upload.UploadModel;
 
 /**
- * символы разделители для {@link com.tr1nksgroup.model.models.UploadModel PageData}
+ * символы разделители для {@link UploadModel PageData}
  */
 public enum DelimiterEnum {
     /**

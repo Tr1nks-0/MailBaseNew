@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import javax.sql.DataSource;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -68,6 +68,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             builder.inMemoryAuthentication()
                     .withUser(emailRootAdmin)
                     .password(passwordRootAdmin)
+                    .roles(SiteRolesEnum.ADMIN.getRole(), SiteRolesEnum.USER.getRole());
+            builder.inMemoryAuthentication()
+                    .withUser("e@r.c")
+                    .password("root")
                     .roles(SiteRolesEnum.ADMIN.getRole(), SiteRolesEnum.USER.getRole());
         }
         builder.jdbcAuthentication().dataSource(dataSource)

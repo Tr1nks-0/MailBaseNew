@@ -1,9 +1,10 @@
-package com.tr1nksgroup.model.models;
+package com.tr1nksgroup.model.models.upload;
 
-import com.tr1nksgroup.model.models.enums.CodePagesEnum;
-import com.tr1nksgroup.model.models.enums.DelimiterEnum;
-import com.tr1nksgroup.model.models.enums.PersonEnum;
-import com.tr1nksgroup.model.models.enums.UploadFileMaskEnum;
+import com.tr1nksgroup.model.models.Model;
+import com.tr1nksgroup.model.models.enums.upload.CodePagesEnum;
+import com.tr1nksgroup.model.models.enums.upload.DelimiterEnum;
+import com.tr1nksgroup.model.models.enums.upload.PersonEnum;
+import com.tr1nksgroup.model.models.enums.upload.UploadFileMaskEnum;
 
 /**
  * модель для страницы upload
@@ -32,7 +33,7 @@ public class UploadModel implements Model {
     /**
      * маска столбцов файла
      */
-    private UploadFileMaskEnum[] mask = new UploadFileMaskEnum[]{UploadFileMaskEnum.SURNAME, UploadFileMaskEnum.NAME, UploadFileMaskEnum.PATRONYMIC, UploadFileMaskEnum.CODE, UploadFileMaskEnum.GROUP, UploadFileMaskEnum.BUDGET};
+    private UploadFileMaskEnum[] mask = new UploadFileMaskEnum[]{UploadFileMaskEnum.SURNAME, UploadFileMaskEnum.NAME, UploadFileMaskEnum.PATRONYMIC, UploadFileMaskEnum.CODE, UploadFileMaskEnum.GROUP_OR_CATHEDRA, UploadFileMaskEnum.BUDGET_OR_RATE};
 
 
     //region get-set

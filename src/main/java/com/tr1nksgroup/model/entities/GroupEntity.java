@@ -61,6 +61,15 @@ public class GroupEntity extends AbstrEntity {
     @OneToMany(mappedBy = "group")
     private List<StudentEntity> students;
 
+    public GroupEntity(StudyLevelEntity studyLevelEntity, FacultyEntity facultyEntity, SpecialityEntity specialityEntity, SpecializationEntity specializationEntity, Integer year, Integer num) {
+        this.studyLevelEntity = studyLevelEntity;
+        this.facultyEntity = facultyEntity;
+        this.specialityEntity = specialityEntity;
+        this.specializationEntity = specializationEntity;
+        this.year = year;
+        this.num = num;
+    }
+
 
     //region get-set
 
