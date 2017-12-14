@@ -50,5 +50,13 @@ public class SpecializationEntity extends AbstrEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+    public SpecialityEntity getSpecialityEntity() {
+        return specialityEntity;
+    }
+
+    public void setSpecialityEntity(SpecialityEntity specialityEntity) {
+        this.specialityEntity = specialityEntity;
+    }
     //endregion
 }
