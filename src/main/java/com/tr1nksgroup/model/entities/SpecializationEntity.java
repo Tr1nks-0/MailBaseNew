@@ -20,11 +20,15 @@ public class SpecializationEntity extends AbstrEntity {
      * название специализации
      */
     @Basic
-    @Column(name = "name", nullable = false, length = 30)
+    @Column(name = "name", nullable = false, length = 90)
     private String name;
+    /**
+     * специальность группы
+     * 6.04.[051].010.17.01
+     */
     @Basic
     @ManyToOne
-    @JoinColumn(name = "speciality_id", referencedColumnName = "speciality_id", nullable = false)
+    @JoinColumn(name = "speciality_id", referencedColumnName = "id", nullable = false)
     private SpecialityEntity specialityEntity;
 
     public SpecializationEntity(int specializationId, String name, SpecialityEntity specialityEntity) {
@@ -33,7 +37,9 @@ public class SpecializationEntity extends AbstrEntity {
         this.specialityEntity = specialityEntity;
     }
 
-    //    private
+    private SpecializationEntity() {
+    }
+
     //region get-set
     public int getSpecializationId() {
         return specializationId;

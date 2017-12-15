@@ -127,16 +127,22 @@ public class UploadEngine {
             }
             String[] arr = parseArrOnMask(buf.split(delimiter), mask);
             arr[4] = patternOuterGroupChiper.matcher((patternInnerGroupChiper.matcher(arr[4]).replaceAll(""))).replaceAll(".");
-            GroupEntity groupEntity = groupService.getByCipher(arr[4]);
+            String[] groupCipherArray = arr[4].split("\\.");
+            GroupEntity groupEntity = groupService.getByStudyLevelEntityAndFacultyEntityAndSpecializationEntityAndYearAndNum(
+                    studyLevelService.getByLevelId(Integer.parseInt(groupCipherArray[0])),
+                    facultyService.getByFacultyId(Integer.parseInt(groupCipherArray[1])),
+                    specializationService.getBySpecializationIdAndSpecialityEntity(Integer.parseInt(groupCipherArray[3]),
+                                                                                   specialityService.getBySpecialityId(Integer.parseInt(groupCipherArray[2]))),
+                    Integer.valueOf(groupCipherArray[4]),
+                    Integer.valueOf(groupCipherArray[5]));
             if (null == groupEntity) {
-                String[] ga = arr[4].split("\\.");
                 groupEntity = new GroupEntity(
-                        studyLevelService.getByLevelId(Integer.valueOf(ga[0])),
-                        facultyService.getByFacultyId(Integer.valueOf(ga[1])),
-                        specialityService.getBySpecialityId(Integer.valueOf(ga[2])),
-                        specializationService.getBySpecializationId(Integer.valueOf(ga[3])),
-                        Integer.valueOf(ga[4]),
-                        Integer.valueOf(ga[5])
+                        studyLevelService.getByLevelId(Integer.parseInt(groupCipherArray[0])),
+                        facultyService.getByFacultyId(Integer.parseInt(groupCipherArray[1])),
+                        specializationService.getBySpecializationIdAndSpecialityEntity(Integer.parseInt(groupCipherArray[3]),
+                                                                                       specialityService.getBySpecialityId(Integer.parseInt(groupCipherArray[2]))),
+                        Integer.valueOf(groupCipherArray[4]),
+                        Integer.valueOf(groupCipherArray[5])
                 );
                 groupService.save(groupEntity);
             }

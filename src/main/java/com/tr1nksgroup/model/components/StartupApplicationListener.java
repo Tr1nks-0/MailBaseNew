@@ -4,9 +4,11 @@ import com.tr1nksgroup.config.properties.InitialUnitsProperties;
 import com.tr1nksgroup.model.entities.CathedraEntity;
 import com.tr1nksgroup.model.entities.FacultyEntity;
 import com.tr1nksgroup.model.entities.SpecialityEntity;
+import com.tr1nksgroup.model.entities.SpecializationEntity;
 import com.tr1nksgroup.model.services.CathedraService;
 import com.tr1nksgroup.model.services.FacultyService;
 import com.tr1nksgroup.model.services.SpecialityService;
+import com.tr1nksgroup.model.services.SpecializationService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -19,10 +21,11 @@ import java.util.regex.Pattern;
 
 @Component
 public class StartupApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
-    private static final Pattern NAME_PATTERN = Pattern.compile("name[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ,\\-'`]*)\"[\\s?]*,?");
-    private static final Pattern ABBR_PATTERN = Pattern.compile("abbr[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ]*)\"[\\s?]*,?");
+    private static final Pattern NAME_PATTERN = Pattern.compile("name[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ,\\-'`ҐґІіЇїЄє]*)\"[\\s?]*,?");
+    private static final Pattern ABBR_PATTERN = Pattern.compile("abbr[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ҐґІіЇїЄє]*)\"[\\s?]*,?");
     private static final Pattern FACULTY_ID_PATTERN = Pattern.compile("facultyId[\\s?]*=[\\s?]*(\\d*)[\\s?]*,?");
     private static final Pattern SPECIALITY_ID_PATTERN = Pattern.compile("specialityId[\\s?]*=[\\s?]*(\\d*)[\\s?]*,?");
+    private static final Pattern SPECIALIZATION_ID_PATTERN = Pattern.compile("specializationId[\\s?]*=[\\s?]*(\\d*)[\\s?]*,?");
     @Resource
     private InitialUnitsProperties initialUnitsProperties;
     @Resource
@@ -31,6 +34,8 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
     private CathedraService cathedraService;
     @Resource
     private SpecialityService specialityService;
+    @Resource
+    private SpecializationService specializationService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -47,6 +52,11 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
         for (SpecialityEntity specialityEntity : getSpecialityEntityList(initialUnitsProperties.getSpecialityArrStr())) {
             if (!specialityService.containsByspecialityId(specialityEntity.getSpecialityId())) {
                 specialityService.save(specialityEntity);
+            }
+        }
+        for (SpecializationEntity specializationEntity : getSpecializationEntityList(initialUnitsProperties.getSpecializationArrStr())) {
+            if (!specializationService.containsByspecializationIdAndSpecialityEntity(specializationEntity.getSpecializationId(), specializationEntity.getSpecialityEntity())) {
+                specializationService.save(specializationEntity);
             }
         }
     }
@@ -88,15 +98,19 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
         }
         return list;
     }
-//    private List<SpecializationEntity> getSpecializationEntityList(String[] specialityArrStr) {
-//        List<SpecializationEntity> list = new ArrayList<>();
-//        for (String str : specialityArrStr) {
-//            Matcher nameMatcher = NAME_PATTERN.matcher(str);
-//            Matcher specialityIdMatcher = SPECIALITY_ID_PATTERN.matcher(str);
-//            if (nameMatcher.find() && specialityIdMatcher.find()) {
-//                list.add(new SpecializationEntity(Integer.parseInt(specialityIdMatcher.group(1)), nameMatcher.group(1)));
-//            }
-//        }
-//        return list;
-//    }
+
+    private List<SpecializationEntity> getSpecializationEntityList(String[] specialityArrStr) {
+        List<SpecializationEntity> list = new ArrayList<>();
+        for (String str : specialityArrStr) {
+            Matcher nameMatcher = NAME_PATTERN.matcher(str);
+            Matcher specializationIdMatcher = SPECIALIZATION_ID_PATTERN.matcher(str);
+            Matcher specialityIdMatcher = SPECIALITY_ID_PATTERN.matcher(str);
+            if (nameMatcher.find() && specializationIdMatcher.find() && specialityIdMatcher.find()) {
+                int id=Integer.parseInt(specialityIdMatcher.group(1));
+                SpecialityEntity se =specialityService.getBySpecialityId(id);
+                list.add(new SpecializationEntity(Integer.parseInt(specializationIdMatcher.group(1)), nameMatcher.group(1), specialityService.getBySpecialityId(Integer.parseInt(specialityIdMatcher.group(1)))));
+            }
+        }
+        return list;
+    }
 }

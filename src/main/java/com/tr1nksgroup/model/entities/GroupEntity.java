@@ -8,6 +8,19 @@ import java.util.List;
  */
 @Entity
 @Table(name = "academ_group")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "select_by_cipher",
+                procedureName = "academ_group.select_by_cipher",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_studylevel_id", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_faculty_id", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_specialization_id", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_speciality_id", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_year", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_num", type = Integer.class)
+                })
+})
 public class GroupEntity extends AbstrEntity {
     /**
      * уровень обучения
@@ -15,7 +28,7 @@ public class GroupEntity extends AbstrEntity {
      */
     @Basic
     @ManyToOne
-    @JoinColumn(name = "level_id", referencedColumnName = "level_id", nullable = false)
+    @JoinColumn(name = "level_id", referencedColumnName = "id", nullable = false)
     private StudyLevelEntity studyLevelEntity;
     /**
      * факультет к которому предлежит группа
@@ -23,23 +36,15 @@ public class GroupEntity extends AbstrEntity {
      */
     @Basic
     @ManyToOne
-    @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id", nullable = false)
+    @JoinColumn(name = "faculty_id", referencedColumnName = "id", nullable = false)
     private FacultyEntity facultyEntity;
-    /**
-     * специальность группы
-     * 6.04.[051].010.17.01
-     */
-    @Basic
-    @ManyToOne
-    @JoinColumn(name = "speciality_id", referencedColumnName = "speciality_id", nullable = false)
-    private SpecialityEntity specialityEntity;
     /**
      * специализация группы
      * 6.04.051.[010].17.01
      */
     @Basic
     @ManyToOne
-    @JoinColumn(name = "specialization_id", referencedColumnName = "specialization_id", nullable = false)
+    @JoinColumn(name = "specialization_id", referencedColumnName = "id", nullable = false)
     private SpecializationEntity specializationEntity;
     /**
      * год поступления
@@ -61,10 +66,9 @@ public class GroupEntity extends AbstrEntity {
     @OneToMany(mappedBy = "group")
     private List<StudentEntity> students;
 
-    public GroupEntity(StudyLevelEntity studyLevelEntity, FacultyEntity facultyEntity, SpecialityEntity specialityEntity, SpecializationEntity specializationEntity, Integer year, Integer num) {
+    public GroupEntity(StudyLevelEntity studyLevelEntity, FacultyEntity facultyEntity, SpecializationEntity specializationEntity, Integer year, Integer num) {
         this.studyLevelEntity = studyLevelEntity;
         this.facultyEntity = facultyEntity;
-        this.specialityEntity = specialityEntity;
         this.specializationEntity = specializationEntity;
         this.year = year;
         this.num = num;
@@ -87,14 +91,6 @@ public class GroupEntity extends AbstrEntity {
 
     public void setFacultyEntity(FacultyEntity facultyEntity) {
         this.facultyEntity = facultyEntity;
-    }
-
-    public SpecialityEntity getSpecialityEntity() {
-        return specialityEntity;
-    }
-
-    public void setSpecialityEntity(SpecialityEntity specialityEntity) {
-        this.specialityEntity = specialityEntity;
     }
 
     public SpecializationEntity getSpecializationEntity() {

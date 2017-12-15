@@ -1,5 +1,6 @@
 package com.tr1nksgroup.model.services.implementation;
 
+import com.tr1nksgroup.model.entities.SpecialityEntity;
 import com.tr1nksgroup.model.entities.SpecializationEntity;
 import com.tr1nksgroup.model.repositories.SpecializationRepository;
 import com.tr1nksgroup.model.services.SpecializationService;
@@ -16,7 +17,17 @@ public class SpecializationServiceImplementation implements SpecializationServic
     private SpecializationRepository specializationRepository;
 
     @Override
-    public SpecializationEntity getBySpecializationId(Integer integer) {
-        return specializationRepository.getBySpecializationId(integer);
+    public SpecializationEntity getBySpecializationIdAndSpecialityEntity(Integer integer, SpecialityEntity specialityEntity) {
+        return specializationRepository.getBySpecializationIdAndSpecialityEntity(integer, specialityEntity);
+    }
+
+    @Override
+    public SpecializationEntity save(SpecializationEntity specializationEntity) {
+        return specializationRepository.save(specializationEntity);
+    }
+
+    @Override
+    public boolean containsByspecializationIdAndSpecialityEntity(int specializationId, SpecialityEntity specialityEntity) {
+        return null != this.getBySpecializationIdAndSpecialityEntity(specializationId, specialityEntity);
     }
 }

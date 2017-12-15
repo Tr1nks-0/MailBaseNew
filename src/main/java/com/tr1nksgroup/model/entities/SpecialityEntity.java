@@ -20,10 +20,10 @@ public class SpecialityEntity extends AbstrEntity {
      * название специальности
      */
     @Basic
-    @Column(name = "name", nullable = false, length = 70)
+    @Column(name = "name", nullable = false, length = 90)
     private String name;
     @OneToMany(mappedBy = "specialityEntity")
-    List<SpecializationEntity> specializationEntities;
+    private List<SpecializationEntity> specializationEntities;
 
     public SpecialityEntity(int specialityId, String name) {
         this.specialityId = specialityId;

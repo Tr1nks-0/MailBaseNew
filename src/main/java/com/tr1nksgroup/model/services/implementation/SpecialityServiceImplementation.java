@@ -22,7 +22,7 @@ public class SpecialityServiceImplementation implements SpecialityService {
 
     @Override
     public boolean containsByspecialityId(int specialityId) {
-        return null != specialityRepository.getBySpecialityId(specialityId);
+        return null != this.getBySpecialityId(specialityId);
     }
 
     @Override
