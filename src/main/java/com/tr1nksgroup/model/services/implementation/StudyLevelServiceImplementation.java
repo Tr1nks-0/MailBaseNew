@@ -19,4 +19,14 @@ public class StudyLevelServiceImplementation implements StudyLevelService {
     public StudyLevelEntity getByLevelId(Integer integer) {
         return studyLevelRepository.getByLevelId(integer);
     }
+
+    @Override
+    public boolean containsByLevelId(Integer integer) {
+        return null != getByLevelId(integer);
+    }
+
+    @Override
+    public StudyLevelEntity save(StudyLevelEntity studyLevelEntity) {
+        return studyLevelRepository.saveAndFlush(studyLevelEntity);
+    }
 }

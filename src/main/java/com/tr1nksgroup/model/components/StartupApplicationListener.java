@@ -1,14 +1,8 @@
 package com.tr1nksgroup.model.components;
 
 import com.tr1nksgroup.config.properties.InitialUnitsProperties;
-import com.tr1nksgroup.model.entities.CathedraEntity;
-import com.tr1nksgroup.model.entities.FacultyEntity;
-import com.tr1nksgroup.model.entities.SpecialityEntity;
-import com.tr1nksgroup.model.entities.SpecializationEntity;
-import com.tr1nksgroup.model.services.CathedraService;
-import com.tr1nksgroup.model.services.FacultyService;
-import com.tr1nksgroup.model.services.SpecialityService;
-import com.tr1nksgroup.model.services.SpecializationService;
+import com.tr1nksgroup.model.entities.*;
+import com.tr1nksgroup.model.services.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -23,11 +17,14 @@ import java.util.regex.Pattern;
 public class StartupApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
     private static final Pattern NAME_PATTERN = Pattern.compile("name[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ,\\-'`ҐґІіЇїЄє]*)\"[\\s?]*,?");
     private static final Pattern ABBR_PATTERN = Pattern.compile("abbr[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ҐґІіЇїЄє]*)\"[\\s?]*,?");
+    private static final Pattern STUDYLEVEL_ID_PATTERN = Pattern.compile("studylevelId[\\s?]*=[\\s?]*(\\d*)[\\s?]*,?");
     private static final Pattern FACULTY_ID_PATTERN = Pattern.compile("facultyId[\\s?]*=[\\s?]*(\\d*)[\\s?]*,?");
     private static final Pattern SPECIALITY_ID_PATTERN = Pattern.compile("specialityId[\\s?]*=[\\s?]*(\\d*)[\\s?]*,?");
     private static final Pattern SPECIALIZATION_ID_PATTERN = Pattern.compile("specializationId[\\s?]*=[\\s?]*(\\d*)[\\s?]*,?");
     @Resource
     private InitialUnitsProperties initialUnitsProperties;
+    @Resource
+    private StudyLevelService studyLevelService;
     @Resource
     private FacultyService facultyService;
     @Resource
@@ -39,7 +36,11 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        for (FacultyEntity facultyEntity : getFacultyEntityList(initialUnitsProperties.getFacultyArrStr())) {
+        for (StudyLevelEntity studyLevelEntity : getStudyLevelEntityList(initialUnitsProperties.getStudylevelArrStr())) {
+            if (!studyLevelService.containsByLevelId(studyLevelEntity.getLevelId())) {
+                studyLevelService.save(studyLevelEntity);
+            }
+        }  for (FacultyEntity facultyEntity : getFacultyEntityList(initialUnitsProperties.getFacultyArrStr())) {
             if (!facultyService.containsByFacultyId(facultyEntity.getFacultyId())) {
                 facultyService.save(facultyEntity);
             }
@@ -61,6 +62,17 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
         }
     }
 
+    private List<StudyLevelEntity> getStudyLevelEntityList(String[] facultyArrStr) {
+        List<StudyLevelEntity> list = new ArrayList<>();
+        for (String str : facultyArrStr) {
+            Matcher nameMatcher = NAME_PATTERN.matcher(str);
+            Matcher studyLevelMatcher = STUDYLEVEL_ID_PATTERN.matcher(str);
+            if (nameMatcher.find() && studyLevelMatcher.find() ) {
+                list.add(new StudyLevelEntity(Integer.parseInt(studyLevelMatcher.group(1)), nameMatcher.group(1)));
+            }
+        }
+        return list;
+    }
     private List<FacultyEntity> getFacultyEntityList(String[] facultyArrStr) {
         List<FacultyEntity> list = new ArrayList<>();
         for (String str : facultyArrStr) {

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource(value = "classpath:properties/initialUnits.properties", encoding = "UTF-8")
 public class InitialUnitsProperties {
+    @Value("#{'${studylevel.arr}'.split(';')}")
+    private String[] studylevelArrStr;
     @Value("#{'${faculty.arr}'.split(';')}")
     private String[] facultyArrStr;
     @Value("#{'${cathedra.arr}'.split(';')}")
@@ -18,6 +20,11 @@ public class InitialUnitsProperties {
     private String[] specializationArrStr;
 
     //region get
+
+    public String[] getStudylevelArrStr() {
+        return studylevelArrStr;
+    }
+
     public String[] getFacultyArrStr() {
         return facultyArrStr;
     }
