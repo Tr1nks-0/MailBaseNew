@@ -1,8 +1,7 @@
 package com.tr1nksgroup.model.engines;
 
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
-import com.tr1nksgroup.model.entities.GroupEntity;
-import com.tr1nksgroup.model.entities.StudentEntity;
+import com.tr1nksgroup.model.entities.*;
 import com.tr1nksgroup.model.models.Model;
 import com.tr1nksgroup.model.models.enums.upload.PersonEnum;
 import com.tr1nksgroup.model.models.enums.upload.UploadFileMaskEnum;
@@ -120,7 +119,6 @@ public class UploadEngine {
     private StudentModel parseStudents(BufferedReader reader, String delimiter, UploadFileMaskEnum[] mask) throws IOException {
         List<StudentEntity> students = new ArrayList<>();
         String buf;
-        boolean errFlag = false;
         while ((buf = reader.readLine()) != null) {
             if (buf.toLowerCase().contains("имя") || buf.toLowerCase().contains("name")) {
                 continue;
@@ -132,7 +130,7 @@ public class UploadEngine {
                     studyLevelService.getByLevelId(Integer.parseInt(groupCipherArray[0])),
                     facultyService.getByFacultyId(Integer.parseInt(groupCipherArray[1])),
                     specializationService.getBySpecializationIdAndSpecialityEntity(Integer.parseInt(groupCipherArray[3]),
-                                                                                   specialityService.getBySpecialityId(Integer.parseInt(groupCipherArray[2]))),
+                            specialityService.getBySpecialityId(Integer.parseInt(groupCipherArray[2]))),
                     Integer.valueOf(groupCipherArray[4]),
                     Integer.valueOf(groupCipherArray[5]));
             if (null == groupEntity) {
@@ -140,7 +138,7 @@ public class UploadEngine {
                         studyLevelService.getByLevelId(Integer.parseInt(groupCipherArray[0])),
                         facultyService.getByFacultyId(Integer.parseInt(groupCipherArray[1])),
                         specializationService.getBySpecializationIdAndSpecialityEntity(Integer.parseInt(groupCipherArray[3]),
-                                                                                       specialityService.getBySpecialityId(Integer.parseInt(groupCipherArray[2]))),
+                                specialityService.getBySpecialityId(Integer.parseInt(groupCipherArray[2]))),
                         Integer.valueOf(groupCipherArray[4]),
                         Integer.valueOf(groupCipherArray[5])
                 );
@@ -150,13 +148,11 @@ public class UploadEngine {
             if (studentService.testCode(arr[3])) {
                 studentService.save(student);
             } else {
-//                student.setErrorMessage("Дубликат кода");
-                errFlag = true;
+                //error
             }
             students.add(student);
         }
         StudentModel studentModel = new StudentModel();
-//        studentModel.setErrFlg(errFlag);
         studentModel.setStudents(students);
         return studentModel;
     }
