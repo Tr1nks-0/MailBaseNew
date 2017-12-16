@@ -3,6 +3,7 @@ package com.tr1nksgroup.model.entities;
 import com.tr1nksgroup.model.entities.enums.SiteRolesEnum;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -26,6 +27,8 @@ public class UserEntity extends AbstrEntity {
     @Basic
     @Column(name = "surname", length = 50)
     private String surname;
+    @OneToMany(mappedBy = "userEntity")
+    List<WorkSessionEntity> workSessionEntities;
 
 
     //region get-set
