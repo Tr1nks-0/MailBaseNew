@@ -2,7 +2,7 @@ package com.tr1nksgroup.model.engines;
 
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
 import com.tr1nksgroup.model.entities.*;
-import com.tr1nksgroup.model.models.Model;
+import com.tr1nksgroup.model.models.MyModel;
 import com.tr1nksgroup.model.models.enums.upload.PersonEnum;
 import com.tr1nksgroup.model.models.enums.upload.UploadFileMaskEnum;
 import com.tr1nksgroup.model.models.person.student.StudentModel;
@@ -39,6 +39,8 @@ public class UploadEngine {
     private SpecialityService specialityService;
     @Resource
     private SpecializationService specializationService;
+    @Resource
+    private WorkSessionService workSessionService;
     @Resource
     private LoginPasswordUtil loginPasswordUtil;
 
@@ -86,25 +88,24 @@ public class UploadEngine {
         }
     }
 
-
     /**
      * парсить из файла
      *
      * @param uploadModel данные страницы
      * @return данные для страницы с загруженными персонами
      */
-    public Model parseFromFile(UploadModel uploadModel) {
-        Model model = null;
+    public MyModel parseFromFile(UploadModel uploadModel) {
+        MyModel myModel = null;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(FILE_STORAGE_PATH + uploadModel.getFilename()), uploadModel.getCodepage().getValue()))) {
             if (PersonEnum.STUDENT.equals(uploadModel.getPerson())) {
-                model = parseStudents(reader, uploadModel.getDelimiter().getValue(), uploadModel.getMask());
+                myModel = parseStudents(reader, uploadModel.getDelimiter().getValue(), uploadModel.getMask());
             } else if (PersonEnum.TEACHER.equals(uploadModel.getPerson())) {
-                model = new TeacherModel();//stub fixme
+                myModel = new TeacherModel();//stub fixme
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return model;
+        return myModel;
     }
 
     /**

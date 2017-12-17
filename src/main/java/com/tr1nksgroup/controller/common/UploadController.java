@@ -1,9 +1,10 @@
 package com.tr1nksgroup.controller.common;
 
 import com.tr1nksgroup.model.engines.UploadEngine;
-import com.tr1nksgroup.model.models.Model;
+import com.tr1nksgroup.model.models.MyModel;
 import com.tr1nksgroup.model.models.upload.UploadModel;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -86,10 +87,13 @@ public class UploadController implements CommonController {
      * @return имя представления на которое будет перенамправлене и данные страницы этого представления
      */
     @PostMapping(path = "process")
-    public ModelAndView postProcess(@ModelAttribute(MODEL_NAME) UploadModel uploadModel, Principal principal) {
-        Model pd = uploadEngine.parseFromFile(uploadModel);
+    public ModelAndView postProcess(@ModelAttribute(MODEL_NAME) UploadModel uploadModel, Principal principal, Model model) {
+//        model.addAttribute("name1","val1");
+//        model.addAttribute(MODEL_NAME,engine.get());
+//        return VIEW_NAME;
+        MyModel pd = uploadEngine.parseFromFile(uploadModel);
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal.getName());
+        System.out.println(principal.getName().getClass().getName());
 //        if (pd instanceof StudentModel) {
 //            return studentController.post((StudentPageData) pd);
 //            return new ModelAndView("/students", "studentsPD", pd);

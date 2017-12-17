@@ -1,6 +1,6 @@
 package com.tr1nksgroup.model.models.upload;
 
-import com.tr1nksgroup.model.models.Model;
+import com.tr1nksgroup.model.models.MyModel;
 import com.tr1nksgroup.model.models.enums.upload.CodePagesEnum;
 import com.tr1nksgroup.model.models.enums.upload.DelimiterEnum;
 import com.tr1nksgroup.model.models.enums.upload.PersonEnum;
@@ -9,7 +9,7 @@ import com.tr1nksgroup.model.models.enums.upload.UploadFileMaskEnum;
 /**
  * модель для страницы upload
  */
-public class UploadModel implements Model {
+public class UploadModel implements MyModel {
     /**
      * кодировка
      */
