@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAutoConfiguration
 @EnableScheduling
 @ComponentScan({
-        "com.tr1nksgroup.config",
+        "com.tr1nksgroup.model.config",
         "com.tr1nksgroup.controller",
         "com.tr1nksgroup.model.services",
         "com.tr1nksgroup.model.engines",

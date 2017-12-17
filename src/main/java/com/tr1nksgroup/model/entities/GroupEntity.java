@@ -8,19 +8,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "academ_group")
-@NamedStoredProcedureQueries({
-        @NamedStoredProcedureQuery(
-                name = "select_by_cipher",
-                procedureName = "academ_group.select_by_cipher",
-                parameters = {
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_studylevel_id", type = Integer.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_faculty_id", type = Integer.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_specialization_id", type = Integer.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_speciality_id", type = Integer.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_year", type = Integer.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_num", type = Integer.class)
-                })
-})
 public class GroupEntity extends AbstrEntity {
     /**
      * уровень обучения
@@ -74,6 +61,8 @@ public class GroupEntity extends AbstrEntity {
         this.num = num;
     }
 
+    private GroupEntity() {
+    }
 
     //region get-set
 

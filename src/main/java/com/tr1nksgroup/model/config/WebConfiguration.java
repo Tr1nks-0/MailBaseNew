@@ -1,4 +1,4 @@
-package com.tr1nksgroup.config;
+package com.tr1nksgroup.model.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

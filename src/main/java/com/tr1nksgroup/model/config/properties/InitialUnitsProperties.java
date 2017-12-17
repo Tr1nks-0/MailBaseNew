@@ -1,4 +1,4 @@
-package com.tr1nksgroup.config.properties;
+package com.tr1nksgroup.model.config.properties;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

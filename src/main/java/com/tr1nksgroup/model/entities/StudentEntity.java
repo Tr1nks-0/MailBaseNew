@@ -40,6 +40,7 @@ public class StudentEntity extends PersonEntity {
         this.initPassword = passw;
         this.budget = budget;
     }
+
     /**
      * конструктор
      *
@@ -53,6 +54,11 @@ public class StudentEntity extends PersonEntity {
         super(surname, name, patronymic, code);
         this.group = group;
     }
+
+    private StudentEntity() {
+        super();
+    }
+
     //region get-set
     public GroupEntity getGroup() {
         return group;

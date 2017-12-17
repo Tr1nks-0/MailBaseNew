@@ -1,4 +1,4 @@
-package com.tr1nksgroup.config;
+package com.tr1nksgroup.model.config;
 
 import com.tr1nksgroup.model.entities.enums.SiteRolesEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
         builder.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("select email, password,enabled  from user where email=?")
-                .authoritiesByUsernameQuery("SELECT uuid, concat('ROLE_',role) FROM  user WHERE email=?");
+                .authoritiesByUsernameQuery("SELECT email, concat('ROLE_',role) FROM  user WHERE email=?");
     }
 }

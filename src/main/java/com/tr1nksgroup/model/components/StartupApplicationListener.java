@@ -1,6 +1,6 @@
 package com.tr1nksgroup.model.components;
 
-import com.tr1nksgroup.config.properties.InitialUnitsProperties;
+import com.tr1nksgroup.model.config.properties.InitialUnitsProperties;
 import com.tr1nksgroup.model.entities.*;
 import com.tr1nksgroup.model.services.*;
 import org.springframework.context.ApplicationListener;
@@ -33,14 +33,20 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
     private SpecialityService specialityService;
     @Resource
     private SpecializationService specializationService;
+    @Resource
+    private UserService userService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+//        UserEntity ue = new UserEntity("em@d.c", "root", SiteRolesEnum.ADMIN, true, "name", "surname", UUID.randomUUID());
+//        userService.save(ue);
+
         for (StudyLevelEntity studyLevelEntity : getStudyLevelEntityList(initialUnitsProperties.getStudylevelArrStr())) {
             if (!studyLevelService.containsByLevelId(studyLevelEntity.getLevelId())) {
                 studyLevelService.save(studyLevelEntity);
             }
-        }  for (FacultyEntity facultyEntity : getFacultyEntityList(initialUnitsProperties.getFacultyArrStr())) {
+        }
+        for (FacultyEntity facultyEntity : getFacultyEntityList(initialUnitsProperties.getFacultyArrStr())) {
             if (!facultyService.containsByFacultyId(facultyEntity.getFacultyId())) {
                 facultyService.save(facultyEntity);
             }
@@ -67,12 +73,13 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
         for (String str : facultyArrStr) {
             Matcher nameMatcher = NAME_PATTERN.matcher(str);
             Matcher studyLevelMatcher = STUDYLEVEL_ID_PATTERN.matcher(str);
-            if (nameMatcher.find() && studyLevelMatcher.find() ) {
+            if (nameMatcher.find() && studyLevelMatcher.find()) {
                 list.add(new StudyLevelEntity(Integer.parseInt(studyLevelMatcher.group(1)), nameMatcher.group(1)));
             }
         }
         return list;
     }
+
     private List<FacultyEntity> getFacultyEntityList(String[] facultyArrStr) {
         List<FacultyEntity> list = new ArrayList<>();
         for (String str : facultyArrStr) {
@@ -118,8 +125,8 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
             Matcher specializationIdMatcher = SPECIALIZATION_ID_PATTERN.matcher(str);
             Matcher specialityIdMatcher = SPECIALITY_ID_PATTERN.matcher(str);
             if (nameMatcher.find() && specializationIdMatcher.find() && specialityIdMatcher.find()) {
-                int id=Integer.parseInt(specialityIdMatcher.group(1));
-                SpecialityEntity se =specialityService.getBySpecialityId(id);
+                int id = Integer.parseInt(specialityIdMatcher.group(1));
+                SpecialityEntity se = specialityService.getBySpecialityId(id);
                 list.add(new SpecializationEntity(Integer.parseInt(specializationIdMatcher.group(1)), nameMatcher.group(1), specialityService.getBySpecialityId(Integer.parseInt(specialityIdMatcher.group(1)))));
             }
         }

@@ -34,6 +34,16 @@ public class UserEntity extends AbstrEntity {
     @OneToMany(mappedBy = "userEntity")
     List<WorkSessionEntity> workSessionEntities;
 
+    public UserEntity(String email, String password, SiteRolesEnum role, boolean enabled, String name, String surname, UUID userUUID) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
+        this.name = name;
+        this.surname = surname;
+        this.userUUID = userUUID;
+    }
+
     private UserEntity() {
     }
 

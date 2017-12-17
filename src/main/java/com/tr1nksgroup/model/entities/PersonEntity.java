@@ -73,6 +73,10 @@ public abstract class PersonEntity extends AbstrEntity {
         this.code = code;
     }
 
+    protected PersonEntity() {
+
+    }
+
     //region get-set
     public String getSurname() {
         return surname;

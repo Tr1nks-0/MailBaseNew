@@ -1,4 +1,4 @@
-package com.tr1nksgroup.config;
+package com.tr1nksgroup.model.config;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
