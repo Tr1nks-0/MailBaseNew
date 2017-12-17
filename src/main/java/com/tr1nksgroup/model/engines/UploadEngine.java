@@ -118,6 +118,7 @@ public class UploadEngine {
      */
     private StudentModel parseStudents(BufferedReader reader, String delimiter, UploadFileMaskEnum[] mask) throws IOException {
         List<StudentEntity> students = new ArrayList<>();
+        List<Long> ids = new ArrayList<>();
         String buf;
         while ((buf = reader.readLine()) != null) {
             if (buf.toLowerCase().contains("имя") || buf.toLowerCase().contains("name")) {
@@ -146,7 +147,8 @@ public class UploadEngine {
             }
             StudentEntity student = new StudentEntity(arr[0], arr[1], arr[2], arr[3], groupEntity, loginPasswordUtil.createLogin(arr[0], arr[1]), loginPasswordUtil.generatePassword(8), parseTrueFlag(arr[5]));
             if (studentService.testCode(arr[3])) {
-                studentService.save(student);
+                student = studentService.save(student);
+                ids.add(student.getId());
             } else {
                 //error
             }

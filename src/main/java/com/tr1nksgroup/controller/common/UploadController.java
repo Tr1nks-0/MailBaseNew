@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.security.Principal;
 
 @Controller
 @RequestMapping({"/c/upload"})
@@ -85,8 +86,9 @@ public class UploadController implements CommonController {
      * @return имя представления на которое будет перенамправлене и данные страницы этого представления
      */
     @PostMapping(path = "process")
-    public ModelAndView postProcess(@ModelAttribute(MODEL_NAME) UploadModel uploadModel) {
+    public ModelAndView postProcess(@ModelAttribute(MODEL_NAME) UploadModel uploadModel, Principal principal) {
         Model pd = uploadEngine.parseFromFile(uploadModel);
+        System.out.println(principal.getName());
 //        if (pd instanceof StudentModel) {
 //            return studentController.post((StudentPageData) pd);
 //            return new ModelAndView("/students", "studentsPD", pd);

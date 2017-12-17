@@ -4,6 +4,7 @@ import com.tr1nksgroup.model.entities.enums.SiteRolesEnum;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user")
@@ -27,9 +28,14 @@ public class UserEntity extends AbstrEntity {
     @Basic
     @Column(name = "surname", length = 50)
     private String surname;
+    @Basic
+    @Column(name = "uuid")
+    private UUID userUUID;
     @OneToMany(mappedBy = "userEntity")
     List<WorkSessionEntity> workSessionEntities;
 
+    private UserEntity() {
+    }
 
     //region get-set
     public String getEmail() {
@@ -78,6 +84,22 @@ public class UserEntity extends AbstrEntity {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public UUID getUserUUID() {
+        return userUUID;
+    }
+
+    public void setUserUUID(UUID userUUID) {
+        this.userUUID = userUUID;
+    }
+
+    public List<WorkSessionEntity> getWorkSessionEntities() {
+        return workSessionEntities;
+    }
+
+    public void setWorkSessionEntities(List<WorkSessionEntity> workSessionEntities) {
+        this.workSessionEntities = workSessionEntities;
     }
     //endregion
 }

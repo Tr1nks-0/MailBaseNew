@@ -76,6 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
         builder.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("select email, password,enabled  from user where email=?")
-                .authoritiesByUsernameQuery("SELECT email, concat('ROLE_',role) FROM  user WHERE email=?");
+                .authoritiesByUsernameQuery("SELECT uuid, concat('ROLE_',role) FROM  user WHERE email=?");
     }
 }

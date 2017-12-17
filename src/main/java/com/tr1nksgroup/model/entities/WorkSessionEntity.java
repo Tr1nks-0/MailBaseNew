@@ -24,6 +24,10 @@ public class WorkSessionEntity extends AbstrEntity {
     @Column(name = "last_date", nullable = false)
     private Date lastActivityDate;
 
+    @Basic
+    @Column(name = "name", nullable = false, length = 90)
+    private String name;
+
     //region get-set
     public UUID getSessionUuid() {
         return sessionUuid;
@@ -55,6 +59,14 @@ public class WorkSessionEntity extends AbstrEntity {
 
     public void setLastActivityDate(Date lastActivityDate) {
         this.lastActivityDate = lastActivityDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     //endregion
 }
