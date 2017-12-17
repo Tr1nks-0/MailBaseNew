@@ -1,5 +1,6 @@
 package com.tr1nksgroup.model.config;
 
+import com.tr1nksgroup.model.components.CustomAuthenticationProvider;
 import com.tr1nksgroup.model.entities.enums.SiteRolesEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,6 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return builder.replace(builder.lastIndexOf(COMMA), builder.lastIndexOf(COMMA) + 4, TAIL).toString();
     }
 
+    @Resource
+    private CustomAuthenticationProvider customAuthProvider;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
@@ -69,13 +72,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .withUser(emailRootAdmin)
                     .password(passwordRootAdmin)
                     .roles(SiteRolesEnum.ADMIN.getRole(), SiteRolesEnum.USER.getRole());
-            builder.inMemoryAuthentication()
-                    .withUser("e@r.c")
-                    .password("root")
-                    .roles(SiteRolesEnum.ADMIN.getRole(), SiteRolesEnum.USER.getRole());
+//            builder.inMemoryAuthentication()
+//                    .withUser("e@r.c")
+//                    .password("root")
+//                    .roles(SiteRolesEnum.ADMIN.getRole(), SiteRolesEnum.USER.getRole());
         }
-        builder.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select email, password,enabled  from user where email=?")
-                .authoritiesByUsernameQuery("SELECT email, concat('ROLE_',role) FROM  user WHERE email=?");
+        builder.authenticationProvider(customAuthProvider);
+//        builder.jdbcAuthentication().dataSource(dataSource)
+//                .usersByUsernameQuery("select email, password,enabled  from user where email=?")
+//                .authoritiesByUsernameQuery("SELECT email, concat('ROLE_',role) FROM  user WHERE email=?");
     }
 }

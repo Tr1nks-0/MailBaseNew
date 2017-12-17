@@ -3,8 +3,6 @@ package com.tr1nksgroup.controller.common;
 import com.tr1nksgroup.model.engines.UploadEngine;
 import com.tr1nksgroup.model.models.Model;
 import com.tr1nksgroup.model.models.upload.UploadModel;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -90,7 +88,7 @@ public class UploadController implements CommonController {
     @PostMapping(path = "process")
     public ModelAndView postProcess(@ModelAttribute(MODEL_NAME) UploadModel uploadModel, Principal principal) {
         Model pd = uploadEngine.parseFromFile(uploadModel);
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(principal.getName());
 //        if (pd instanceof StudentModel) {
 //            return studentController.post((StudentPageData) pd);
