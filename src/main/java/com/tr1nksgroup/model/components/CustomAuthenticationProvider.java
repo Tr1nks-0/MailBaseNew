@@ -16,7 +16,7 @@ import java.util.Set;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Resource
-    UserService userService;
+    private UserService userService;
 
     @Override
     public Authentication authenticate(Authentication auth) {
