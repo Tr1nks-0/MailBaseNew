@@ -6,6 +6,7 @@ import com.tr1nksgroup.model.services.StudentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class StudentServiceImplementation implements StudentService {
@@ -31,5 +32,10 @@ public class StudentServiceImplementation implements StudentService {
     @Override
     public StudentEntity save(StudentEntity student) {
         return studentRepository.saveAndFlush(student);
+    }
+
+    @Override
+    public List<StudentEntity> getAll() {
+        return studentRepository.findAll();
     }
 }

@@ -6,7 +6,21 @@
 </head>
 <body>
 <header th:include="includes/components/header::headerStandart"></header>
-<div></div>
+<div>
+    <div id="filter-div" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    </div>
+    <br>
+    <hr>
+    <div id="atudent-table-div" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <!--The shortest way is using '?' operator. If you have User entity with embedded Address entity in order to access fields of Address entity and print them if address is not null, otherwise here will be an empty column:-->
+        <!--<td th:text="${user?.address?.city}"></td>-->
+        <!--/*@thymesVar id="studentModel" type="com.tr1nksgroup.model.models.person.student.StudentModel"*/-->
+        <form th:action="@{student/test}" th:object="${studentModel}" method="post">
+            <button type="submit">subm</button>
+            <input type="hidden" th:field="*{studentList}">
+        </form>
+    </div>
+</div>
 <footer></footer>
 </body>
 </html>
