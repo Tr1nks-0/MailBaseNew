@@ -6,7 +6,7 @@
 </head>
 <body>
 <header>
-    <div sec:authorize="isAuthenticated()" th:replace="includes/components/header :: navDiv (pageAddress='/index')"></div>
+    <div sec:authorize="isAuthenticated()" th:replace="includes/components/header :: navDiv "></div>
 </header>
 <div>
     <div sec:authorize="!isAuthenticated()">

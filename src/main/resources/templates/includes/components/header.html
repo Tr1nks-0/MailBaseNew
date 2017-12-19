@@ -16,7 +16,7 @@
     </div>
 </div>
 <!--навигационное меню страниц-->
-<div th:fragment="navDiv(pageAddress)" class="col-lg-10 col-sm-10 col-xs-10 col-md-10">
+<div th:fragment="navDiv" class="col-lg-10 col-sm-10 col-xs-10 col-md-10">
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li th:replace="includes/components/header :: navLiIconed('/c/main','Главная','glyphicon-home')"></li>
@@ -25,13 +25,18 @@
         </ul>
     </div>
 </div>
-<!--элемент навигационного меню без иконки-->
-<li th:fragment="navLi(liAddr,liStr)" th:replace="includes/components/header :: navLiIconed(${liAddr},${liStr},null)">
-</li>
-<!--элемент навигационного меню с иконкой-->
-<li th:fragment="navLiIconed(liAddr,liStr,iconName)">
-    <span th:if="${#strings.equals('__${#httpServletRequest.requestURI}__','__${liAddr}__')}" th:text="' '+${liStr}" th:class="'glyphicon '+${iconName}">if</span>
-    <a th:href="@{${liAddr}}" th:unless="${#strings.equals('__${#httpServletRequest.requestURI}__','__${liAddr}__')}" th:text="' '+${liStr}" th:class="'glyphicon '+${iconName}">a</a>
-</li>
-
+<ul><!-- для того чтоб убрать подчеркивание li элементов-->
+    <!--элемент навигационного меню без иконки-->
+    <li th:fragment="navLi(liAddr,liStr)" th:replace="includes/components/header :: navLiIconed(${liAddr},${liStr},null)">
+    </li>
+    <!--элемент навигационного меню с иконкой-->
+    <li th:fragment="navLiIconed(liAddr,liStr,iconName)">
+        <span th:if="${#strings.equals('__${#httpServletRequest.requestURI}__','__${liAddr}__')}"
+              th:text="' '+${liStr}"
+              th:class="'center-block text-center glyphicon '+${iconName}">if</span>
+        <a th:unless="${#strings.equals('__${#httpServletRequest.requestURI}__','__${liAddr}__')}"
+           th:href="@{${liAddr}}" th:text="' '+${liStr}"
+           th:class="'glyphicon '+${iconName}">a</a>
+    </li>
+</ul>
 </html>
