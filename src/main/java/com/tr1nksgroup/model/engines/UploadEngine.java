@@ -59,7 +59,7 @@ public class UploadEngine {
         while (new File(FILE_STORAGE_PATH + fn).exists()) {
             fn = fn.replaceFirst("--\\d*--", "--" + add + "--");
             add++;
-        }
+        }//todo refactor filenames on dirs with date
         try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(FILE_STORAGE_PATH + fn)))) {
             stream.write(file.getBytes());
         } catch (IOException e) {

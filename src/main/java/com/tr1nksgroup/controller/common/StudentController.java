@@ -1,6 +1,7 @@
 package com.tr1nksgroup.controller.common;
 
 import com.tr1nksgroup.model.engines.StudentEngine;
+import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 import com.tr1nksgroup.model.models.person.student.StudentModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +21,15 @@ public class StudentController implements CommonController {
 
     @GetMapping
     public String get(Model model) {
-        StudentModel studentModel =studentEngine.getTest();
+        StudentModel studentModel = studentEngine.getTest();
         model.addAttribute("studentModel", studentModel);
         return VIEW_NAME;
     }
 
     @PostMapping(path = "test")
-    public String post(Model model,@ModelAttribute StudentModel studentModel) {
-        model.addAttribute("studentModel", studentModel);
+    public String post(Model model, @ModelAttribute StudentModel studentModel) {
+        studentModel.getStudentList().get(0).setRowStyle(TableRowStyleClass.DANGER);
+        model.addAttribute("studentModel", studentModel);//it is replace, don't needed, now for debug placed
         return VIEW_NAME;
     }
 }

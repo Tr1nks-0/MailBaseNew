@@ -1,15 +1,14 @@
 package com.tr1nksgroup.model.models.person.student;
 
-import com.tr1nksgroup.model.entities.StudentEntity;
 import com.tr1nksgroup.model.models.MyModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentModel implements MyModel {
-    List<StudentEntity> studentList = new ArrayList<>();
+    List<StudentEntityWrapper> studentList = new ArrayList<>();
 
-    public StudentModel(List<StudentEntity> studentList) {
+    public StudentModel(List<StudentEntityWrapper> studentList) {
         this.studentList = studentList;
     }
 
@@ -17,11 +16,11 @@ public class StudentModel implements MyModel {
 
     }
 
-    public List<StudentEntity> getStudentList() {
+    public List<StudentEntityWrapper> getStudentList() {
         return studentList;
     }
 
-    public void setStudentList(List<StudentEntity> studentList) {
+    public void setStudentList(List<StudentEntityWrapper> studentList) {
         this.studentList = studentList;
     }
 }

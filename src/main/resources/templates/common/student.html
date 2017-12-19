@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../static/theme/css/bootstrap.css"><!--debug-->
 </head>
+<style>/*<!--fixme remove to css-->*/
+    input[type="checkbox"][readonly] {
+        pointer-events: none;
+    }
+</style>
 <body>
 <header th:include="includes/components/header::headerStandart"></header>
 <div>
@@ -17,7 +22,47 @@
         <!--/*@thymesVar id="studentModel" type="com.tr1nksgroup.model.models.person.student.StudentModel"*/-->
         <form th:action="@{student/test}" th:object="${studentModel}" method="post">
             <button type="submit">subm</button>
-            <input type="hidden" th:field="*{studentList}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <!--th:classappend="${false}? danger:default"-->
+                    <td><input type="checkbox" class="form-control" title="выделить/снять выделение всех"></td>
+                    <td><span class="form-control">№</span></td>
+                    <td><span class="form-control">Фамилия</span></td>
+                    <td><span class="form-control">Имя</span></td>
+                    <td><span class="form-control">Отчество</span></td>
+                    <td><span class="form-control">Группа</span></td>
+                    <td><span class="form-control">ЕДБО</span></td>
+                    <td><span class="form-control">e-mail login</span></td>
+                    <!--<td><span class="form-control">password</span></td>-->
+                    <td><span class="form-control">Бюджет</span></td>
+                    <td><span class="form-control">Imagine</span></td>
+                    <td><span class="form-control">Office</span></td>
+                </tr>
+                </thead>
+                <tbody>
+                <!--th:class="${T(com.tr1nksgroup.model.models.enums.person.TableRowStyleClass).DANGER.toStyleClass()}"-->
+                <tr th:each="studentEntityWrapper,studentEntityWrapperIter:*{studentList}">
+                    <!--th:class="${T(com.tr1nksgroup.model.models.enums.person.TableRowStyleClass).DANGER.toStyleClass()}"-->
+                    <td>
+                        <input type="checkbox" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].checked}">
+                    </td>
+                    <td><span class="form-control" th:text="${studentEntityWrapperIter.count}"></span></td>
+                    <!--<input readonly th:class="'editingInput_'+${studentItem.id}+' '+'form-control'" th:field="*{students[__${iter.index}__].patronymic}">-->
+                    <!--th:class="${T(com.tr1nksgroup.model.models.enums.person.TableRowStyleClass).DANGER.toStyleClass()}"-->
+                    <td><input readonly type="text" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.surname}"></td>
+                    <td><input readonly type="text" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.name}"></td>
+                    <td><input readonly type="text" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.patronymic}"></td>
+                    <td><input readonly type="text" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.group}"></td>
+                    <td><input readonly type="text" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.code}"></td>
+                    <td><input readonly type="text" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.login}"></td>
+                    <!--<td><input readonly type="text" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.initPassword}"></td>-->
+                    <td><input readonly type="checkbox" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.budget}"></td>
+                    <td><input readonly type="checkbox" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.imagine}"></td>
+                    <td><input readonly type="checkbox" class="form-control" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.office}"></td>
+                </tr>
+                </tbody>
+            </table>
         </form>
     </div>
 </div>

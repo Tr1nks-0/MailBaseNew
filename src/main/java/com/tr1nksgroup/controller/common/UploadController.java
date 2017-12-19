@@ -41,7 +41,7 @@ public class UploadController implements CommonController {
     public void getSample(@PathVariable("person") String person, HttpServletResponse response) {
         try (OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream())) {
             response.setContentType("text/csv");
-            if ("student".equals(person.toLowerCase())) {
+            if ("person".equals(person.toLowerCase())) {
                 writer.write(STUDENT_SAMPLE_STR);
             } else if ("teacher".equals(person.toLowerCase())) {
                 writer.write(TEACHER_SAMPLE_STR);
