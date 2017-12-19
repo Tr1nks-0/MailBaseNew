@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:include="includes/service/head :: normal(pageTitle='Upload')">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../static/theme/css/bootstrap.css"><!--debug-->
 </head>
 <body>
-<header>
-    <div sec:authorize="isAuthenticated()" th:replace="includes/components/header :: navDiv"></div>
-    <div th:replace="includes/components/header :: loginDiv"></div>
-</header>
+<header th:include="includes/components/header::headerStandart"></header>
 <div>
     <!--/*@thymesVar id="uploadModel" type="com.tr1nksgroup.model.models.upload.UploadModel"*/-->
     <div th:unless="${uploadModel}" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">

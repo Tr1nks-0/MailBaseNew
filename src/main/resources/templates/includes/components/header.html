@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <link rel="stylesheet" href="../../../static/theme/css/bootstrap.css"><!--debug-->
-
-<header th:fragment="header">
-
+<!--Стандартный заголовок страницы-->
+<header th:fragment="headerStandart">
+    <div sec:authorize="isAuthenticated()" th:replace="includes/components/header :: navDiv"></div>
+    <div th:replace="includes/components/header :: loginDiv"></div>
 </header>
+<!--блок с ссылками - авторизацией / провилем-->
 <div th:fragment="loginDiv" class="col-lg-2 col-sm-2 col-xs-2 col-md-2">
     <div sec:authorize="!isAuthenticated()">
         <a th:href="@{~/login}" class="btn  btn-success">login</a>
