@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="../../../static/theme/css/bootstrap.css"><!--debug-->
+
 <header th:fragment="header">
 
 </header>
@@ -13,26 +15,23 @@
         <a th:href="@{~/logout}" class="btn btn-xs btn-warning "><span class="glyphicon glyphicon-log-out"></span> logout</a>
     </div>
 </div>
+<!--навигационное меню страниц-->
 <div th:fragment="navDiv(pageAddress)" class="col-lg-10 col-sm-10 col-xs-10 col-md-10">
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li>
-                <span th:if="${#strings.equals(pageAddress,'/c/main')}"><span class="glyphicon glyphicon-home"></span> Главная</span>
-                <a th:href="@{/c/main}" th:unless="${#strings.equals(pageAddress,'/c/main')}"><span class="glyphicon glyphicon-home"></span> Главная</a>
-            </li>
-            <li>
-                <span th:if="${#strings.equals(pageAddress,'/c/upload')}"><span class="glyphicon glyphicon-arrow-up"></span> Загрузить</span>
-                <a th:href="@{/c/upload}" th:unless="${#strings.equals(pageAddress,'/c/upload')}"><span class="glyphicon glyphicon-upload"></span> Загрузить</a>
-            </li>
-            <!--<li>-->
-                <!--<span th:if="${#strings.equals(pageAddress,'/students')}"> <span class="glyphicon "></span>Студенты</span>-->
-                <!--<a href="/students" th:unless="${#strings.equals(pageAddress,'/students')}"><span class="glyphicon "></span>Студенты</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<span th:if="${#strings.equals(pageAddress,'/teachers')}"> <span class="glyphicon "></span>Преподаватели</span>-->
-                <!--<a href="/teacherEntities" th:unless="${#strings.equals(pageAddress,'/teachers')}"><span class="glyphicon "></span>Преподаватели</a>-->
-            <!--</li>-->
+            <li th:replace="includes/components/header :: navLiIconed('/c/main','Главная','glyphicon-home')"></li>
+            <li th:replace="includes/components/header :: navLiIconed('/c/upload','Загрузить','glyphicon-arrow-up')"></li>
+            <li th:replace="includes/components/header :: navLiIconed('/c/student','Студенты','glyphicon-education')"></li>
         </ul>
     </div>
 </div>
+<!--элемент навигационного меню без иконки-->
+<li th:fragment="navLi(liAddr,liStr)" th:replace="includes/components/header :: navLiIconed(${liAddr},${liStr},null)">
+</li>
+<!--элемент навигационного меню с иконкой-->
+<li th:fragment="navLiIconed(liAddr,liStr,iconName)">
+    <span th:if="${#strings.equals('__${#httpServletRequest.requestURI}__','__${liAddr}__')}" th:text="' '+${liStr}" th:class="'glyphicon '+${iconName}">if</span>
+    <a th:href="@{${liAddr}}" th:unless="${#strings.equals('__${#httpServletRequest.requestURI}__','__${liAddr}__')}" th:text="' '+${liStr}" th:class="'glyphicon '+${iconName}">a</a>
+</li>
+
 </html>
