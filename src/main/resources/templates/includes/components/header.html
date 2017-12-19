@@ -33,10 +33,10 @@
     </li>
     <!--элемент навигационного меню с иконкой-->
     <li th:fragment="navLiIconed(liAddr,liStr,iconName)">
-        <span th:if="${#strings.equals('__${#httpServletRequest.requestURI}__','__${liAddr}__')}"
+        <span th:if="${#strings.startsWith('__${#httpServletRequest.requestURI}__','__${liAddr}__')}"
               th:text="' '+${liStr}"
               th:class="'center-block text-center glyphicon '+${iconName}">if</span>
-        <a th:unless="${#strings.equals('__${#httpServletRequest.requestURI}__','__${liAddr}__')}"
+        <a th:unless="${#strings.startsWith('__${#httpServletRequest.requestURI}__','__${liAddr}__')}"
            th:href="@{${liAddr}}" th:text="' '+${liStr}"
            th:class="'glyphicon '+${iconName}">a</a>
     </li>
