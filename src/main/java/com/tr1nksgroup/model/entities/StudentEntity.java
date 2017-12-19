@@ -55,7 +55,7 @@ public class StudentEntity extends PersonEntity {
         this.group = group;
     }
 
-    private StudentEntity() {
+    public StudentEntity() {
         super();
     }
 

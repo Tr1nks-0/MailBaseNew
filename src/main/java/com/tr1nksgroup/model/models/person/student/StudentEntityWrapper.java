@@ -7,14 +7,15 @@ public class StudentEntityWrapper {
     private Boolean checked = false;
     private StudentEntity studentEntity;
     private TableRowStyleClass rowStyle = TableRowStyleClass.DEFAULT;
-//    private TableRowStyleClass errorCellStyle = TableRowStyleClass.DANGER;
-    private Integer errorIndex;
-    private String errorMessage;
+    private Integer cellIndex;
+    private TableRowStyleClass cellStyle = TableRowStyleClass.DEFAULT;
+    private String message;
 
-    public StudentEntityWrapper(StudentEntity studentEntity, Integer errorIndex, String errorMessage, TableRowStyleClass rowStyle) {
+    public StudentEntityWrapper(StudentEntity studentEntity, Integer cellIndex, String message, TableRowStyleClass rowStyle, TableRowStyleClass cellStyle) {
         this(studentEntity, rowStyle);
-        this.errorIndex = errorIndex;
-        this.errorMessage = errorMessage;
+        this.cellIndex = cellIndex;
+        this.message = message;
+        this.cellStyle = cellStyle;
     }
 
     public StudentEntityWrapper(StudentEntity studentEntity, TableRowStyleClass rowStyle) {
@@ -29,6 +30,7 @@ public class StudentEntityWrapper {
     public StudentEntityWrapper() {
     }
 
+    //region get-set
     public Boolean getChecked() {
         return checked;
     }
@@ -53,19 +55,33 @@ public class StudentEntityWrapper {
         this.rowStyle = rowStyle;
     }
 
-    public Integer getErrorIndex() {
-        return errorIndex;
+    public Integer getCellIndex() {
+        return cellIndex;
     }
 
-    public void setErrorIndex(Integer errorIndex) {
-        this.errorIndex = errorIndex;
+    public void setCellIndex(Integer cellIndex) {
+        this.cellIndex = cellIndex;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
+
+    public TableRowStyleClass getCellStyle() {
+        return cellStyle;
+    }
+
+    public void setCellStyle(TableRowStyleClass cellStyle) {
+        this.cellStyle = cellStyle;
+    }
+
+    public void setCellStyle(int id, TableRowStyleClass cellStyle) {
+        this.cellIndex = id;
+        this.cellStyle = cellStyle;
+    }
+    //endregion
 }

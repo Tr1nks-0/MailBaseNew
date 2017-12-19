@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentModel implements MyModel {
-    List<StudentEntityWrapper> studentList = new ArrayList<>();
+    private List<StudentEntityWrapper> studentList = new ArrayList<>();
+    private String action;
 
     public StudentModel(List<StudentEntityWrapper> studentList) {
         this.studentList = studentList;
@@ -22,5 +23,13 @@ public class StudentModel implements MyModel {
 
     public void setStudentList(List<StudentEntityWrapper> studentList) {
         this.studentList = studentList;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 }

@@ -25,7 +25,7 @@ input[type="checkbox"] {
         <!--The shortest way is using '?' operator. If you have User entity with embedded Address entity in order to access fields of Address entity and print them if address is not null, otherwise here will be an empty column:-->
         <!--<td th:text="${user?.address?.city}"></td>-->
         <!--/*@thymesVar id="studentModel" type="com.tr1nksgroup.model.models.person.student.StudentModel"*/-->
-        <form th:action="@{student/test}" th:object="${studentModel}" method="post">
+        <form th:action="@{/c/student/test}" th:object="${studentModel}" method="post">
             <button type="submit" class="btn btn-success">subm</button>
             <table class="table table-hover table-condensed">
                 <thead>
@@ -34,8 +34,6 @@ input[type="checkbox"] {
                     <td></td>
                 </tr>
                 <tr>
-                    <!--th:classappend="${false}? danger:default"-->
-
                     <td>
                         <input type="checkbox" class="form-control input-sm" title="выделить/снять выделение всех">
                     </td>
@@ -57,13 +55,17 @@ input[type="checkbox"] {
                 <!--th:class="${T(com.tr1nksgroup.model.models.enums.person.TableRowStyleClass).DANGER.toStyleClass()}"-->
                 <tr th:each="studentEntityWrapper,studentEntityWrapperIter:*{studentList}">
                     <!--th:class="${T(com.tr1nksgroup.model.models.enums.person.TableRowStyleClass).DANGER.toStyleClass()}"-->
-                    <td><input type="checkbox" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].checked}"></td>
+                    <td><input type="checkbox" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].checked}">
+                        <input readonly type="hidden" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.initPassword}">
+                        <input readonly type="hidden" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.id}">
+                    </td>
                     <!--<td><input type="checkbox" th:field="*{studentList[__${studentEntityWrapperIter.index}__].checked}"></td>-->
                     <td><span class="form-control input-sm" th:text="${studentEntityWrapperIter.count}"></span></td>
                     <!--<input readonly th:class="'editingInput_'+${studentItem.id}+' '+'form-control'" th:field="*{students[__${iter.index}__].patronymic}">-->
                     <!--th:class="${T(com.tr1nksgroup.model.models.enums.person.TableRowStyleClass).DANGER.toStyleClass()}"-->
                     <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.surname}"></td>
-                    <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.name}"></td>
+                    <td th:classappend="${2==__${studentEntityWrapper.cellIndex}__}?__${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__">
+                        <input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.name}"></td>
                     <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.patronymic}"></td>
                     <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.group}"></td>
                     <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.code}"></td>

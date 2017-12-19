@@ -28,7 +28,9 @@ public class StudentController implements CommonController {
 
     @PostMapping(path = "test")
     public String post(Model model, @ModelAttribute StudentModel studentModel) {
-        studentModel.getStudentList().get(0).setRowStyle(TableRowStyleClass.DANGER);
+//        StudentModel studentModelw = studentEngine.getTest();
+        studentModel.getStudentList().get(0).setRowStyle(TableRowStyleClass.WARNING);
+        studentModel.getStudentList().get(0).setCellStyle(2,TableRowStyleClass.DANGER);
         model.addAttribute("studentModel", studentModel);//it is replace, don't needed, now for debug placed
         return VIEW_NAME;
     }
