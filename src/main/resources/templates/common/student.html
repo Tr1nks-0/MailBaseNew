@@ -63,18 +63,46 @@ input[type="checkbox"] {
                     <td><span class="form-control input-sm" th:text="${studentEntityWrapperIter.count}"></span></td>
                     <!--<input readonly th:class="'editingInput_'+${studentItem.id}+' '+'form-control'" th:field="*{students[__${iter.index}__].patronymic}">-->
                     <!--th:class="${T(com.tr1nksgroup.model.models.enums.person.TableRowStyleClass).DANGER.toStyleClass()}"-->
-                    <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.surname}"></td>
-                    <td th:classappend="${2==__${studentEntityWrapper.cellIndex}__}?__${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__">
+                    <td th:classappend="${1==__${studentEntityWrapper.cellIndex}__}?
+                    __${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__"
+                        th:title="${1==__${studentEntityWrapper.cellIndex}__}?
+                        ${studentEntityWrapper.message}:null">
+                        <input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.surname}"></td>
+                    <td th:classappend="${2==__${studentEntityWrapper.cellIndex}__}?
+                    __${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__"
+                        th:title="${2==__${studentEntityWrapper.cellIndex}__}?
+                        ${studentEntityWrapper.message}:null">
                         <input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.name}"></td>
-                    <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.patronymic}"></td>
-                    <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.group}"></td>
-                    <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.code}"></td>
-                    <td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.login}"></td>
+                    <td th:classappend="${3==__${studentEntityWrapper.cellIndex}__}?
+                    __${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__"
+                        th:title="${3==__${studentEntityWrapper.cellIndex}__}?
+                        ${studentEntityWrapper.message}:null"><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.patronymic}"></td>
+                    <td th:classappend="${4==__${studentEntityWrapper.cellIndex}__}?
+                    __${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__"
+                        th:title="${4==__${studentEntityWrapper.cellIndex}__}?
+                        ${studentEntityWrapper.message}:null"><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.group}"></td>
+                    <td th:classappend="${5==__${studentEntityWrapper.cellIndex}__}?
+                    __${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__"
+                        th:title="${5==__${studentEntityWrapper.cellIndex}__}?
+                        ${studentEntityWrapper.message}:null"><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.code}"></td>
+                    <td th:classappend="${6==__${studentEntityWrapper.cellIndex}__}?
+                    __${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__"
+                        th:title="${6==__${studentEntityWrapper.cellIndex}__}?
+                        ${studentEntityWrapper.message}:null"><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.login}"></td>
                     <!--<td><input readonly type="text" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.initPassword}"></td>-->
-                    <td><input readonly type="checkbox" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.budget}"></td>
-                    <td><input readonly type="checkbox" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.imagine}">
+                    <td th:classappend="${7==__${studentEntityWrapper.cellIndex}__}?
+                    __${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__"
+                        th:title="${7==__${studentEntityWrapper.cellIndex}__}?
+                        ${studentEntityWrapper.message}:null"><input readonly type="checkbox" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.budget}"></td>
+                    <td th:classappend="${8==__${studentEntityWrapper.cellIndex}__}?
+                    __${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__"
+                        th:title="${8==__${studentEntityWrapper.cellIndex}__}?
+                        ${studentEntityWrapper.message}:null"><input readonly type="checkbox" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.imagine}">
                     </td>
-                    <td><input readonly type="checkbox" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.office}"></td>
+                    <td th:classappend="${9==__${studentEntityWrapper.cellIndex}__}?
+                    __${studentEntityWrapper.cellStyle.toStyleClass()}__:__${studentEntityWrapper.rowStyle.toStyleClass()}__"
+                        th:title="${9==__${studentEntityWrapper.cellIndex}__}?
+                        ${studentEntityWrapper.message}:null"><input readonly type="checkbox" class="form-control input-sm" th:field="*{studentList[__${studentEntityWrapperIter.index}__].studentEntity.office}"></td>
                 </tr>
                 </tbody>
             </table>

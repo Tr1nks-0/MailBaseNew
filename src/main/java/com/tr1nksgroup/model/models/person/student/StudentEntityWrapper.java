@@ -75,13 +75,19 @@ public class StudentEntityWrapper {
         return cellStyle;
     }
 
-    public void setCellStyle(TableRowStyleClass cellStyle) {
+    public void setCellMessageAndStyle(TableRowStyleClass cellStyle) {
         this.cellStyle = cellStyle;
     }
 
-    public void setCellStyle(int id, TableRowStyleClass cellStyle) {
-        this.cellIndex = id;
+    public void setCellMessageAndStyle(int cellIndex, String message, TableRowStyleClass cellStyle) {
+        this.cellIndex = cellIndex;
+        this.message = message;
         this.cellStyle = cellStyle;
+    }
+
+    public void setCellMessageAndStyleAndRowStyle(int cellIndex, String message, TableRowStyleClass cellStyle, TableRowStyleClass rowStyle) {
+        this.setCellMessageAndStyle(cellIndex, message, cellStyle);
+        this.rowStyle = rowStyle;
     }
     //endregion
 }
