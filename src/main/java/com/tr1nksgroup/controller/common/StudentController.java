@@ -1,7 +1,6 @@
 package com.tr1nksgroup.controller.common;
 
 import com.tr1nksgroup.model.engines.StudentEngine;
-import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 import com.tr1nksgroup.model.models.person.student.StudentModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,14 +25,23 @@ public class StudentController implements CommonController {
         return VIEW_NAME;
     }
 
+//    @GetMapping(path = "upload")
+//    public String getUpload(Model model, @ModelAttribute("studentModel") StudentModel studentModel) {
+//        return VIEW_NAME;
+//    }
+
     @PostMapping(path = "test")
-    public String post(Model model, @ModelAttribute StudentModel studentModel) {
+    public String post(Model model, @ModelAttribute("studentModel") StudentModel studentModel) {
+
 //        StudentModel studentModelw = studentEngine.getTest();
-        studentModel.getStudentList().get(0).setRowStyle(TableRowStyleClass.WARNING);
-        studentModel.setShowHiddenColumns(true);
-        studentModel.getStudentList().get(0).setCellMessageAndStyle(2,"message test", TableRowStyleClass.DANGER);
-        studentModel.getStudentList().get(1).setCellMessageAndStyleAndRowStyle(4,"message test2222", TableRowStyleClass.ACTIVE,TableRowStyleClass.SUCCESS);
+//        studentModel.getStudentList().get(0).setRowStyle(TableRowStyleClass.WARNING);
+//        studentModel.setShowHiddenColumns(true);
+//        studentModel.getStudentList().get(0).setCellMessageAndStyle(TableColumnIndexes.NAME, "message test", TableRowStyleClass.DANGER);
+//        studentModel.getStudentList().get(1).setCellMessageAndStyleAndRowStyle(TableColumnIndexes.GROUP_OR_CATHEDRA, "message test2222", TableRowStyleClass.ACTIVE, TableRowStyleClass.SUCCESS);
+
+//        if(!model.containsAttribute("studentModel")){
 //        model.addAttribute("studentModel", studentModel);//it is replace, don't needed, now for debug placed
+//    }
         return VIEW_NAME;
     }
 }

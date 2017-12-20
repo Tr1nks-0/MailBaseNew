@@ -1,10 +1,14 @@
 package com.tr1nksgroup.model.engines;
 
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
-import com.tr1nksgroup.model.entities.*;
+import com.tr1nksgroup.model.entities.GroupEntity;
+import com.tr1nksgroup.model.entities.StudentEntity;
 import com.tr1nksgroup.model.models.MyModel;
+import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
+import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 import com.tr1nksgroup.model.models.enums.upload.PersonEnum;
 import com.tr1nksgroup.model.models.enums.upload.UploadFileMaskEnum;
+import com.tr1nksgroup.model.models.person.student.StudentEntityWrapper;
 import com.tr1nksgroup.model.models.person.student.StudentModel;
 import com.tr1nksgroup.model.models.person.teacher.TeacherModel;
 import com.tr1nksgroup.model.models.upload.UploadModel;
@@ -118,8 +122,7 @@ public class UploadEngine {
      * @throws IOException ошибки чтения reader-ом
      */
     private StudentModel parseStudents(BufferedReader reader, String delimiter, UploadFileMaskEnum[] mask) throws IOException {
-        List<StudentEntity> students = new ArrayList<>();
-        List<Long> ids = new ArrayList<>();
+        List<StudentEntityWrapper> wrappers = new ArrayList<>();
         String buf;
         while ((buf = reader.readLine()) != null) {
             if (buf.toLowerCase().contains("имя") || buf.toLowerCase().contains("name")) {
@@ -147,17 +150,19 @@ public class UploadEngine {
                 groupService.save(groupEntity);
             }
             StudentEntity student = new StudentEntity(arr[0], arr[1], arr[2], arr[3], groupEntity, loginPasswordUtil.createLogin(arr[0], arr[1]), loginPasswordUtil.generatePassword(8), parseTrueFlag(arr[5]));
+            StudentEntityWrapper wrapper = new StudentEntityWrapper();
             if (studentService.testCode(arr[3])) {
                 student = studentService.save(student);
-                ids.add(student.getId());
+                wrapper.setStudentEntity(student);
+                wrapper.setRowStyle(TableRowStyleClass.SUCCESS);
             } else {
+                wrapper.setStudentEntity(student);
+                wrapper.setCellMessageAndStyleAndRowStyle(TableColumnIndexes.CODE, "ERROR ЕДБО", TableRowStyleClass.DANGER, TableRowStyleClass.WARNING);
                 //error
             }
-            students.add(student);
+            wrappers.add(wrapper);
         }
-        StudentModel studentModel = new StudentModel();
-//        studentModel.setStudentList(students);
-        return studentModel;
+        return new StudentModel(wrappers);
     }
 
     /**

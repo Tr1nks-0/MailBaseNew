@@ -2,6 +2,7 @@ package com.tr1nksgroup.controller.common;
 
 import com.tr1nksgroup.model.engines.UploadEngine;
 import com.tr1nksgroup.model.models.MyModel;
+import com.tr1nksgroup.model.models.person.student.StudentModel;
 import com.tr1nksgroup.model.models.upload.UploadModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,9 @@ public class UploadController implements CommonController {
     private static final String STUDENT_SAMPLE_STR = "Фамилия;Имя;Отчество;Код;Группа;Бюджет\nИванов;Иван;Иванович;co32432de;6.04.51.1.17.1;true";
     private static final String TEACHER_SAMPLE_STR = "Фамилия;Имя;Отчество;Код;Кафедра;Ставка\nПетров;Петр;Петрович;co98765de;ИС;1,5";
     @Resource
-    UploadEngine uploadEngine;
+   private UploadEngine uploadEngine;
+    @Resource
+   private StudentController studentController;
 
     @GetMapping
     public String get() {
@@ -87,22 +90,22 @@ public class UploadController implements CommonController {
      * @return имя представления на которое будет перенамправлене и данные страницы этого представления
      */
     @PostMapping(path = "process")
-    public ModelAndView postProcess(@ModelAttribute(MODEL_NAME) UploadModel uploadModel, Principal principal, Model model) {
+    public String postProcess(@ModelAttribute(MODEL_NAME) UploadModel uploadModel, Principal principal, Model model) {
 //        model.addAttribute("name1","val1");
 //        model.addAttribute(MODEL_NAME,engine.get());
 //        return VIEW_NAME;
-        MyModel pd = uploadEngine.parseFromFile(uploadModel);
+        MyModel parsedModel = uploadEngine.parseFromFile(uploadModel);
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(principal.getName().getClass().getName());
-//        if (pd instanceof StudentModel) {
-//            return studentController.post((StudentPageData) pd);
-//            return new ModelAndView("/students", "studentsPD", pd);
-//        } else if (pd instanceof TeacherPageData) {
-//            return new ModelAndView("/teachers", "teachersPD", pd);//fixme
-//        } else {
-//            return new ModelAndView("/error", "", null);//fixme error here
-//        }
-//    }
-        return null;
+        if (parsedModel instanceof StudentModel) {
+            model.addAttribute("studentModel", parsedModel);
+//            return new ModelAndView(REDIRECT+"/c/student/upload");
+            return studentController.post(model,((StudentModel) parsedModel));
+//            return new ModelAndView("/students", "studentsPD", parseFromFile);
+//        } else if (parseFromFile instanceof TeacherPageData) {
+//            return new ModelAndView("/teachers", "teachersPD", parseFromFile);//fixme
+        } else {
+            return "/error";//fixme error here
+        }
     }
 }

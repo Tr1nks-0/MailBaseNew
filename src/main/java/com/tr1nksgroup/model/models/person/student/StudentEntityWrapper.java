@@ -1,6 +1,7 @@
 package com.tr1nksgroup.model.models.person.student;
 
 import com.tr1nksgroup.model.entities.StudentEntity;
+import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
 import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 
 public class StudentEntityWrapper {
@@ -75,17 +76,17 @@ public class StudentEntityWrapper {
         return cellStyle;
     }
 
-    public void setCellMessageAndStyle(TableRowStyleClass cellStyle) {
+    public void setCellStyle(TableRowStyleClass cellStyle) {
         this.cellStyle = cellStyle;
     }
 
-    public void setCellMessageAndStyle(int cellIndex, String message, TableRowStyleClass cellStyle) {
-        this.cellIndex = cellIndex;
+    public void setCellMessageAndStyle(TableColumnIndexes cellIndex, String message, TableRowStyleClass cellStyle) {
+        this.cellIndex = cellIndex.index;
         this.message = message;
         this.cellStyle = cellStyle;
     }
 
-    public void setCellMessageAndStyleAndRowStyle(int cellIndex, String message, TableRowStyleClass cellStyle, TableRowStyleClass rowStyle) {
+    public void setCellMessageAndStyleAndRowStyle(TableColumnIndexes cellIndex, String message, TableRowStyleClass cellStyle, TableRowStyleClass rowStyle) {
         this.setCellMessageAndStyle(cellIndex, message, cellStyle);
         this.rowStyle = rowStyle;
     }
