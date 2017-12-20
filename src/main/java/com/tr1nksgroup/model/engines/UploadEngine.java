@@ -20,9 +20,7 @@ import javax.annotation.Resource;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Pattern;
 
 @Component
@@ -122,7 +120,7 @@ public class UploadEngine {
      * @throws IOException ошибки чтения reader-ом
      */
     private StudentModel parseStudents(BufferedReader reader, String delimiter, UploadFileMaskEnum[] mask) throws IOException {
-        List<StudentEntityWrapper> wrappers = new ArrayList<>();
+        StudentModel studentModel = new StudentModel();
         String buf;
         while ((buf = reader.readLine()) != null) {
             if (buf.toLowerCase().contains("имя") || buf.toLowerCase().contains("name")) {
@@ -157,12 +155,14 @@ public class UploadEngine {
                 wrapper.setRowStyle(TableRowStyleClass.SUCCESS);
             } else {
                 wrapper.setStudentEntity(student);
+                wrapper.setChecked(true);
+                wrapper.setReadonly(false);
                 wrapper.setCellMessageAndStyleAndRowStyle(TableColumnIndexes.CODE, "ERROR ЕДБО", TableRowStyleClass.DANGER, TableRowStyleClass.WARNING);
-                //error
+                studentModel.setShowHiddenColumns(true);
             }
-            wrappers.add(wrapper);
+            studentModel.getStudentEntityWrappers().add(wrapper);
         }
-        return new StudentModel(wrappers);
+        return studentModel;
     }
 
     /**

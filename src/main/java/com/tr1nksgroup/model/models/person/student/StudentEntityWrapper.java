@@ -6,6 +6,7 @@ import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 
 public class StudentEntityWrapper {
     private Boolean checked = false;
+    private Boolean readonly = true;
     private StudentEntity studentEntity;
     private TableRowStyleClass rowStyle = TableRowStyleClass.DEFAULT;
     private Integer cellIndex;
@@ -38,6 +39,14 @@ public class StudentEntityWrapper {
 
     public void setChecked(Boolean checked) {
         this.checked = checked;
+    }
+
+    public Boolean getReadonly() {
+        return readonly;
+    }
+
+    public void setReadonly(Boolean readonly) {
+        this.readonly = readonly;
     }
 
     public StudentEntity getStudentEntity() {

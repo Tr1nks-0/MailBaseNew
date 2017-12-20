@@ -20,24 +20,40 @@ public class StudentController implements CommonController {
 
     @GetMapping
     public String get(Model model) {
-        StudentModel studentModel = studentEngine.getTest();
+        StudentModel studentModel = studentEngine.getTest();//fixme
         model.addAttribute("studentModel", studentModel);
         return VIEW_NAME;
     }
 
-//    @GetMapping(path = "upload")
-//    public String getUpload(Model model, @ModelAttribute("studentModel") StudentModel studentModel) {
-//        return VIEW_NAME;
-//    }
 
-    @PostMapping(path = "test")
+    @PostMapping(path = "postUploadErrors")
+    public String postUploadErrors(Model model, @ModelAttribute("studentModel") StudentModel studentModel) {
+        if (null == studentModel.getAction()) {
+            studentModel.setAction("errorEdit");
+        }
+        switch (studentModel.getAction()) {
+            case "errorEditSubmit": {
+                //todo re parse and see on result
+                model.addAttribute("formAction", "/c/student");
+                break;
+            }
+            default: {
+                //here remap on this controller, no ad any messages or flags
+                model.addAttribute("formAction", "/c/student/postUploadErrors");
+                break;
+            }
+        }
+        return VIEW_NAME;
+    }
+
+    @PostMapping
     public String post(Model model, @ModelAttribute("studentModel") StudentModel studentModel) {
 
 //        StudentModel studentModelw = studentEngine.getTest();
-//        studentModel.getStudentList().get(0).setRowStyle(TableRowStyleClass.WARNING);
+//        studentModel.getStudentEntityWrappers().get(0).setRowStyle(TableRowStyleClass.WARNING);
 //        studentModel.setShowHiddenColumns(true);
-//        studentModel.getStudentList().get(0).setCellMessageAndStyle(TableColumnIndexes.NAME, "message test", TableRowStyleClass.DANGER);
-//        studentModel.getStudentList().get(1).setCellMessageAndStyleAndRowStyle(TableColumnIndexes.GROUP_OR_CATHEDRA, "message test2222", TableRowStyleClass.ACTIVE, TableRowStyleClass.SUCCESS);
+//        studentModel.getStudentEntityWrappers().get(0).setCellMessageAndStyle(TableColumnIndexes.NAME, "message test", TableRowStyleClass.DANGER);
+//        studentModel.getStudentEntityWrappers().get(1).setCellMessageAndStyleAndRowStyle(TableColumnIndexes.GROUP_OR_CATHEDRA, "message test2222", TableRowStyleClass.ACTIVE, TableRowStyleClass.SUCCESS);
 
 //        if(!model.containsAttribute("studentModel")){
 //        model.addAttribute("studentModel", studentModel);//it is replace, don't needed, now for debug placed

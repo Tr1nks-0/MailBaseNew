@@ -24,9 +24,9 @@ public class UploadController implements CommonController {
     private static final String STUDENT_SAMPLE_STR = "Фамилия;Имя;Отчество;Код;Группа;Бюджет\nИванов;Иван;Иванович;co32432de;6.04.51.1.17.1;true";
     private static final String TEACHER_SAMPLE_STR = "Фамилия;Имя;Отчество;Код;Кафедра;Ставка\nПетров;Петр;Петрович;co98765de;ИС;1,5";
     @Resource
-   private UploadEngine uploadEngine;
+    private UploadEngine uploadEngine;
     @Resource
-   private StudentController studentController;
+    private StudentController studentController;
 
     @GetMapping
     public String get() {
@@ -91,21 +91,18 @@ public class UploadController implements CommonController {
      */
     @PostMapping(path = "process")
     public String postProcess(@ModelAttribute(MODEL_NAME) UploadModel uploadModel, Principal principal, Model model) {
-//        model.addAttribute("name1","val1");
-//        model.addAttribute(MODEL_NAME,engine.get());
-//        return VIEW_NAME;
         MyModel parsedModel = uploadEngine.parseFromFile(uploadModel);
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal.getName().getClass().getName());
+//        System.out.println(principal.getName().getClass().getName());
         if (parsedModel instanceof StudentModel) {
             model.addAttribute("studentModel", parsedModel);
-//            return new ModelAndView(REDIRECT+"/c/student/upload");
-            return studentController.post(model,((StudentModel) parsedModel));
-//            return new ModelAndView("/students", "studentsPD", parseFromFile);
-//        } else if (parseFromFile instanceof TeacherPageData) {
-//            return new ModelAndView("/teachers", "teachersPD", parseFromFile);//fixme
+            if (((StudentModel) parsedModel).getShowHiddenColumns()) {
+                return studentController.postUploadErrors(model, ((StudentModel) parsedModel));
+            } else {
+                return studentController.post(model, ((StudentModel) parsedModel));
+            }
         } else {
-            return "/error";//fixme error here
+            return "/error";//fixme error here, teacher should be
         }
     }
 }

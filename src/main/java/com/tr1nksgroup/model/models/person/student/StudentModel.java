@@ -6,24 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentModel implements MyModel {
-    private List<StudentEntityWrapper> studentList = new ArrayList<>();
+    private List<StudentEntityWrapper> studentEntityWrappers = new ArrayList<>();
     private String action;
     private Boolean showHiddenColumns=false;
 
-    public StudentModel(List<StudentEntityWrapper> studentList) {
-        this.studentList = studentList;
+    public StudentModel(List<StudentEntityWrapper> studentEntityWrappers) {
+        this.studentEntityWrappers = studentEntityWrappers;
     }
 
     public StudentModel() {
 
     }
 
-    public List<StudentEntityWrapper> getStudentList() {
-        return studentList;
+    public List<StudentEntityWrapper> getStudentEntityWrappers() {
+        return studentEntityWrappers;
     }
 
-    public void setStudentList(List<StudentEntityWrapper> studentList) {
-        this.studentList = studentList;
+    public void setStudentEntityWrappers(List<StudentEntityWrapper> studentEntityWrappers) {
+        this.studentEntityWrappers = studentEntityWrappers;
     }
 
     public String getAction() {
