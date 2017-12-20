@@ -30,6 +30,7 @@ public class StudentController implements CommonController {
     public String post(Model model, @ModelAttribute StudentModel studentModel) {
 //        StudentModel studentModelw = studentEngine.getTest();
         studentModel.getStudentList().get(0).setRowStyle(TableRowStyleClass.WARNING);
+        studentModel.setShowHiddenColumns(true);
         studentModel.getStudentList().get(0).setCellMessageAndStyle(2,"message test", TableRowStyleClass.DANGER);
         studentModel.getStudentList().get(1).setCellMessageAndStyleAndRowStyle(4,"message test2222", TableRowStyleClass.ACTIVE,TableRowStyleClass.SUCCESS);
 //        model.addAttribute("studentModel", studentModel);//it is replace, don't needed, now for debug placed
