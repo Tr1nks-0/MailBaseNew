@@ -6,6 +6,7 @@ import com.tr1nksgroup.model.services.FacultyService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class FacultyServiceImplementation implements FacultyService {
@@ -28,5 +29,10 @@ public class FacultyServiceImplementation implements FacultyService {
     @Override
     public FacultyEntity save(FacultyEntity facultyEntity) {
         return facultyRepository.saveAndFlush(facultyEntity);
+    }
+
+    @Override
+    public List<FacultyEntity> getAll() {
+        return facultyRepository.findAll();
     }
 }

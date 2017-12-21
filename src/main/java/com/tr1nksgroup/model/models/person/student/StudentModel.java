@@ -6,23 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentModel implements MyModel {
-    private List<StudentEntityWrapper> studentEntityWrappers = new ArrayList<>();
+    private List<StudentEntityTableWrapper> studentEntityTableWrappers = new ArrayList<>();
     private Boolean showHiddenColumns=false;
 
-    public StudentModel(List<StudentEntityWrapper> studentEntityWrappers) {
-        this.studentEntityWrappers = studentEntityWrappers;
+    public StudentModel(List<StudentEntityTableWrapper> studentEntityTableWrappers) {
+        this.studentEntityTableWrappers = studentEntityTableWrappers;
     }
 
     public StudentModel() {
 
     }
 
-    public List<StudentEntityWrapper> getStudentEntityWrappers() {
-        return studentEntityWrappers;
+    public List<StudentEntityTableWrapper> getStudentEntityTableWrappers() {
+        return studentEntityTableWrappers;
     }
 
-    public void setStudentEntityWrappers(List<StudentEntityWrapper> studentEntityWrappers) {
-        this.studentEntityWrappers = studentEntityWrappers;
+    public void setStudentEntityTableWrappers(List<StudentEntityTableWrapper> studentEntityTableWrappers) {
+        this.studentEntityTableWrappers = studentEntityTableWrappers;
     }
 
     public Boolean getShowHiddenColumns() {

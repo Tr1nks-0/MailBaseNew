@@ -4,7 +4,7 @@ import com.tr1nksgroup.model.entities.StudentEntity;
 import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
 import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 
-public class StudentEntityWrapper {
+public class StudentEntityTableWrapper {
     private Boolean checked = false;
     private Boolean readonly = true;
     private StudentEntity studentEntity;
@@ -13,23 +13,23 @@ public class StudentEntityWrapper {
     private TableRowStyleClass cellStyle = TableRowStyleClass.DEFAULT;
     private String message;
 
-    public StudentEntityWrapper(StudentEntity studentEntity, Integer cellIndex, String message, TableRowStyleClass rowStyle, TableRowStyleClass cellStyle) {
+    public StudentEntityTableWrapper(StudentEntity studentEntity, Integer cellIndex, String message, TableRowStyleClass rowStyle, TableRowStyleClass cellStyle) {
         this(studentEntity, rowStyle);
         this.cellIndex = cellIndex;
         this.message = message;
         this.cellStyle = cellStyle;
     }
 
-    public StudentEntityWrapper(StudentEntity studentEntity, TableRowStyleClass rowStyle) {
+    public StudentEntityTableWrapper(StudentEntity studentEntity, TableRowStyleClass rowStyle) {
         this(studentEntity);
         this.rowStyle = rowStyle;
     }
 
-    public StudentEntityWrapper(StudentEntity studentEntity) {
+    public StudentEntityTableWrapper(StudentEntity studentEntity) {
         this.studentEntity = studentEntity;
     }
 
-    public StudentEntityWrapper() {
+    public StudentEntityTableWrapper() {
     }
 
     //region get-set

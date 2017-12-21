@@ -8,7 +8,7 @@ import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
 import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 import com.tr1nksgroup.model.models.enums.upload.PersonEnum;
 import com.tr1nksgroup.model.models.enums.upload.UploadFileMaskEnum;
-import com.tr1nksgroup.model.models.person.student.StudentEntityWrapper;
+import com.tr1nksgroup.model.models.person.student.StudentEntityTableWrapper;
 import com.tr1nksgroup.model.models.person.student.StudentModel;
 import com.tr1nksgroup.model.models.person.teacher.TeacherModel;
 import com.tr1nksgroup.model.models.upload.UploadModel;
@@ -148,7 +148,7 @@ public class UploadEngine {
                 groupService.save(groupEntity);
             }
             StudentEntity student = new StudentEntity(arr[0], arr[1], arr[2], arr[3], groupEntity, loginPasswordUtil.createLogin(arr[0], arr[1]), loginPasswordUtil.generatePassword(8), parseTrueFlag(arr[5]));
-            StudentEntityWrapper wrapper = new StudentEntityWrapper();
+            StudentEntityTableWrapper wrapper = new StudentEntityTableWrapper();
             if (studentService.testCode(arr[3])) {
                 student = studentService.save(student);
                 wrapper.setStudentEntity(student);
@@ -160,7 +160,7 @@ public class UploadEngine {
                 wrapper.setCellMessageAndStyleAndRowStyle(TableColumnIndexes.CODE, "Такой код ЕДБО уже есть в Базе Данных", TableRowStyleClass.DANGER, TableRowStyleClass.WARNING);
                 studentModel.setShowHiddenColumns(true);
             }
-            studentModel.getStudentEntityWrappers().add(wrapper);
+            studentModel.getStudentEntityTableWrappers().add(wrapper);
         }
         return studentModel;
     }

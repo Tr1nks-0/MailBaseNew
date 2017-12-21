@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="../../../static/theme/css/bootstrap.css"><!--debug-->
+</head>
+<!--/*@thymesVar id="studentFilterModel" type="com.tr1nksgroup.model.models.filters.FilterModel"*/-->
+<form action="#" th:object="${studentFilterModel}">
+    <div th:fragment="dropdownFilter(filterPair,id)">
+        <!--/*@thymesVar id="filterPair" type="com.tr1nksgroup.model.models.filters.FilterPair"*/-->
+        <h4 th:text="${filterPair.title}">Filter title</h4>
+        <div class="dropdown">
+            <div class="dropdown-toggle panel panel-primary" data-toggle="dropdown" th:id="'dropdown-filter-'+${id}" aria-expanded="false" href="#">
+                <div class="panel-heading">
+                    <span class="caret"></span>
+                </div>
+            </div>
+            <div class="dropdown-menu panel-body" th:attr="aria-labelledby='dropdown-filter-'+${id}">
+                <!--/*@thymesVar id="filterItem" type="com.tr1nksgroup.model.models.filters.FilterItem"*/-->
+                <div th:each="filterItem,filterItemIter:${filterPair.itemsList}" class="dropdown-item " th:attr="aria-labelledby='dropdown-filter-'+${id}"
+                     th:id="'dropdown-filter-'+${id}+'-item-'+${filterItemIter.index}">
+                    <!--/*@thymesVar id="item" type="com.tr1nksgroup.model.models.filters.FilterItem"*/-->
+                    <input readonly hidden type="hidden" class="d-none"
+                           th:field="*{filterPairsList[__${id}__].itemsList[__${filterItemIter.index}__].id}">
+
+                    <input type="checkbox" class="form-control col-lg-1 col-md-1 col-sm-1"
+                           th:field="*{filterPairsList[__${id}__].itemsList[__${filterItemIter.index}__].checked}"
+                           th:id="'dropdown-filter-'+${id}+'-item-checked-'+${filterItemIter.index}">
+
+                    <input readonly hidden type="hidden" class="d-none" th:id="'dropdown-filter-'+${id}+'-item-abbr-'+${filterItemIter.index}"
+                           th:field="*{filterPairsList[__${id}__].itemsList[__${filterItemIter.index}__].abbr}">
+
+                    <input readonly hidden type="hidden" class="d-none"
+                           th:field="*{filterPairsList[__${id}__].itemsList[__${filterItemIter.index}__].name}">
+                    <label class="col-lg-11 col-md-11 col-sm-11"
+                           th:for="'dropdown-filter-'+${id}+'-item-checked-'+${filterItemIter.index}" th:text="${filterItem.name}"> </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Фильтры всей модели фильтров-->
+    <div th:fragment="filtersDiv(filterModel)">
+        <!--/*@thymesVar id="filterModel" type="com.tr1nksgroup.model.models.filters.FilterModel"*/-->
+        <div th:each="filterPair,filterPairIter:${filterModel.filterPairsList}" th:class="'col-lg-2 col-md-3 col-sm-4 col-xs-6'">
+            <!--/*@thymesVar id="filterPair" type="com.tr1nksgroup.model.models.filters.FilterPair"*/-->
+            <div th:replace="includes/components/filter :: dropdownFilter(${filterPair},${filterPairIter.index})"></div>
+        </div>
+    </div>
+</form>
+</html>

@@ -6,10 +6,14 @@
 </head>
 <style th:replace="/includes/service/cssIncludes :: inputStyle"></style>
 <body>
-<header th:include="includes/components/header::headerStandart"></header>
+<header th:include="/includes/components/header :: headerStandart"></header>
 <div>
     <div id="filter-div" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
+        <!--/*@thymesVar id="studentFilterModel" type="com.tr1nksgroup.model.models.filters.FilterModel"*/-->
+        <form th:action="@{/c/student/filter}" th:object="${studentFilterModel}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" method="post">
+            <div th:replace="/includes/components/filter :: filtersDiv(${studentFilterModel})"></div>
+            <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Фильтровать</button>
+        </form>
     </div>
     <br>
     <hr>
@@ -46,111 +50,111 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="studentEntityWrapper,studentEntityWrapperIter:*{studentEntityWrappers}">
+                    <tr th:each="studentEntityTableWrapper,studentEntityWrapperIter:*{studentEntityTableWrappers}">
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).NUM.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
-                        <input type="checkbox" class="form-control input-sm" th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].checked}">
-                        <input hidden readonly type="hidden" class="d-none" th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.id}">
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
+                        <input type="checkbox" class="form-control input-sm" th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].checked}">
+                        <input hidden readonly type="hidden" class="d-none" th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.id}">
                         </td>
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).NUM.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
                         <span class="form-control input-sm" th:text="${studentEntityWrapperIter.count}"></span></td>
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).SURNAME.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
-                        <input th:readonly="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
-                               th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.surname}"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
+                        <input th:readonly="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.surname}"></td>
 
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).NAME.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
-                        <input th:readonly="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
-                               th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.name}"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
+                        <input th:readonly="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.name}"></td>
 
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).PATRONYMIC.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
-                        <input th:readonly="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
-                               th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.patronymic}"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
+                        <input th:readonly="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.patronymic}"></td>
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).GROUP_OR_CATHEDRA.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
-                        <input th:readonly="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
-                               th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.group}"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
+                        <input th:readonly="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.group}"></td>
 
                         <th:block th:if="*{showHiddenColumns}">
                             <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).CODE.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
-                            <input th:readonly="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
-                                   th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.code}"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
+                            <input th:readonly="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
+                                   th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.code}"></td>
                         </th:block>
                         <th:block th:unless="*{showHiddenColumns}">
                             <input readonly hidden type="hidden" class="d-none"
-                                   th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.code}">
+                                   th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.code}">
                         </th:block>
 
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).LOGIN.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
-                        <input th:readonly="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
-                               th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.login}"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
+                        <input th:readonly="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.login}"></td>
 
                         <th:block th:if="*{showHiddenColumns}">
                             <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).INIT_PASSW.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
-                            <input th:readonly="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
-                                   th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.initPassword}"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
+                            <input th:readonly="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
+                                   th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.initPassword}"></td>
                         </th:block>
                         <th:block th:unless="*{showHiddenColumns}">
                             <input readonly hidden type="hidden" class="d-none"
-                                   th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.initPassword}">
+                                   th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.initPassword}">
                         </th:block>
 
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).BUDGET_OR_RATE.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
                         <input readonly type="checkbox" class="form-control input-sm"
-                               th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.budget}"></td>
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.budget}"></td>
 
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).IMAGINE.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
                         <input readonly type="checkbox" class="form-control input-sm"
-                               th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.imagine}"></td>
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.imagine}"></td>
 
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).OFFICE.index},
-                                                         ${studentEntityWrapper.cellIndex},
-                                                         ${studentEntityWrapper.cellStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.rowStyle.toStyleClass()},
-                                                         ${studentEntityWrapper.message})"></td>
+                                                         ${studentEntityTableWrapper.cellIndex},
+                                                         ${studentEntityTableWrapper.cellStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.rowStyle.toStyleClass()},
+                                                         ${studentEntityTableWrapper.message})"></td>
                         <input readonly type="checkbox" class="form-control input-sm"
-                               th:field="*{studentEntityWrappers[__${studentEntityWrapperIter.index}__].studentEntity.office}"></td>
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.office}"></td>
                     </tr>
                     </tbody>
                 </table>

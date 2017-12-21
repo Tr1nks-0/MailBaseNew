@@ -91,7 +91,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/theme/**").addResourceLocations("classpath:/static/theme/");
         registry.addResourceHandler("css/**").addResourceLocations("classpath:/static/theme/css/");
         registry.addResourceHandler("fonts/**").addResourceLocations("classpath:/static/theme/fonts/");
-        registry.addResourceHandler("js/**").addResourceLocations("classpath:/static/theme/js/");
+        registry.addResourceHandler("js/**").addResourceLocations("classpath:/static/js/");
         registry.addResourceHandler("includes/**").addResourceLocations("classpath:/templates/includes/");
 //        registry.addResourceHandler("css/**").addResourceLocations("classpath:/static/css/");
 //        registry.addResourceHandler("images/**").addResourceLocations("classpath:/static/images/");

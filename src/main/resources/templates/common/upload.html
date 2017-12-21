@@ -35,24 +35,24 @@
                     <label for="codepage">Кодировка файла:</label>
                     <select th:field="*{codepage}" class="form-control" name="codepage" id="codepage">
                         <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.upload.CodePagesEnum).valuesW()}"
-                                th:value="${enumItem}"
-                                th:text="${enumItem.value}"></option>
+                                th:itemsList="${enumItem}"
+                                th:text="${enumItem.itemsList}"></option>
                     </select>
                 </span>
                 <span class="col-lg-3  col-md-3 ">
                     <label for="delimiter">Разделитель полей файла:</label>
                     <select th:field="*{delimiter}" class="form-control" name="delimiter" id="delimiter">
                         <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.upload.DelimiterEnum).valuesW()}"
-                                th:value="${enumItem}"
-                                th:text="${enumItem.value}"></option>
+                                th:itemsList="${enumItem}"
+                                th:text="${enumItem.itemsList}"></option>
                     </select>
                 </span>
                 <span class="col-lg-3  col-md-3 ">
                     <label for="person">Файл содержит данные для:</label>
                     <select th:field="*{person}" class="form-control" name="person" id="person">
                          <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.upload.PersonEnum).valuesW()}"
-                                 th:value="${enumItem}"
-                                 th:text="${enumItem.value}"></option>
+                                 th:itemsList="${enumItem}"
+                                 th:text="${enumItem.itemsList}"></option>
                     </select>
                 </span>
             </div>
@@ -78,7 +78,7 @@
                             <label>
                                 <select th:field="*{mask[__${maskIterator.index}__]}" class="form-control">
                                     <option th:each="enumItem : ${T(com.tr1nksgroup.model.models.enums.upload.UploadFileMaskEnum).valuesW()}"
-                                            th:value="${enumItem}" th:text="${enumItem.value}"></option>
+                                            th:itemsList="${enumItem}" th:text="${enumItem.itemsList}"></option>
                                 </select>
                             </label>
                         </td>

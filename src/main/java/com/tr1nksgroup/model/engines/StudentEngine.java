@@ -1,9 +1,12 @@
 package com.tr1nksgroup.model.engines;
 
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
+import com.tr1nksgroup.model.models.filters.FilterPair;
 import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
 import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
-import com.tr1nksgroup.model.models.person.student.StudentEntityWrapper;
+import com.tr1nksgroup.model.models.filters.FilterItem;
+import com.tr1nksgroup.model.models.filters.FilterModel;
+import com.tr1nksgroup.model.models.person.student.StudentEntityTableWrapper;
 import com.tr1nksgroup.model.models.person.student.StudentModel;
 import com.tr1nksgroup.model.services.*;
 import org.springframework.stereotype.Component;
@@ -32,24 +35,18 @@ public class StudentEngine {
     private LoginPasswordUtil loginPasswordUtil;
 
 
-    public StudentModel getTest() {
-        List<StudentEntityWrapper> list = new ArrayList<>();
-        studentService.getAll().forEach(studentEntity -> list.add(new StudentEntityWrapper(studentEntity)));
-        return new StudentModel(list);
-    }
-
     public boolean uploadRepeat(StudentModel studentModel) {
         final boolean[] f = {true};
-        studentModel.getStudentEntityWrappers().stream().filter(StudentEntityWrapper::getChecked).forEach(studentEntityWrapper -> {
-            if (studentService.testCode(studentEntityWrapper.getStudentEntity().getCode())) {
-                studentEntityWrapper.setStudentEntity(studentService.save(studentEntityWrapper.getStudentEntity()));
-                studentEntityWrapper.setRowStyle(TableRowStyleClass.SUCCESS);
-                studentEntityWrapper.setChecked(false);
-                studentEntityWrapper.setReadonly(true);
+        studentModel.getStudentEntityTableWrappers().stream().filter(StudentEntityTableWrapper::getChecked).forEach(studentEntityTableWrapper -> {
+            if (studentService.testCode(studentEntityTableWrapper.getStudentEntity().getCode())) {
+                studentEntityTableWrapper.setStudentEntity(studentService.save(studentEntityTableWrapper.getStudentEntity()));
+                studentEntityTableWrapper.setRowStyle(TableRowStyleClass.SUCCESS);
+                studentEntityTableWrapper.setChecked(false);
+                studentEntityTableWrapper.setReadonly(true);
             } else {
-                studentEntityWrapper.setChecked(true);
-                studentEntityWrapper.setReadonly(false);
-                studentEntityWrapper.setCellMessageAndStyleAndRowStyle(TableColumnIndexes.CODE, "Такой код ЕДБО уже есть в Базе Данных", TableRowStyleClass.DANGER, TableRowStyleClass.WARNING);
+                studentEntityTableWrapper.setChecked(true);
+                studentEntityTableWrapper.setReadonly(false);
+                studentEntityTableWrapper.setCellMessageAndStyleAndRowStyle(TableColumnIndexes.CODE, "Такой код ЕДБО уже есть в Базе Данных", TableRowStyleClass.DANGER, TableRowStyleClass.WARNING);
                 f[0] = false;
             }
         });
@@ -57,5 +54,19 @@ public class StudentEngine {
             studentModel.setShowHiddenColumns(true);
         }
         return f[0];
+    }
+
+    public FilterModel getFilterModel() {
+        FilterModel model = new FilterModel();
+        List<FilterItem> facultyList = new ArrayList<>();
+        facultyService.getAll().forEach(facultyEntity -> facultyList.add(new FilterItem(facultyEntity.getId(), facultyEntity.getName(), facultyEntity.getAbbr())));
+        model.addFilterListPair(new FilterPair("Факультет", facultyList));
+        return model;
+    }
+
+    public StudentModel getTest() {
+        List<StudentEntityTableWrapper> list = new ArrayList<>();
+        studentService.getAll().forEach(studentEntity -> list.add(new StudentEntityTableWrapper(studentEntity)));
+        return new StudentModel(list);
     }
 }
