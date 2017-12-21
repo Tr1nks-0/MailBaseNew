@@ -157,7 +157,7 @@ public class UploadEngine {
                 wrapper.setStudentEntity(student);
                 wrapper.setChecked(true);
                 wrapper.setReadonly(false);
-                wrapper.setCellMessageAndStyleAndRowStyle(TableColumnIndexes.CODE, "ERROR ЕДБО", TableRowStyleClass.DANGER, TableRowStyleClass.WARNING);
+                wrapper.setCellMessageAndStyleAndRowStyle(TableColumnIndexes.CODE, "Такой код ЕДБО уже есть в Базе Данных", TableRowStyleClass.DANGER, TableRowStyleClass.WARNING);
                 studentModel.setShowHiddenColumns(true);
             }
             studentModel.getStudentEntityWrappers().add(wrapper);

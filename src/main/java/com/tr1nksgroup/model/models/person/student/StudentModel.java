@@ -7,7 +7,6 @@ import java.util.List;
 
 public class StudentModel implements MyModel {
     private List<StudentEntityWrapper> studentEntityWrappers = new ArrayList<>();
-    private String action;
     private Boolean showHiddenColumns=false;
 
     public StudentModel(List<StudentEntityWrapper> studentEntityWrappers) {
@@ -24,14 +23,6 @@ public class StudentModel implements MyModel {
 
     public void setStudentEntityWrappers(List<StudentEntityWrapper> studentEntityWrappers) {
         this.studentEntityWrappers = studentEntityWrappers;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
     }
 
     public Boolean getShowHiddenColumns() {

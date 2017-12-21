@@ -97,9 +97,10 @@ public class UploadController implements CommonController {
         if (parsedModel instanceof StudentModel) {
             model.addAttribute("studentModel", parsedModel);
             if (((StudentModel) parsedModel).getShowHiddenColumns()) {
-                return studentController.postUploadErrors(model, ((StudentModel) parsedModel));
+                model.addAttribute(StudentController.UPLOAD_ERROR_FLAG_MODEL_MANE, true);
+                return "common/student";
             } else {
-                return studentController.post(model, ((StudentModel) parsedModel));
+                return "common/student";
             }
         } else {
             return "/error";//fixme error here, teacher should be
