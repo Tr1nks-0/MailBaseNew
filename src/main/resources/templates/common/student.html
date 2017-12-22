@@ -11,15 +11,16 @@
     <!--/*@thymesVar id="studentFilterModel" type="com.tr1nksgroup.model.models.filters.FilterModel"*/-->
     <th:block th:if="${studentFilterModel!=null}">
         <div id="filter-div" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <form th:action="@{/c/student/filter}" th:object="${studentFilterModel}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" method="post">
-            <div th:replace="includes/components/filter :: filtersDiv(${studentFilterModel})"></div>
-            <button type="submit" class="btn btn-primary col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">Фильтровать</button>
-        </form>
-    </div>
+            <form th:action="@{/c/student/filter}" th:object="${studentFilterModel}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" method="post">
+                <div th:replace="includes/components/filter :: filtersDiv(${studentFilterModel})"></div>
+                <button type="submit" class="btn btn-primary col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">Фильтровать</button>
+            </form>
+        </div>
     </th:block>
-    <br>
-    <hr>
     <!--/*@thymesVar id="studentModel" type="com.tr1nksgroup.model.models.person.student.StudentModel"*/-->
+    <!--<br>-->
+    <!--<hr >-->
+        <hr class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
     <th:block th:if="${studentModel!=null}">
         <div id="studentTable-table-div" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
             <form action="#" th:object="${studentModel}" method="post">

@@ -5,11 +5,13 @@ import java.util.List;
 
 public class FilterPair implements Serializable {
     private String title;
+    private int id;
     private List<FilterItem> itemsList;
 
-    public FilterPair(String title, List<FilterItem> itemsList) {
+    public FilterPair(String title, int id, List<FilterItem> itemsList) {
         this.title = title;
         this.itemsList = itemsList;
+        this.id = id;
     }
 
     public FilterPair() {
@@ -21,6 +23,14 @@ public class FilterPair implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<FilterItem> getItemsList() {

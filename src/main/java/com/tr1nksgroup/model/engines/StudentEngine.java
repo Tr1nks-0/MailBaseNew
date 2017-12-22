@@ -70,10 +70,24 @@ public class StudentEngine {
             }
         });
 
-        model.addFilterListPair(new FilterPair("Факультет", facultyList));
-        model.addFilterListPair(new FilterPair("Группа", groupList));
-        model.addFilterListPair(new FilterPair("Год поступления", yearList));
+        model.addFilterListPair(new FilterPair("Факультет",0, facultyList));
+        model.addFilterListPair(new FilterPair("Группа",1, groupList));
+        model.addFilterListPair(new FilterPair("Год поступления",2, yearList));
         return model;
+    }
+
+    public StudentModel filter(FilterModel filterModel) {
+        StudentModel model = new StudentModel();
+        filterModel.getFilterPairsList().forEach(filterPair -> {
+            StudentEntityTableWrapper wrapper=new StudentEntityTableWrapper();
+
+
+        });
+        if (model.getStudentEntityTableWrappers().isEmpty()) {
+            return null;
+        } else {
+            return model;
+        }
     }
 
     public StudentModel getTest() {
@@ -81,4 +95,6 @@ public class StudentEngine {
         studentService.getAll().forEach(studentEntity -> list.add(new StudentEntityTableWrapper(studentEntity)));
         return new StudentModel(list);
     }
+
+
 }

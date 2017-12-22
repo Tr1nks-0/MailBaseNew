@@ -7,14 +7,13 @@ import java.util.List;
 
 public class StudentModel implements MyModel {
     private List<StudentEntityTableWrapper> studentEntityTableWrappers = new ArrayList<>();
-    private Boolean showHiddenColumns=false;
+    private boolean showHiddenColumns = false;
 
     public StudentModel(List<StudentEntityTableWrapper> studentEntityTableWrappers) {
         this.studentEntityTableWrappers = studentEntityTableWrappers;
     }
 
     public StudentModel() {
-
     }
 
     public List<StudentEntityTableWrapper> getStudentEntityTableWrappers() {
@@ -25,11 +24,11 @@ public class StudentModel implements MyModel {
         this.studentEntityTableWrappers = studentEntityTableWrappers;
     }
 
-    public Boolean getShowHiddenColumns() {
+    public boolean getShowHiddenColumns() {
         return showHiddenColumns;
     }
 
-    public void setShowHiddenColumns(Boolean showHiddenColumns) {
+    public void setShowHiddenColumns(boolean showHiddenColumns) {
         this.showHiddenColumns = showHiddenColumns;
     }
 }

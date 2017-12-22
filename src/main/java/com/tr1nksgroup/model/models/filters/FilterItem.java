@@ -1,8 +1,8 @@
 package com.tr1nksgroup.model.models.filters;
 
 public class FilterItem {
-    private Long id;
-    private Boolean checked = false;
+    private long id;
+    private boolean checked = false;
     private String name;
     private String abbr;
 
@@ -21,19 +21,19 @@ public class FilterItem {
     public FilterItem() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Boolean getChecked() {
+    public boolean getChecked() {
         return checked;
     }
 
-    public void setChecked(Boolean checked) {
+    public void setChecked(boolean checked) {
         this.checked = checked;
     }
 

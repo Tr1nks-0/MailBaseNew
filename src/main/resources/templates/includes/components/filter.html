@@ -8,6 +8,7 @@
     <div th:fragment="dropdownFilter(filterPair,id)">
         <!--/*@thymesVar id="filterPair" type="com.tr1nksgroup.model.models.filters.FilterPair"*/-->
         <h4 th:text="${filterPair.title}">Filter title</h4>
+        <input readonly hidden type="hidden" class="d-none" th:field="*{filterPairsList[__${id}__].id}">
         <input readonly hidden type="hidden" class="d-none" th:field="*{filterPairsList[__${id}__].title}">
         <div class="dropdown">
             <div class="dropdown-toggle panel panel-primary" data-toggle="dropdown" th:id="'dropdown-filter-'+${id}" aria-expanded="false" href="#">

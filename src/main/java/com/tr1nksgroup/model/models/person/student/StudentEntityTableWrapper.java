@@ -5,15 +5,15 @@ import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
 import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 
 public class StudentEntityTableWrapper {
-    private Boolean checked = false;
-    private Boolean readonly = true;
+    private boolean checked = false;
+    private boolean readonly = true;
     private StudentEntity studentEntity;
     private TableRowStyleClass rowStyle = TableRowStyleClass.DEFAULT;
-    private Integer cellIndex;
+    private int cellIndex;
     private TableRowStyleClass cellStyle = TableRowStyleClass.DEFAULT;
     private String message;
 
-    public StudentEntityTableWrapper(StudentEntity studentEntity, Integer cellIndex, String message, TableRowStyleClass rowStyle, TableRowStyleClass cellStyle) {
+    public StudentEntityTableWrapper(StudentEntity studentEntity, int cellIndex, String message, TableRowStyleClass rowStyle, TableRowStyleClass cellStyle) {
         this(studentEntity, rowStyle);
         this.cellIndex = cellIndex;
         this.message = message;
@@ -33,19 +33,19 @@ public class StudentEntityTableWrapper {
     }
 
     //region get-set
-    public Boolean getChecked() {
+    public boolean getChecked() {
         return checked;
     }
 
-    public void setChecked(Boolean checked) {
+    public void setChecked(boolean checked) {
         this.checked = checked;
     }
 
-    public Boolean getReadonly() {
+    public boolean getReadonly() {
         return readonly;
     }
 
-    public void setReadonly(Boolean readonly) {
+    public void setReadonly(boolean readonly) {
         this.readonly = readonly;
     }
 
@@ -65,11 +65,11 @@ public class StudentEntityTableWrapper {
         this.rowStyle = rowStyle;
     }
 
-    public Integer getCellIndex() {
+    public int getCellIndex() {
         return cellIndex;
     }
 
-    public void setCellIndex(Integer cellIndex) {
+    public void setCellIndex(int cellIndex) {
         this.cellIndex = cellIndex;
     }
 
