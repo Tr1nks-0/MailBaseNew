@@ -38,4 +38,20 @@ public class StudentServiceImplementation implements StudentService {
     public List<StudentEntity> getAll() {
         return studentRepository.findAll();
     }
+
+    @Override
+    public List<StudentEntity> getAllByFacultyIds(List<Long> facultyIds) {
+        return studentRepository.getAllByGroupEntity_FacultyEntityIdIn(facultyIds);
+    }
+
+    @Override
+    public List<StudentEntity> getAllByGroupIds(List<Long> groupIds) {
+        return studentRepository.getAllByGroupEntity_IdIn(groupIds);
+    }
+
+    @Override
+    public List<StudentEntity> getAllByGroupYears(List<Integer> years) {
+        return studentRepository.getAllByGroupEntity_YearIn(years);
+    }
+
 }

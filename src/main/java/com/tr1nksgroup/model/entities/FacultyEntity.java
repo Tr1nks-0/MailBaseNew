@@ -28,12 +28,16 @@ public class FacultyEntity extends AbstrEntity {
     @Basic
     @Column(name = "abbr", unique = true, nullable = false, length = 5)
     private String abbr;
-
     /**
-     * преподаватели кафедры
+     * кафедры факультета
      */
     @OneToMany(mappedBy = "facultyEntity")
     private List<CathedraEntity> cathedraEntities;
+    /**
+     * группы факультета
+     */
+    @OneToMany(mappedBy = "facultyEntity")
+    private List<GroupEntity> groupEntities;
 
     public FacultyEntity(int facultyId, String name, String abbr) {
         this.facultyId = facultyId;
@@ -67,6 +71,14 @@ public class FacultyEntity extends AbstrEntity {
 
     public void setAbbr(String abbr) {
         this.abbr = abbr;
+    }
+
+    public List<GroupEntity> getGroupEntities() {
+        return groupEntities;
+    }
+
+    public void setGroupEntities(List<GroupEntity> groupEntities) {
+        this.groupEntities = groupEntities;
     }
 
     public List<CathedraEntity> getCathedraEntities() {

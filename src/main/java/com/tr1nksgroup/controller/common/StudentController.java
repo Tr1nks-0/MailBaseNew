@@ -21,16 +21,15 @@ public class StudentController implements CommonController {
 
     @GetMapping
     public String get(Model model) {
-        model.addAttribute(STUDENT_MODEL_NAME, studentEngine.getTest());//fixme for debug only
+//        model.addAttribute(STUDENT_MODEL_NAME, studentEngine.getTest());//fixme for debug only
         model.addAttribute(STUDENT_FILTER_MODEL_NAME, studentEngine.getFilterModel());//fixme add all filters
-        model.addAttribute("test", studentEngine.getFilterModel().getFilterPairsList().get(0));//fixme add all filters
         return VIEW_NAME;
     }
 
 
     @PostMapping(path = "filter")
     public String postBudget(Model model, @ModelAttribute(STUDENT_FILTER_MODEL_NAME) FilterModel filterModel) {
-        //todo set rem budget
+        model.addAttribute(STUDENT_MODEL_NAME, studentEngine.filter(filterModel));
         return VIEW_NAME;
     }
 

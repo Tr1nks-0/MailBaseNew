@@ -99,7 +99,7 @@
                                                          ${studentEntityTableWrapper.rowStyle.toStyleClass()},
                                                          ${studentEntityTableWrapper.message})"></td>
                         <input th:readonly="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
-                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.group}"></td>
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.groupEntity}"></td>
 
                         <th:block th:if="*{showHiddenColumns}">
                             <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).CODE.index},

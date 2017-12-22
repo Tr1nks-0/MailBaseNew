@@ -12,4 +12,6 @@ public interface FacultyService {
     FacultyEntity save(FacultyEntity facultyEntity);
 
     List<FacultyEntity> getAll();
+
+    List<FacultyEntity> getAllByIds(List<Long> facultyIds);
 }

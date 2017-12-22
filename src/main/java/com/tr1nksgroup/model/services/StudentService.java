@@ -12,4 +12,10 @@ public interface StudentService {
     StudentEntity save(StudentEntity student);
 
     List<StudentEntity> getAll();
+
+    List<StudentEntity> getAllByFacultyIds(List<Long> facultyIds);
+
+    List<StudentEntity> getAllByGroupIds(List<Long> groupIds);
+
+    List<StudentEntity> getAllByGroupYears(List<Integer> years);
 }

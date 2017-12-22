@@ -35,4 +35,9 @@ public class FacultyServiceImplementation implements FacultyService {
     public List<FacultyEntity> getAll() {
         return facultyRepository.findAll();
     }
+
+    @Override
+    public List<FacultyEntity> getAllByIds(List<Long> facultyIds) {
+        return facultyRepository.getAllByIdIn(facultyIds);
+    }
 }

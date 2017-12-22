@@ -17,5 +17,4 @@ public interface GroupService {
     GroupEntity save(GroupEntity groupEntity);
 
     List<GroupEntity> getAll();
-
 }

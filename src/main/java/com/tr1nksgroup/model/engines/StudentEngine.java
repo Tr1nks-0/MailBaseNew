@@ -1,6 +1,7 @@
 package com.tr1nksgroup.model.engines;
 
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
+import com.tr1nksgroup.model.entities.StudentEntity;
 import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
 import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 import com.tr1nksgroup.model.models.filters.FilterItem;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class StudentEngine {
@@ -70,19 +73,37 @@ public class StudentEngine {
             }
         });
 
-        model.addFilterListPair(new FilterPair("Факультет",0, facultyList));
-        model.addFilterListPair(new FilterPair("Группа",1, groupList));
-        model.addFilterListPair(new FilterPair("Год поступления",2, yearList));
+        model.addFilterListPair(new FilterPair("Факультет", 0, facultyList));
+        model.addFilterListPair(new FilterPair("Группа", 1, groupList));
+        model.addFilterListPair(new FilterPair("Год поступления", 2, yearList));
         return model;
     }
 
     public StudentModel filter(FilterModel filterModel) {
         StudentModel model = new StudentModel();
-        filterModel.getFilterPairsList().forEach(filterPair -> {
-            StudentEntityTableWrapper wrapper=new StudentEntityTableWrapper();
+        List<Long> facultyIds = filterModel.getFilterPairsList().stream()
+                .filter(filterPair -> filterPair.getId() == 0).findFirst().orElse(new FilterPair()).getItemsList().stream()
+                .filter(FilterItem::getChecked).mapToLong(FilterItem::getId).boxed().collect(Collectors.toList());
 
+        List<Long> groupIds = filterModel.getFilterPairsList().stream()
+                .filter(filterPair -> filterPair.getId() == 1).findFirst().orElse(new FilterPair()).getItemsList().stream()
+                .filter(FilterItem::getChecked).mapToLong(FilterItem::getId).boxed().collect(Collectors.toList());
 
-        });
+        List<Integer> years = filterModel.getFilterPairsList().stream()
+                .filter(filterPair -> filterPair.getId() == 2).findFirst().orElse(new FilterPair()).getItemsList().stream()
+                .filter(FilterItem::getChecked).mapToInt(value -> Integer.parseInt(value.getName())).boxed().collect(Collectors.toList());
+
+        HashSet<StudentEntity> students = new HashSet<>();
+        if (!facultyIds.isEmpty()) {
+            students.addAll(studentService.getAllByFacultyIds(facultyIds));
+        }
+        if (!groupIds.isEmpty()) {
+            students.addAll(studentService.getAllByGroupIds(groupIds));
+        }
+        if (!years.isEmpty()) {
+            students.addAll(studentService.getAllByGroupYears(years));
+        }
+        students.forEach(studentEntity -> model.getStudentEntityTableWrappers().add(new StudentEntityTableWrapper(studentEntity)));
         if (model.getStudentEntityTableWrappers().isEmpty()) {
             return null;
         } else {

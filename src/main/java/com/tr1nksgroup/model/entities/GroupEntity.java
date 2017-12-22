@@ -50,7 +50,7 @@ public class GroupEntity extends AbstrEntity {
     /**
      * студенты группы
      */
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "groupEntity")
     private List<StudentEntity> students;
 
     public GroupEntity(StudyLevelEntity studyLevelEntity, FacultyEntity facultyEntity, SpecializationEntity specializationEntity, Integer year, Integer num) {

@@ -14,7 +14,7 @@ public class StudentEntity extends PersonEntity {
     @Basic
     @ManyToOne
     @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false)
-    private GroupEntity group;
+    private GroupEntity groupEntity;
     /**
      * флаг о наличии бюджета
      */
@@ -29,13 +29,13 @@ public class StudentEntity extends PersonEntity {
      * @param name       имя
      * @param patronymic отчество
      * @param code       код
-     * @param group      группа к которой принадлежит студент
+     * @param groupEntity      группа к которой принадлежит студент
      * @param login      логин почты
      * @param passw      начальный пароль почты
      * @param budget     флаг о наличии бюджета
      */
-    public StudentEntity(String surname, String name, String patronymic, String code, GroupEntity group, String login, String passw, boolean budget) {
-        this(surname, name, patronymic, code, group);
+    public StudentEntity(String surname, String name, String patronymic, String code, GroupEntity groupEntity, String login, String passw, boolean budget) {
+        this(surname, name, patronymic, code, groupEntity);
         this.login = login;
         this.initPassword = passw;
         this.budget = budget;
@@ -48,11 +48,11 @@ public class StudentEntity extends PersonEntity {
      * @param name       имя
      * @param patronymic отчество
      * @param code       код
-     * @param group      группа к которой принадлежит студент
+     * @param groupEntity      группа к которой принадлежит студент
      */
-    public StudentEntity(String surname, String name, String patronymic, String code, GroupEntity group) {
+    public StudentEntity(String surname, String name, String patronymic, String code, GroupEntity groupEntity) {
         super(surname, name, patronymic, code);
-        this.group = group;
+        this.groupEntity = groupEntity;
     }
 
     public StudentEntity() {
@@ -60,12 +60,12 @@ public class StudentEntity extends PersonEntity {
     }
 
     //region get-set
-    public GroupEntity getGroup() {
-        return group;
+    public GroupEntity getGroupEntity() {
+        return groupEntity;
     }
 
-    public void setGroup(GroupEntity group) {
-        this.group = group;
+    public void setGroupEntity(GroupEntity groupEntity) {
+        this.groupEntity = groupEntity;
     }
 
     public boolean isBudget() {
