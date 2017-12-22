@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../static/theme/css/bootstrap.css"><!--debug-->
 </head>
-<style th:replace="/includes/service/cssIncludes :: inputStyle"></style>
+<style th:replace="includes/service/cssIncludes :: inputStyle"></style>
 <body>
-<header th:include="/includes/components/header :: headerStandart"></header>
+<header th:include="includes/components/header :: headerStandart"></header>
 <div>
-    <div id="filter-div" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <!--/*@thymesVar id="studentFilterModel" type="com.tr1nksgroup.model.models.filters.FilterModel"*/-->
+    <!--/*@thymesVar id="studentFilterModel" type="com.tr1nksgroup.model.models.filters.FilterModel"*/-->
+    <th:block th:if="${studentFilterModel!=null}">
+        <div id="filter-div" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <form th:action="@{/c/student/filter}" th:object="${studentFilterModel}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" method="post">
-            <div th:replace="/includes/components/filter :: filtersDiv(${studentFilterModel})"></div>
-            <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Фильтровать</button>
+            <div th:replace="includes/components/filter :: filtersDiv(${studentFilterModel})"></div>
+            <button type="submit" class="btn btn-primary col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">Фильтровать</button>
         </form>
     </div>
+    </th:block>
     <br>
     <hr>
     <!--/*@thymesVar id="studentModel" type="com.tr1nksgroup.model.models.person.student.StudentModel"*/-->
@@ -30,7 +32,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="checkbox" class="form-control input-sm" title="выделить/снять выделение всех">
+                            <input type="checkbox" onclick="genSelect(this,'student-table-select-checkbox')" class="form-control input-sm" title="выделить/снять выделение всех">
                         </td>
                         <td><span class="form-control input-sm">№</span></td>
                         <td><span class="form-control input-sm">Фамилия</span></td>
@@ -56,7 +58,9 @@
                                                          ${studentEntityTableWrapper.cellStyle.toStyleClass()},
                                                          ${studentEntityTableWrapper.rowStyle.toStyleClass()},
                                                          ${studentEntityTableWrapper.message})"></td>
-                        <input type="checkbox" class="form-control input-sm" th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].checked}">
+                        <input type="checkbox" class="form-control input-sm student-table-select-checkbox"
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].checked}">
+
                         <input hidden readonly type="hidden" class="d-none" th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.id}">
                         </td>
                         <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).NUM.index},
@@ -160,7 +164,7 @@
                 </table>
                 <!--/*@thymesVar id="uploadError" type="java.lang.Boolean"*/-->
                 <th:block th:if="${uploadError==null||uploadError==false}">
-                    <div id="studentTable-table-buttons-div" class="text-center col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+                    <div id="studentTable-table-buttons-div" class="text-center col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
                         <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <!--<button type="submit" formaction="/sssss">Submit to err</button>-->
                             <button type="submit" formaction="/c/student/budget/set" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Установить бюджет</button>
@@ -173,7 +177,7 @@
                             <button type="submit" formaction="/c/student/office/rem" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Снять Office-365</button>
                         </div>
                         <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button type="submit" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Редактировать</button><!--todo-->
+                            <button type="submit" formaction="/c/student/edit/start" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Редактировать</button>
                             <button type="submit" formaction="/c/student/email" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Отправить e-mail с данными</button>
                             <button type="submit" formaction="/c/student/archives" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Получить архивы</button>
                         </div>
@@ -185,6 +189,7 @@
                     </div>
                 </th:block>
             </form>
+            <script th:replace="includes/service/jsIncludes :: tableSelectCheckboxJs"></script>
         </div>
     </th:block>
 </div>

@@ -8,6 +8,7 @@
     <div th:fragment="dropdownFilter(filterPair,id)">
         <!--/*@thymesVar id="filterPair" type="com.tr1nksgroup.model.models.filters.FilterPair"*/-->
         <h4 th:text="${filterPair.title}">Filter title</h4>
+        <input readonly hidden type="hidden" class="d-none" th:field="*{filterPairsList[__${id}__].title}">
         <div class="dropdown">
             <div class="dropdown-toggle panel panel-primary" data-toggle="dropdown" th:id="'dropdown-filter-'+${id}" aria-expanded="false" href="#">
                 <div class="panel-heading">
@@ -38,7 +39,7 @@
         </div>
     </div>
     <!--Фильтры всей модели фильтров-->
-    <div th:fragment="filtersDiv(filterModel)">
+    <div th:fragment="filtersDiv(filterModel)" th:class="'col-lg-12 col-md-12 col-sm-12 col-xs-12'">
         <!--/*@thymesVar id="filterModel" type="com.tr1nksgroup.model.models.filters.FilterModel"*/-->
         <div th:each="filterPair,filterPairIter:${filterModel.filterPairsList}" th:class="'col-lg-2 col-md-3 col-sm-4 col-xs-6'">
             <!--/*@thymesVar id="filterPair" type="com.tr1nksgroup.model.models.filters.FilterPair"*/-->

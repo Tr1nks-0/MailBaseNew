@@ -3,8 +3,8 @@
 <head th:fragment="normal (pageTitle)">
     <meta charset="UTF-8"/>
     <title th:text="${pageTitle} ?: ''">Template Layout Title</title>
-    <style th:replace="/includes/service/cssIncludes :: normal"></style>
-    <script th:replace="/includes/service/jsIncludes :: normal"></script>
+    <style th:replace="includes/service/cssIncludes :: normal"></style>
+    <script th:replace="includes/service/jsIncludes :: normal"></script>
 </head>
 <body>
 

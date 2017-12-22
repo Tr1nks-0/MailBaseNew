@@ -113,5 +113,14 @@ public class GroupEntity extends AbstrEntity {
     public void setStudents(List<StudentEntity> students) {
         this.students = students;
     }
+
+    public String getCipher() {
+        return this.studyLevelEntity.getLevelId() + "." +
+                facultyEntity.getFacultyId() + "." +
+                specializationEntity.getSpecialityEntity().getSpecialityId() + "." +
+                specializationEntity.getSpecializationId() + "." +
+                year + "." +
+                num;
+    }
     //endregion
 }

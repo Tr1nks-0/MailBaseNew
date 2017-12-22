@@ -1,11 +1,11 @@
 package com.tr1nksgroup.model.engines;
 
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
-import com.tr1nksgroup.model.models.filters.FilterPair;
 import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
 import com.tr1nksgroup.model.models.enums.person.TableRowStyleClass;
 import com.tr1nksgroup.model.models.filters.FilterItem;
 import com.tr1nksgroup.model.models.filters.FilterModel;
+import com.tr1nksgroup.model.models.filters.FilterPair;
 import com.tr1nksgroup.model.models.person.student.StudentEntityTableWrapper;
 import com.tr1nksgroup.model.models.person.student.StudentModel;
 import com.tr1nksgroup.model.services.*;
@@ -59,8 +59,20 @@ public class StudentEngine {
     public FilterModel getFilterModel() {
         FilterModel model = new FilterModel();
         List<FilterItem> facultyList = new ArrayList<>();
+        List<FilterItem> groupList = new ArrayList<>();
+        List<FilterItem> yearList = new ArrayList<>();
+//        long yearI
         facultyService.getAll().forEach(facultyEntity -> facultyList.add(new FilterItem(facultyEntity.getId(), facultyEntity.getName(), facultyEntity.getAbbr())));
+        groupService.getAll().forEach(groupEntity -> {
+            groupList.add(new FilterItem(groupEntity.getId(), groupEntity.getCipher()));
+            if (yearList.stream().noneMatch(filterItem -> filterItem.getName().equals(String.valueOf(groupEntity.getYear())))) {
+                yearList.add(new FilterItem(0, String.valueOf(groupEntity.getYear())));
+            }
+        });
+
         model.addFilterListPair(new FilterPair("Факультет", facultyList));
+        model.addFilterListPair(new FilterPair("Группа", groupList));
+        model.addFilterListPair(new FilterPair("Год поступления", yearList));
         return model;
     }
 

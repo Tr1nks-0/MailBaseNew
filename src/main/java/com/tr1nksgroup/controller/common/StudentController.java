@@ -33,6 +33,7 @@ public class StudentController implements CommonController {
         //todo set rem budget
         return VIEW_NAME;
     }
+
     @PostMapping(path = "budget/{action}")
     public String postBudget(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
         //todo set rem budget
@@ -63,18 +64,15 @@ public class StudentController implements CommonController {
         return VIEW_NAME;
     }
 
+    @PostMapping(path = "edit/{action}")
+    public String postEdit(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
+        //todo get archives
+        return VIEW_NAME;
+    }
+
     @PostMapping(path = "upload/repeat")
     public String post(Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
         model.addAttribute(UPLOAD_ERROR_FLAG_MODEL_NAME, !studentEngine.uploadRepeat(studentModel));
         return VIEW_NAME;
     }
-//        StudentModel studentModelw = studentEngine.getTest();
-//        studentModel.getStudentEntityTableWrappers().get(0).setRowStyle(TableRowStyleClass.WARNING);
-//        studentModel.setShowHiddenColumns(true);
-//        studentModel.getStudentEntityTableWrappers().get(0).setCellMessageAndStyle(TableColumnIndexes.NAME, "message test", TableRowStyleClass.DANGER);
-//        studentModel.getStudentEntityTableWrappers().get(1).setCellMessageAndStyleAndRowStyle(TableColumnIndexes.GROUP_OR_CATHEDRA, "message test2222", TableRowStyleClass.ACTIVE, TableRowStyleClass.SUCCESS);
-
-//        if(!model.containsAttribute(STUDENT_MODEL_NAME)){
-//        model.addAttribute(STUDENT_MODEL_NAME, studentModel);//it is replace, don't needed, now for debug placed
-//    }
 }

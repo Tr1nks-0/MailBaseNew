@@ -15,7 +15,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'war'
+//apply plugin: 'war'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -24,6 +24,10 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+jar {
+    baseName = 'MailBaseNew'
+    version =  '0.1.0'
+}
 
 repositories {
     mavenCentral()
