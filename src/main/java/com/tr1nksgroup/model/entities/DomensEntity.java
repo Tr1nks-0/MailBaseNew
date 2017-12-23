@@ -28,6 +28,14 @@ public class DomensEntity extends AbstrEntity {
     @Column(name = "office", nullable = false, length = 50)
     private String officeDomen;
 
+    public DomensEntity(String gmail, String imagine, String office) {
+        this.emailDomen = gmail;
+        this.imagineDomen = imagine;
+        this.officeDomen = office;
+    }
+
+    public DomensEntity() {
+    }
     //region get-set
 
     /**

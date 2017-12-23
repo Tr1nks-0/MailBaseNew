@@ -10,6 +10,8 @@ public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
 
     StudentEntity getFirstByCode(String code);
 
+    StudentEntity getById(Long id);
+
     List<StudentEntity> getAllByGroupEntity_FacultyEntityIdIn(List<Long> ids);
 
     List<StudentEntity> getAllByGroupEntity_IdIn(List<Long> ids);

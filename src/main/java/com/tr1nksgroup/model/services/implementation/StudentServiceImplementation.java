@@ -54,4 +54,9 @@ public class StudentServiceImplementation implements StudentService {
         return studentRepository.getAllByGroupEntity_YearIn(years);
     }
 
+    @Override
+    public StudentEntity getById(long id) {
+        return studentRepository.getById(id);
+    }
+
 }

@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 
 @Controller
 @RequestMapping({"/c/student"})
@@ -34,20 +37,20 @@ public class StudentController implements CommonController {
     }
 
     @PostMapping(path = "budget/{action}")
-    public String postBudget(@PathVariable("action") String action,Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        studentEngine.budgetSetRem(studentModel,action);
+    public String postBudget(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
+        studentEngine.budgetSetRem(studentModel, action);
         return VIEW_NAME;
     }
 
     @PostMapping(path = "imagine/{action}")
     public String postImagine(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        studentEngine.imagineSetRem(studentModel,action);
+        studentEngine.imagineSetRem(studentModel, action);
         return VIEW_NAME;
     }
 
     @PostMapping(path = "office/{action}")
     public String postOffice(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        studentEngine.officeSetRem(studentModel,action);
+        studentEngine.officeSetRem(studentModel, action);
         return VIEW_NAME;
     }
 
@@ -57,10 +60,16 @@ public class StudentController implements CommonController {
         return VIEW_NAME;
     }
 
-    @PostMapping(path = "archives")
-    public String postArchives(Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        //todo get archives
-        return VIEW_NAME;
+    @PostMapping(path = "archive")
+    public void postArchives(Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel, HttpServletResponse response) {
+        try (OutputStream outputStream = response.getOutputStream()) {
+            response.setContentType("application/zip");
+            byte[] arr = studentEngine.createPDFArchive(studentModel);
+            outputStream.write(arr);
+            response.flushBuffer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @PostMapping(path = "edit/{action}")

@@ -18,4 +18,6 @@ public interface StudentService {
     List<StudentEntity> getAllByGroupIds(List<Long> groupIds);
 
     List<StudentEntity> getAllByGroupYears(List<Integer> years);
+
+    StudentEntity getById(long id);
 }

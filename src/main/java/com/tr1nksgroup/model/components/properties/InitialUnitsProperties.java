@@ -1,10 +1,9 @@
-package com.tr1nksgroup.model.config.properties;
+package com.tr1nksgroup.model.components.properties;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-//@Configuration
 @Component
 @PropertySource(value = "classpath:properties/initialUnits.properties", encoding = "UTF-8")
 public class InitialUnitsProperties {
@@ -18,6 +17,8 @@ public class InitialUnitsProperties {
     private String[] specialityArrStr;
     @Value("#{'${specialization.arr}'.split(';')}")
     private String[] specializationArrStr;
+    @Value("#{'${email.domens}'}")
+    private String domenStr;
 
     //region get
 
@@ -39,6 +40,10 @@ public class InitialUnitsProperties {
 
     public String[] getSpecializationArrStr() {
         return specializationArrStr;
+    }
+
+    public String getDomensStr() {
+        return domenStr;
     }
     //endregion
 }
