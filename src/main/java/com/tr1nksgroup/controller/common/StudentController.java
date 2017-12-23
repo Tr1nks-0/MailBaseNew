@@ -29,25 +29,25 @@ public class StudentController implements CommonController {
 
     @PostMapping(path = "filter")
     public String postBudget(Model model, @ModelAttribute(STUDENT_FILTER_MODEL_NAME) FilterModel filterModel) {
-        model.addAttribute(STUDENT_MODEL_NAME, studentEngine.filter(filterModel));
+        model.addAttribute(STUDENT_MODEL_NAME, studentEngine.getStudentsByFilters(filterModel));
         return VIEW_NAME;
     }
 
     @PostMapping(path = "budget/{action}")
-    public String postBudget(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        //todo set rem budget
+    public String postBudget(@PathVariable("action") String action,Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
+        studentEngine.budgetSetRem(studentModel,action);
         return VIEW_NAME;
     }
 
     @PostMapping(path = "imagine/{action}")
     public String postImagine(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        //todo set rem imagine
+        studentEngine.imagineSetRem(studentModel,action);
         return VIEW_NAME;
     }
 
     @PostMapping(path = "office/{action}")
     public String postOffice(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        //todo set rem office
+        studentEngine.officeSetRem(studentModel,action);
         return VIEW_NAME;
     }
 

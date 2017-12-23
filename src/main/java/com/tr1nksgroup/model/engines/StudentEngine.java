@@ -79,7 +79,7 @@ public class StudentEngine {
         return model;
     }
 
-    public StudentModel filter(FilterModel filterModel) {
+    public StudentModel getStudentsByFilters(FilterModel filterModel) {
         StudentModel model = new StudentModel();
         List<Long> facultyIds = filterModel.getFilterPairsList().stream()
                 .filter(filterPair -> filterPair.getId() == 0).findFirst().orElse(new FilterPair()).getItemsList().stream()
@@ -117,5 +117,30 @@ public class StudentEngine {
         return new StudentModel(list);
     }
 
+
+    public void budgetSetRem(StudentModel studentModel, String action) {
+        setRem(studentModel, action, (studentEntity, value) -> studentEntity.setBudget(value), TableColumnIndexes.BUDGET_OR_RATE);
+    }
+
+    public void imagineSetRem(StudentModel studentModel, String action) {
+        setRem(studentModel, action, (studentEntity, value) -> studentEntity.setImagine(value), TableColumnIndexes.IMAGINE);
+    }
+
+    public void officeSetRem(StudentModel studentModel, String action) {
+        setRem(studentModel, action, (studentEntity, value) -> studentEntity.setOffice(value), TableColumnIndexes.OFFICE);
+    }
+
+    private void setRem(StudentModel studentModel, String action, SetRemBackCall backCall, TableColumnIndexes columnId) {
+        studentModel.getStudentEntityTableWrappers().stream().filter(StudentEntityTableWrapper::getChecked).forEach(wrapper -> {
+            StudentEntity student = wrapper.getStudentEntity();
+            backCall.call(student, action.equals("set"));
+            wrapper.setStudentEntity(studentService.save(student));
+            wrapper.setCellStyleAndRowStyle(columnId, TableRowStyleClass.SUCCESS, TableRowStyleClass.INFO);
+        });
+    }
+
+    private interface SetRemBackCall {
+        void call(StudentEntity studentEntity, boolean value);
+    }
 
 }

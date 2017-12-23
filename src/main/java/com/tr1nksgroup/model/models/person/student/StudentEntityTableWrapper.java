@@ -99,5 +99,12 @@ public class StudentEntityTableWrapper {
         this.setCellMessageAndStyle(cellIndex, message, cellStyle);
         this.rowStyle = rowStyle;
     }
+
+    public void setCellStyleAndRowStyle(TableColumnIndexes cellIndex, TableRowStyleClass cellStyle, TableRowStyleClass rowStyle) {
+        this.cellIndex = cellIndex.index;
+        this.cellStyle = cellStyle;
+        this.rowStyle = rowStyle;
+
+    }
     //endregion
 }
