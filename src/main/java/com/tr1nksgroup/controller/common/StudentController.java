@@ -56,7 +56,8 @@ public class StudentController implements CommonController {
 
     @PostMapping(path = "email")
     public String postEmail(Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        //todo send email
+        studentEngine.sendEmail(studentModel);
+        //todo add "succesfully sended"
         return VIEW_NAME;
     }
 

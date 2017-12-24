@@ -2,6 +2,7 @@ package com.tr1nksgroup.model.engines;
 
 import com.tr1nksgroup.model.components.FileGenerator;
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
+import com.tr1nksgroup.model.components.MyMailSender;
 import com.tr1nksgroup.model.entities.PersonEntity;
 import com.tr1nksgroup.model.entities.StudentEntity;
 import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
@@ -40,6 +41,8 @@ public class StudentEngine {
     private LoginPasswordUtil loginPasswordUtil;
     @Resource
     private FileGenerator fileGenerator;
+    @Resource
+    private MyMailSender myMailSender;
 
 
     public boolean uploadRepeat(StudentModel studentModel) {
@@ -145,9 +148,18 @@ public class StudentEngine {
     }
 
     public byte[] createPDFArchive(StudentModel studentModel) {
+        return fileGenerator.createPDFArchiveBytes(getCheckedStudentList(studentModel));
+    }
+
+    public void sendEmail(StudentModel studentModel) {
+        List<PersonEntity> st = getCheckedStudentList(studentModel);
+        myMailSender.sendEmail("username here", new String[]{"gmail.csv", "imagine.csv", "office.csv"}, fileGenerator.createFullPersonsCsvs(st));//fixme
+    }
+
+    private List<PersonEntity> getCheckedStudentList(StudentModel studentModel) {
         List<PersonEntity> st = new ArrayList<>();
         studentModel.getStudentEntityTableWrappers().stream().filter(StudentEntityTableWrapper::getChecked).forEach(studentEntityTableWrapper -> st.add(studentService.getById(studentEntityTableWrapper.getStudentEntity().getId())));
-        return fileGenerator.createPDFArchiveBytes(st);
+        return st;
     }
 
     private interface SetRemBackCall {
