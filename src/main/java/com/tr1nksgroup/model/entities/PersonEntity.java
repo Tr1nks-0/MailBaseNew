@@ -1,14 +1,23 @@
 package com.tr1nksgroup.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Generic для преподавателя и студента
  */
 @Entity
 //@Table(name = "person")
+@SequenceGenerator(name = "person_seq", sequenceName = "person_id_seq", initialValue = 1, allocationSize = 1)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class PersonEntity extends AbstrEntity {
+public abstract class PersonEntity implements Serializable {
+    /**
+     * id сущности
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
+    @Column(name = "id", nullable = false)
+    private long id;
     /**
      * фамилия
      */
@@ -78,6 +87,16 @@ public abstract class PersonEntity extends AbstrEntity {
     }
 
     //region get-set
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getSurname() {
         return surname;
     }
@@ -141,5 +160,6 @@ public abstract class PersonEntity extends AbstrEntity {
     public void setOffice(boolean office) {
         this.office = office;
     }
+
     //endregion
 }

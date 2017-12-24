@@ -1,6 +1,7 @@
 package com.tr1nksgroup.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * домены для учетных записей
@@ -8,7 +9,14 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "domens")
-public class DomensEntity extends AbstrEntity {
+public class DomensEntity implements Serializable {
+    /**
+     * id сущности
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private long id;
     /**
      * домен для почты
      */
@@ -37,6 +45,14 @@ public class DomensEntity extends AbstrEntity {
     public DomensEntity() {
     }
     //region get-set
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * получить домен для почты

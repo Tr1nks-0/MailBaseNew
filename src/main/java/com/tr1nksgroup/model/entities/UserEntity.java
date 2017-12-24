@@ -3,12 +3,20 @@ package com.tr1nksgroup.model.entities;
 import com.tr1nksgroup.model.entities.enums.SiteRolesEnum;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "user")
-public class UserEntity extends AbstrEntity {
+public class UserEntity implements Serializable {
+    /**
+     * id сущности
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private long id;
     @Basic
     @Column(name = "email", length = 256, unique = true, nullable = false)
     private String email;
@@ -48,6 +56,15 @@ public class UserEntity extends AbstrEntity {
     }
 
     //region get-set
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return email;
     }

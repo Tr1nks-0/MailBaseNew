@@ -1,12 +1,22 @@
 package com.tr1nksgroup.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
 @Table(name = "session")
-public class WorkSessionEntity extends AbstrEntity {
+@SequenceGenerator(name = "session_seq", sequenceName = "session_id_seq", initialValue = 1, allocationSize = 1)
+public class WorkSessionEntity implements Serializable{
+    /**
+     * id сущности
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "session_seq")
+    @Column(name = "id", nullable = false)
+    private long id;
+
     @Basic
     @Column(name = "uuid", nullable = false, unique = true)
     private UUID sessionUuid;
@@ -29,6 +39,15 @@ public class WorkSessionEntity extends AbstrEntity {
     private String name;
 
     //region get-set
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public UUID getSessionUuid() {
         return sessionUuid;
     }

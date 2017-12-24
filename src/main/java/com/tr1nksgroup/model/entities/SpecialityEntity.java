@@ -1,6 +1,7 @@
 package com.tr1nksgroup.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,15 @@ import java.util.List;
  */
 @Entity
 @Table(name = "speciality")
-public class SpecialityEntity extends AbstrEntity {
+@SequenceGenerator(name = "speciality_seq", sequenceName = "speciality_id_seq", initialValue = 1, allocationSize = 1)
+public class SpecialityEntity  implements Serializable {
+    /**
+     * id сущности
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "speciality_seq")
+    @Column(name = "id", nullable = false)
+    private long id;
     /**
      * шифр специальности
      */
@@ -34,6 +43,15 @@ public class SpecialityEntity extends AbstrEntity {
     }
 
     //region get-set
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public int getSpecialityId() {
         return specialityId;
     }

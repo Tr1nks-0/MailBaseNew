@@ -1,6 +1,7 @@
 package com.tr1nksgroup.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "cathedra")
-public class CathedraEntity extends AbstrEntity {
+public class CathedraEntity implements Serializable {
+    /**
+     * id сущности
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private long id;
     /**
      * факультет к которому предлежит кафедра
      */
@@ -44,6 +52,14 @@ public class CathedraEntity extends AbstrEntity {
     }
 
     //region get-set
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public FacultyEntity getFacultyEntity() {
         return facultyEntity;

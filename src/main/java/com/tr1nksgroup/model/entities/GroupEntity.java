@@ -1,6 +1,7 @@
 package com.tr1nksgroup.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,15 @@ import java.util.List;
  */
 @Entity
 @Table(name = "academ_group")
-public class GroupEntity extends AbstrEntity {
+@SequenceGenerator(name = "academ_group_seq", sequenceName = "academ_group_id_seq", initialValue = 1, allocationSize = 1)
+public class GroupEntity implements Serializable {
+    /**
+     * id сущности
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "academ_group_seq")
+    @Column(name = "id", nullable = false)
+    private long id;
     /**
      * уровень обучения
      * [6].04.051.010.17.01
@@ -65,6 +74,14 @@ public class GroupEntity extends AbstrEntity {
     }
 
     //region get-set
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public StudyLevelEntity getStudyLevelEntity() {
         return studyLevelEntity;

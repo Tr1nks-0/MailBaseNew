@@ -1,6 +1,7 @@
 package com.tr1nksgroup.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * уровень обучения
@@ -8,7 +9,14 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "studylevel")
-public class StudyLevelEntity extends AbstrEntity {
+public class StudyLevelEntity implements Serializable {
+    /**
+     * id сущности
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private long id;
     /**
      * шифр уровня обучения
      */
@@ -31,6 +39,15 @@ public class StudyLevelEntity extends AbstrEntity {
     }
 
     //region get-set
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public int getLevelId() {
         return levelId;
     }
