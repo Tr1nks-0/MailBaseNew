@@ -137,8 +137,8 @@ public class UploadEngine {
                     facultyService.getByFacultyId(Integer.parseInt(groupCipherArray[1])),
                     specializationService.getBySpecializationIdAndSpecialityEntity(Integer.parseInt(groupCipherArray[3]),
                             specialityService.getBySpecialityId(Integer.parseInt(groupCipherArray[2]))),
-                    Integer.valueOf(groupCipherArray[4]),
-                    Integer.valueOf(groupCipherArray[5]));
+                    Integer.parseInt(groupCipherArray[4]),
+                    Integer.parseInt(groupCipherArray[5]));
             if (null == groupEntity) {
                 groupEntity = new GroupEntity(
                         studyLevelService.getByLevelId(Integer.parseInt(groupCipherArray[0])),

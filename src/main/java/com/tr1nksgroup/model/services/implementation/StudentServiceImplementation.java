@@ -1,5 +1,6 @@
 package com.tr1nksgroup.model.services.implementation;
 
+import com.tr1nksgroup.model.entities.GroupEntity;
 import com.tr1nksgroup.model.entities.StudentEntity;
 import com.tr1nksgroup.model.repositories.StudentRepository;
 import com.tr1nksgroup.model.services.StudentService;
@@ -57,6 +58,11 @@ public class StudentServiceImplementation implements StudentService {
     @Override
     public StudentEntity getById(long id) {
         return studentRepository.getById(id);
+    }
+
+    @Override
+    public StudentEntity getBySurnameAndNameAndGroup(String surname, String name, GroupEntity groupEntity) {
+        return studentRepository.getBySurnameAndNameAndGroupEntity(surname, name,  groupEntity);
     }
 
 }

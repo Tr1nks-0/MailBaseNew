@@ -14,6 +14,14 @@ public interface GroupService {
                                                                                           Integer year,
                                                                                           Integer num);
 
+    GroupEntity getByStudyLevelEntityLevelIdAndFacultyEntityFacultyIdAndSpecializationEntitySpecializationIdAndYearAndNum(int studyLevelEntityLevelId,
+                                                                                                                          int facultyEntityFacultyId,
+                                                                                                                          int specializationEntitySpecialityEntitySpecialityId,
+                                                                                                                          int specializationEntitySpecializationId,
+                                                                                                                          int year,
+                                                                                                                          int num);
+
+
     GroupEntity save(GroupEntity groupEntity);
 
     List<GroupEntity> getAll();

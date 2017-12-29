@@ -26,4 +26,12 @@ WHERE ag.level_id = (SELECT id FROM studylevel sl WHERE sl.level_id = ?) AND
             SpecializationEntity specializationEntity,
             Integer year,
             Integer num);
+
+    GroupEntity getByStudyLevelEntity_LevelIdAndFacultyEntity_FacultyIdAndSpecializationEntity_SpecialityEntity_SpecialityIdAndSpecializationEntity_SpecializationIdAndYearAndNum(
+            int studyLevelEntityLevelId,
+            int facultyEntityFacultyId,
+            int specializationEntitySpecialityEntitySpecialityId,
+            int specializationEntitySpecializationId,
+            int year,
+            int num);
 }

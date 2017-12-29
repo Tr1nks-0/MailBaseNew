@@ -37,6 +37,22 @@ public class GroupServiceImplementation implements GroupService {
     }
 
     @Override
+    public GroupEntity getByStudyLevelEntityLevelIdAndFacultyEntityFacultyIdAndSpecializationEntitySpecializationIdAndYearAndNum(int studyLevelEntityLevelId,
+                                                                                                                                 int facultyEntityFacultyId,
+                                                                                                                                 int specializationEntitySpecialityEntitySpecialityId,
+                                                                                                                                 int specializationEntitySpecializationId,
+                                                                                                                                 int year,
+                                                                                                                                 int num) {
+        return groupRepository.getByStudyLevelEntity_LevelIdAndFacultyEntity_FacultyIdAndSpecializationEntity_SpecialityEntity_SpecialityIdAndSpecializationEntity_SpecializationIdAndYearAndNum(
+                studyLevelEntityLevelId,
+                facultyEntityFacultyId,
+                specializationEntitySpecialityEntitySpecialityId,
+                specializationEntitySpecializationId,
+                year,
+                num);
+    }
+
+    @Override
     public GroupEntity save(GroupEntity groupEntity) {
         return groupRepository.saveAndFlush(groupEntity);
     }

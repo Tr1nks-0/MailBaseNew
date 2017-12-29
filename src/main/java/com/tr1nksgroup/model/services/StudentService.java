@@ -1,5 +1,6 @@
 package com.tr1nksgroup.model.services;
 
+import com.tr1nksgroup.model.entities.GroupEntity;
 import com.tr1nksgroup.model.entities.StudentEntity;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface StudentService {
     List<StudentEntity> getAllByGroupYears(List<Integer> years);
 
     StudentEntity getById(long id);
+
+    StudentEntity getBySurnameAndNameAndGroup(String surname, String name, GroupEntity groupEntity);
 }
