@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 @Component
 public class StartupApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
-    private static final Pattern NAME_PATTERN = Pattern.compile("name[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ,\\-'`ҐґІіЇїЄє]*)\"[\\s?]*,?");
+    private static final Pattern NAME_PATTERN = Pattern.compile("name[\\s?]*=[\\s?]*\"([а-яА-Яa-zA-Z ,\\-`'’ҐґІіЇїЄє0-9]*)\"[\\s?]*,?");
     private static final Pattern DOMEN_GMAIL_PATTERN = Pattern.compile("gmail[\\s?]*=[\\s?]*\"([a-zA-Z1-9 .\\-]*)\"[\\s?]*,?");
     private static final Pattern DOMEN_OFFICE_PATTERN = Pattern.compile("office[\\s?]*=[\\s?]*\"([a-zA-Z1-9 .\\-]*)\"[\\s?]*,?");
     private static final Pattern DOMEN_IMAGINE_PATTERN = Pattern.compile("imagine[\\s?]*=[\\s?]*\"([a-zA-Z1-9 .\\-]*)\"[\\s?]*,?");
@@ -145,8 +145,6 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
             Matcher specializationIdMatcher = SPECIALIZATION_ID_PATTERN.matcher(str);
             Matcher specialityIdMatcher = SPECIALITY_ID_PATTERN.matcher(str);
             if (nameMatcher.find() && specializationIdMatcher.find() && specialityIdMatcher.find()) {
-                int id = Integer.parseInt(specialityIdMatcher.group(1));
-                SpecialityEntity se = specialityService.getBySpecialityId(id);
                 list.add(new SpecializationEntity(Integer.parseInt(specializationIdMatcher.group(1)), nameMatcher.group(1), specialityService.getBySpecialityId(Integer.parseInt(specialityIdMatcher.group(1)))));
             }
         }
