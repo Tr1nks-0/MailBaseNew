@@ -98,8 +98,10 @@
                                                          ${studentEntityTableWrapper.cellStyle.toStyleClass()},
                                                          ${studentEntityTableWrapper.rowStyle.toStyleClass()},
                                                          ${studentEntityTableWrapper.message})"></td>
-                        <input th:readonly="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="text" class="form-control input-sm"
-                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.groupEntity}"></td>
+                        <input  type="hidden" class="d-none"
+                               th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.groupEntity}">
+                        <span class="form-control input-sm" th:text="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.groupEntity.cipher}"></span>
+                        </td>
 
                         <th:block th:if="*{showHiddenColumns}">
                             <td th:replace="common/student::mytr(${T(com.tr1nksgroup.model.models.enums.person.TableColumnIndexes).CODE.index},

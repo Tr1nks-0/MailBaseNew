@@ -24,13 +24,22 @@ public class EmailToOutEngine {
     public String get(String name, String surname, String groupChiper) {
         String grr = patternOuterGroupChiper.matcher((patternInnerGroupChiper.matcher(groupChiper).replaceAll(""))).replaceAll(".");
         String[] groupCipherArray = grr.split("\\.");
-        GroupEntity groupEntity = groupService.getByStudyLevelEntityLevelIdAndFacultyEntityFacultyIdAndSpecializationEntitySpecializationIdAndYearAndNum(
-                Integer.parseInt(groupCipherArray[0]),
-                Integer.parseInt(groupCipherArray[1]),
-                Integer.parseInt(groupCipherArray[2]),
-                Integer.parseInt(groupCipherArray[3]),
-                Integer.parseInt(groupCipherArray[4]),
-                Integer.parseInt(groupCipherArray[5]));
+        int level = Integer.parseInt(groupCipherArray[0]);
+        int faculty = Integer.parseInt(groupCipherArray[1]);
+        int speciality = Integer.parseInt(groupCipherArray[2]);
+        int specialization;
+        int year;
+        int num;
+        if (groupCipherArray.length == 6) {
+            specialization = Integer.parseInt(groupCipherArray[3]);
+            year = Integer.parseInt(groupCipherArray[4]);
+            num = Integer.parseInt(groupCipherArray[5]);
+        } else {
+            specialization = 99999;
+            year = Integer.parseInt(groupCipherArray[3]);
+            num = Integer.parseInt(groupCipherArray[4]);
+        }
+        GroupEntity groupEntity = groupService.getByStudyLevelEntityLevelIdAndFacultyEntityFacultyIdAndSpecializationEntitySpecializationIdAndYearAndNum(level, faculty, speciality, specialization, year, num);
         StudentEntity student = studentService.getBySurnameAndNameAndGroup(surname, name, groupEntity);
         if (student == null) {
             return "{null}";

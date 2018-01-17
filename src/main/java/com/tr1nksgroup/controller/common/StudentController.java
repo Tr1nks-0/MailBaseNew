@@ -5,6 +5,7 @@ import com.tr1nksgroup.model.models.filters.FilterModel;
 import com.tr1nksgroup.model.models.person.student.StudentModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,7 +22,10 @@ public class StudentController implements CommonController {
     private static final String STUDENT_FILTER_MODEL_NAME = "studentFilterModel";
     @Resource
     private StudentEngine studentEngine;
-
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setAutoGrowCollectionLimit(10000);
+    }
     @GetMapping
     public String get(Model model) {
 //        model.addAttribute(STUDENT_MODEL_NAME, studentEngine.getTest());//fixme for debug only

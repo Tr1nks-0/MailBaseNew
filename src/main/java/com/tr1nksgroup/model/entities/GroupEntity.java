@@ -70,7 +70,7 @@ public class GroupEntity implements Serializable {
         this.num = num;
     }
 
-    private GroupEntity() {
+    public GroupEntity() {
     }
 
     //region get-set
