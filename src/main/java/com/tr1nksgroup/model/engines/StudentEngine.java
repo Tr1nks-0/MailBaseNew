@@ -1,9 +1,9 @@
 package com.tr1nksgroup.model.engines;
 
+import com.tr1nksgroup.controller.common.StudentController;
 import com.tr1nksgroup.model.components.FileGenerator;
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
 import com.tr1nksgroup.model.components.MyMailSender;
-import com.tr1nksgroup.model.entities.GroupEntity;
 import com.tr1nksgroup.model.entities.PersonEntity;
 import com.tr1nksgroup.model.entities.StudentEntity;
 import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
@@ -15,6 +15,7 @@ import com.tr1nksgroup.model.models.person.student.StudentEntityTableWrapper;
 import com.tr1nksgroup.model.models.person.student.StudentModel;
 import com.tr1nksgroup.model.services.*;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -163,8 +164,31 @@ public class StudentEngine {
         return st;
     }
 
-    public List<GroupEntity> getGroupList() {
-        return groupService.getAll();
+
+    public void edit(String action, Model model, StudentModel studentModel) {
+        switch (action) {
+            case "start": {
+                model.addAttribute(StudentController.GROUP_LIST_MODEL_NAME, groupService.getAll());
+                studentModel.getStudentEntityTableWrappers().stream().filter(StudentEntityTableWrapper::getChecked).forEach(studentEntityTableWrapper -> {
+                    studentEntityTableWrapper.setReadonly(false);
+                    studentEntityTableWrapper.setRowStyle(TableRowStyleClass.ACTIVE);
+                });
+                model.addAttribute(StudentController.EDIT_FLAG_MODEL_NAME, true);
+                break;
+            }
+            case "commit": {
+                studentModel.getStudentEntityTableWrappers().stream().filter(StudentEntityTableWrapper::getChecked).forEach(studentEntityTableWrapper -> {
+                    studentEntityTableWrapper.setStudentEntity(studentService.save(studentEntityTableWrapper.getStudentEntity()));
+                    studentEntityTableWrapper.setRowStyle(TableRowStyleClass.SUCCESS);
+                    studentEntityTableWrapper.setChecked(false);
+                    studentEntityTableWrapper.setReadonly(true);
+                });
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 
     private interface SetRemBackCall {

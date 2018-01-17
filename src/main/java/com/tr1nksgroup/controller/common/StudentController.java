@@ -17,15 +17,19 @@ import java.io.OutputStream;
 @RequestMapping({"/c/student"})
 public class StudentController implements CommonController {
     private static final String VIEW_NAME = VIEW_BASE + "student";
-    static final String UPLOAD_ERROR_FLAG_MODEL_NAME = "uploadError";
+    public static final String UPLOAD_ERROR_FLAG_MODEL_NAME = "uploadError";
+    public static final String EDIT_FLAG_MODEL_NAME = "edit";
     private static final String STUDENT_MODEL_NAME = "studentModel";
+    public static final String GROUP_LIST_MODEL_NAME = "groupList";
     private static final String STUDENT_FILTER_MODEL_NAME = "studentFilterModel";
     @Resource
     private StudentEngine studentEngine;
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.setAutoGrowCollectionLimit(10000);
     }
+
     @GetMapping
     public String get(Model model) {
 //        model.addAttribute(STUDENT_MODEL_NAME, studentEngine.getTest());//fixme for debug only
@@ -79,15 +83,12 @@ public class StudentController implements CommonController {
 
     @PostMapping(path = "edit/{action}")
     public String postEdit(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        if(action.equals("start")){
-            studentModel.getStudentEntityTableWrappers().forEach(studentEntityTableWrapper -> studentEntityTableWrapper.setReadonly(false));
-            model.addAttribute("groupList",studentEngine.getGroupList());
-        }
+        studentEngine.edit(action, model, studentModel);
         return VIEW_NAME;
     }
 
     @PostMapping(path = "upload/repeat")
-    public String post(Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
+    public String postUploadRepeat(Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
         model.addAttribute(UPLOAD_ERROR_FLAG_MODEL_NAME, !studentEngine.uploadRepeat(studentModel));
         return VIEW_NAME;
     }

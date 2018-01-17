@@ -59,7 +59,8 @@
                                                          ${studentEntityTableWrapper.cellStyle.toStyleClass()},
                                                          ${studentEntityTableWrapper.rowStyle.toStyleClass()},
                                                          ${studentEntityTableWrapper.message})"></td>
-                        <input type="checkbox" class="form-control input-sm student-table-select-checkbox"
+                        <input th:readonly="*{!studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].readonly}" type="checkbox"
+                               class="form-control input-sm student-table-select-checkbox"
                                th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].checked}">
 
                         <input hidden readonly type="hidden" class="d-none" th:field="*{studentEntityTableWrappers[__${studentEntityWrapperIter.index}__].studentEntity.id}">
@@ -181,7 +182,8 @@
                     </tbody>
                 </table>
                 <!--/*@thymesVar id="uploadError" type="java.lang.Boolean"*/-->
-                <th:block th:if="${uploadError==null||uploadError==false}">
+                <!--/*@thymesVar id="edit" type="java.lang.Boolean"*/-->
+                <th:block th:if="${(uploadError==null||uploadError==false)&&(edit==null||edit==false)}">
                     <div id="studentTable-table-buttons-div" class="text-center col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
                         <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <!--<button type="submit" formaction="/sssss">Submit to err</button>-->
@@ -199,6 +201,11 @@
                             <button type="submit" formaction="/c/student/email" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Отправить e-mail с данными</button>
                             <button type="submit" formaction="/c/student/archive" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Получить архив</button>
                         </div>
+                    </div>
+                </th:block>
+                <th:block th:if="${(uploadError==null||uploadError==false)&&(edit!=null&&edit==true)}">
+                    <div id="studentTable-table-edit-buttons-div" class="text-center col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+                        <button type="submit" formaction="/c/student/edit/commit" class="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4">Подтвердить</button>
                     </div>
                 </th:block>
                 <th:block th:if="${uploadError!=null&&uploadError==true}">
