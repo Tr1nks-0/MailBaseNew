@@ -3,6 +3,7 @@ package com.tr1nksgroup.model.engines;
 import com.tr1nksgroup.model.components.FileGenerator;
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
 import com.tr1nksgroup.model.components.MyMailSender;
+import com.tr1nksgroup.model.entities.GroupEntity;
 import com.tr1nksgroup.model.entities.PersonEntity;
 import com.tr1nksgroup.model.entities.StudentEntity;
 import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
@@ -160,6 +161,10 @@ public class StudentEngine {
         List<PersonEntity> st = new ArrayList<>();
         studentModel.getStudentEntityTableWrappers().stream().filter(StudentEntityTableWrapper::getChecked).forEach(studentEntityTableWrapper -> st.add(studentService.getById(studentEntityTableWrapper.getStudentEntity().getId())));
         return st;
+    }
+
+    public List<GroupEntity> getGroupList() {
+        return groupService.getAll();
     }
 
     private interface SetRemBackCall {

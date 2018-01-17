@@ -79,7 +79,10 @@ public class StudentController implements CommonController {
 
     @PostMapping(path = "edit/{action}")
     public String postEdit(@PathVariable("action") String action, Model model, @ModelAttribute(STUDENT_MODEL_NAME) StudentModel studentModel) {
-        //todo get archives
+        if(action.equals("start")){
+            studentModel.getStudentEntityTableWrappers().forEach(studentEntityTableWrapper -> studentEntityTableWrapper.setReadonly(false));
+            model.addAttribute("groupList",studentEngine.getGroupList());
+        }
         return VIEW_NAME;
     }
 
