@@ -14,6 +14,11 @@
             <div class="dropdown-toggle panel panel-primary" data-toggle="dropdown" th:id="'dropdown-filter-'+${id}" aria-expanded="false" href="#">
                 <div class="panel-heading">
                     <span class="caret"></span>
+                    <!--/*@thymesVar id="getItemsList" type="java.util.List"*/-->
+                    <span class="label label-info visible-lg-inline-block"
+                          th:each="item:${filterPair.getItemsList()}"
+                          th:if="${item.checked}"
+                          th:text="${item.abbr}"></span>
                 </div>
             </div>
             <div class="dropdown-menu panel-body" th:attr="aria-labelledby='dropdown-filter-'+${id}">
@@ -26,7 +31,9 @@
 
                     <input type="checkbox" class="form-control col-lg-1 col-md-1 col-sm-1"
                            th:field="*{filterPairsList[__${id}__].itemsList[__${filterItemIter.index}__].checked}"
-                           th:id="'dropdown-filter-'+${id}+'-item-checked-'+${filterItemIter.index}">
+                           th:id="'dropdown-filter-'+${id}+'-item-checked-'+${filterItemIter.index}"
+                           th:attr="data-abbr=${filterItem.abbr}"
+                           onchange="addRemoveThis(this)">
 
                     <input readonly hidden type="hidden" class="d-none" th:id="'dropdown-filter-'+${id}+'-item-abbr-'+${filterItemIter.index}"
                            th:field="*{filterPairsList[__${id}__].itemsList[__${filterItemIter.index}__].abbr}">
@@ -46,6 +53,7 @@
             <!--/*@thymesVar id="filterPair" type="com.tr1nksgroup.model.models.filters.FilterPair"*/-->
             <div th:replace="includes/components/filter :: dropdownFilter(${filterPair},${filterPairIter.index})"></div>
         </div>
+        <script th:replace="includes/service/jsIncludes :: filterScriptsJs"></script>
     </div>
 </form>
 </html>
