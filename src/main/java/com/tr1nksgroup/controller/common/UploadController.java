@@ -38,17 +38,17 @@ public class UploadController implements CommonController {
      *
      * @param person   тип получаемого файла (студент преподаватель)
      * @param response ответ сервера для копирования файла
-     * @return имя представления
      */
     @GetMapping(path = "sample/{person}Sample.csv")
     public void getSample(@PathVariable("person") String person, HttpServletResponse response) {
         try (OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream())) {
             response.setContentType("text/csv");
-            if ("person".equals(person.toLowerCase())) {
+            if ("student".equals(person.toLowerCase())) {
                 writer.write(STUDENT_SAMPLE_STR);
             } else if ("teacher".equals(person.toLowerCase())) {
                 writer.write(TEACHER_SAMPLE_STR);
             }
+            writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
