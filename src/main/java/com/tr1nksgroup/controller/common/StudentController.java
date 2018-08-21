@@ -39,7 +39,7 @@ public class StudentController implements CommonController {
 
 
     @PostMapping(path = "filter")
-    public String postBudget(Model model, @ModelAttribute(STUDENT_FILTER_MODEL_NAME) FilterModel filterModel, HttpSession session) {
+    public String postFilter(Model model, @ModelAttribute(STUDENT_FILTER_MODEL_NAME) FilterModel filterModel, HttpSession session) {
         session.setAttribute(STUDENT_FILTER_MODEL_NAME, filterModel);
         model.addAttribute(STUDENT_MODEL_NAME, studentEngine.getStudentsByFilters(filterModel));
         return VIEW_NAME;
