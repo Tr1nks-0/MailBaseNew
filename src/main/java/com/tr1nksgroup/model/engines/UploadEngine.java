@@ -2,6 +2,8 @@ package com.tr1nksgroup.model.engines;
 
 import com.tr1nksgroup.model.components.LoginPasswordUtil;
 import com.tr1nksgroup.model.entities.GroupEntity;
+import com.tr1nksgroup.model.entities.SpecialityEntity;
+import com.tr1nksgroup.model.entities.SpecializationEntity;
 import com.tr1nksgroup.model.entities.StudentEntity;
 import com.tr1nksgroup.model.models.MyModel;
 import com.tr1nksgroup.model.models.enums.person.TableColumnIndexes;
@@ -140,11 +142,11 @@ public class UploadEngine {
                     Integer.parseInt(groupCipherArray[4]),
                     Integer.parseInt(groupCipherArray[5]));
             if (null == groupEntity) {
+                SpecializationEntity specialization = getCreateSpecialization(Integer.parseInt(groupCipherArray[3]), Integer.parseInt(groupCipherArray[2]));
                 groupEntity = new GroupEntity(
                         studyLevelService.getByLevelId(Integer.parseInt(groupCipherArray[0])),
                         facultyService.getByFacultyId(Integer.parseInt(groupCipherArray[1])),
-                        specializationService.getBySpecializationIdAndSpecialityEntity(Integer.parseInt(groupCipherArray[3]),
-                                specialityService.getBySpecialityId(Integer.parseInt(groupCipherArray[2]))),
+                        specialization,
                         Integer.valueOf(groupCipherArray[4]),
                         Integer.valueOf(groupCipherArray[5])
                 );
@@ -167,6 +169,21 @@ public class UploadEngine {
             studentModel.getStudentEntityTableWrappers().add(wrapper);
         }
         return studentModel;
+    }
+
+    private SpecializationEntity getCreateSpecialization(int specializationId, int specialityId) {
+        SpecializationEntity specializationEntity = specializationService.getBySpecializationIdAndSpecialityEntity(specializationId,
+                specialityService.getBySpecialityId(specialityId));
+        if (specializationEntity == null) {
+            SpecialityEntity specialityEntity = specialityService.getBySpecialityId(specialityId);
+            if (null == specialityEntity) {
+                specialityEntity = new SpecialityEntity(specialityId, "STUB-" + specialityId);
+                specialityService.save(specialityEntity);
+            }
+            specializationEntity = new SpecializationEntity(specializationId, "STUB-" + specializationId + "-" + specialityEntity.getName(), specialityEntity);
+            specializationService.save(specializationEntity);
+        }
+        return specializationEntity;
     }
 
     /**
